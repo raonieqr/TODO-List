@@ -44,7 +44,7 @@ public enum Status {
 				if (statusValue >= 1 && statusValue <= 5)
 					break;
 				System.out.println("Error: Status inválido. Escolha um número entre 1 e 3.");
-			} catch (InputMismatchException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Error: Entrada inválida. Digite um número válido.");
 			}
 		}

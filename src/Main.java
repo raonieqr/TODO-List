@@ -11,6 +11,20 @@ import java.util.*;
 
 public class Main
 {
+	public static boolean validateFields(String name, String description, String category) {
+		if (name.isEmpty() || containsNumber(name) || description.isEmpty() || containsNumber(description) ||
+				category.isEmpty() || containsNumber(category))
+			return false;
+		return true;
+	}
+
+	public static boolean containsNumber(String input) {
+		for (char c : input.toCharArray()) {
+			if (Character.isDigit(c))
+				return true;
+		}
+		return false;
+	}
 	public static void main(String[] args) {
 		System.out.println("Bem vindo a TODO-List");
 		ArrayList<Task> tasks = new ArrayList<>();
@@ -40,6 +54,10 @@ public class Main
 				System.out.println("Qual categoria?");
 				String category = sc.nextLine();
 
+				if(!validateFields(name, description, category)) {
+					System.out.println("Error: Você passou um valor inválido. Tente novamente");
+					continue;
+				}
 				Priority priority = Priority.getPriorityFromUser(sc);
 				Status status = Status.getStatusFromUser(sc);
 

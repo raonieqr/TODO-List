@@ -46,7 +46,7 @@ public enum Priority {
 				if (priorityValue >= 1 && priorityValue <= 5)
 					break;
 				System.out.println("Error: Prioridade inválida. Escolha um número entre 1 e 5.");
-			} catch (InputMismatchException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Error: Entrada inválida. Digite um número válido.");
 		}
 	}

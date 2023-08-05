@@ -31,7 +31,7 @@ public class PrintLog {
 				if (option >= 1 && option <= 3)
 					break;
 				System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 3.");
-			} catch (InputMismatchException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Error: Entrada inválida. Digite um número válido.");
 			}
 		}
@@ -92,7 +92,7 @@ public class PrintLog {
 				if (option >= 1 && option <= 5)
 					break;
 				System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 5.");
-			} catch (InputMismatchException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Error: Entrada inválida. Digite um número válido.");
 			}
 		}
