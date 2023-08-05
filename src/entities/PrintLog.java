@@ -10,7 +10,8 @@ public class PrintLog {
 		System.out.println("1 - Consultar por status");
 		System.out.println("2 - Consultar por categoria");
 		System.out.println("3 - Consultar por prioridade");
-		System.out.println("4 - Para sair dessa opção");
+		System.out.println("4 - Consultar geral");
+		System.out.println("5 - Para sair dessa opção");
 	}
 
 	public static void showTypeStatus() {
@@ -21,11 +22,6 @@ public class PrintLog {
 	}
 
 	public static void showListStatus(ArrayList<entities.Task> tasks) {
-		if (tasks.isEmpty()) {
-			System.out.println("A lista está vazia");
-			return;
-		}
-
 		showTypeStatus();
 		Scanner sc = new Scanner(System.in);
 		int option;
@@ -85,11 +81,6 @@ public class PrintLog {
 	}
 
 	public static void showListPriority(ArrayList<Task> tasks) {
-		if (tasks.isEmpty()) {
-			System.out.println("A lista está vazia");
-			return;
-		}
-
 		showTypePriority();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Escreva o número da prioridade: ");
@@ -126,9 +117,9 @@ public class PrintLog {
 			try {
 				String input = sc.nextLine();
 				option = Integer.parseInt(input);
-				if (option >= 1 && option <= 3)
+				if (option >= 1 && option <= 5)
 					break;
-				System.out.println("Error: Opção inválida");
+				System.out.println("Error: Opção inválida. Tente um número de 1 a 5");
 			} catch (NumberFormatException e) {
 				System.out.println("Error: Entrada inválida. Digite um número válido.");
 			}
@@ -140,6 +131,13 @@ public class PrintLog {
 			showListCategory(tasks);
 		else if (option == 3)
 			showListPriority(tasks);
+		else if (option == 4) {
+			for (Task task : tasks)
+					System.out.println(task);
+			System.out.println("Total de tarefas " + tasks.size());
+		}
+		else
+			return;
 	}
 
 }

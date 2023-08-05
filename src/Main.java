@@ -5,9 +5,7 @@ import enums.Status;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main
 {
@@ -52,10 +50,13 @@ public class Main
 					dateTime = LocalDateTime.parse(date, formatter);
 				} catch (Exception e) {
 					System.out.println("Error: Formato inválido. Formato correto dd/MM/yyyy HH:mm:ss");
+					continue;
 				}
-
 				Task task = new Task(1, name, description, category, priority, status, dateTime);
 				tasks.add(task);
+				if (tasks.size() > 1)
+					Collections.sort(tasks, Comparator.comparing(Task::getDateTime).thenComparing(Task::getPriority));
+				System.out.println("Tarefa criada");
 			}
 			if (option == 2) {
 				if (tasks.isEmpty())
