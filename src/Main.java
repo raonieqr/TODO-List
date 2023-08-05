@@ -14,6 +14,7 @@ public class Main
 		ArrayList<Task> tasks = new ArrayList<>();
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
+		int idCounter = 1;
 		while (option != 3) {
 			System.out.println("Escolha uma opções abaixo");
 			System.out.println("1 - Criar tarefa");
@@ -52,7 +53,7 @@ public class Main
 					System.out.println("Error: Formato inválido. Formato correto dd/MM/yyyy HH:mm:ss");
 					continue;
 				}
-				Task task = new Task(1, name, description, category, priority, status, dateTime);
+				Task task = new Task(idCounter++, name, description, category, priority, status, dateTime);
 				tasks.add(task);
 				if (tasks.size() > 1)
 					Collections.sort(tasks, Comparator.comparing(Task::getDateTime).thenComparing(Task::getPriority));
