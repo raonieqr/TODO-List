@@ -13,50 +13,56 @@ public class Main
 {
 	public static void main(String[] args) {
 		System.out.println("Bem vindo a TODO-List");
-		System.out.println("Escolha uma opções abaixo");
-		System.out.println("1 - Criar tarefa");
-		System.out.println("2 - Atualizar tarefa");
-		System.out.println("3 - Visualizar tarefas");
-		System.out.println("4 - Sair");
+		ArrayList<Task> tasks = new ArrayList<>();
 		Scanner sc = new Scanner(System.in);
-		int option;
-		while (true) {
-			try {
-				option = Integer.parseInt(sc.nextLine());
-				if (option >= 1 && option <= 4)
-					break;
-				System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 4.");
-			} catch (Exception e) {
-				System.out.println("Error: Entrada inválida. Digite um número válido.");
+		int option = 0;
+		while (option != 3) {
+			System.out.println("Escolha uma opções abaixo");
+			System.out.println("1 - Criar tarefa");
+			System.out.println("2 - Visualizar tarefas");
+			System.out.println("3 - Sair");
+			while (true) {
+				try {
+					option = Integer.parseInt(sc.nextLine());
+					if (option >= 1 && option <= 3)
+						break;
+					System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 3.");
+				} catch (Exception e) {
+					System.out.println("Error: Entrada inválida. Digite um número válido.");
+				}
 			}
-		}
-		if (option == 1) {
-			System.out.println("Qual nome da tarefa? ");
-			String name = sc.nextLine();
-			System.out.println("Qual a descrição?");
-			String description = sc.nextLine();
-			System.out.println("Qual categoria?");
-			String category = sc.nextLine();
+			if (option == 1) {
+				System.out.println("Qual nome da tarefa? ");
+				String name = sc.nextLine();
+				System.out.println("Qual a descrição?");
+				String description = sc.nextLine();
+				System.out.println("Qual categoria?");
+				String category = sc.nextLine();
 
-			Priority priority = Priority.getPriorityFromUser(sc);
-			Status status = Status.getStatusFromUser(sc);
+				Priority priority = Priority.getPriorityFromUser(sc);
+				Status status = Status.getStatusFromUser(sc);
 
-			System.out.println("Qual data e hora da tarefa? Passe no formato dd/MM/yyyy HH:mm:ss");
-			String date = sc.nextLine();
-			LocalDateTime dateTime = null;
+				System.out.println("Qual data e hora da tarefa? Passe no formato dd/MM/yyyy HH:mm:ss");
+				String date = sc.nextLine();
+				LocalDateTime dateTime = null;
 
-			try {
-				String pattern = "dd/MM/yyyy HH:mm:ss";
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-				dateTime = LocalDateTime.parse(date, formatter);
-			} catch (Exception e) {
-				System.out.println("Error: Formato inválido. Formato correto dd/MM/yyyy HH:mm:ss");
+				try {
+					String pattern = "dd/MM/yyyy HH:mm:ss";
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+					dateTime = LocalDateTime.parse(date, formatter);
+				} catch (Exception e) {
+					System.out.println("Error: Formato inválido. Formato correto dd/MM/yyyy HH:mm:ss");
+				}
+
+				Task task = new Task(1, name, description, category, priority, status, dateTime);
+				tasks.add(task);
 			}
-
-			Task task = new Task(1, name, description, category, priority, status, dateTime);
-			ArrayList<Task> tasks = new ArrayList<>();
-			tasks.add(task);
-			PrintLog.showTask(tasks);
+			if (option == 2) {
+				if (tasks.isEmpty())
+					System.out.println("A lista de tarefas está vazia");
+				else
+					PrintLog.showTask(tasks);
+			}
 		}
 	}
 }

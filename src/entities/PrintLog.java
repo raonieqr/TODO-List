@@ -26,8 +26,8 @@ public class PrintLog {
 			return;
 		}
 
-		Scanner sc = new Scanner(System.in);
 		showTypeStatus();
+		Scanner sc = new Scanner(System.in);
 		int option;
 		while (true) {
 			try {
@@ -50,7 +50,6 @@ public class PrintLog {
 			System.out.println("Não existe tarefa com esse status");
 		if (counter > 0)
 			System.out.println("Total de tarefas: " + counter);
-		sc.close();
 	}
 
 	public static void showListCategory(ArrayList<Task> tasks) {
@@ -74,7 +73,6 @@ public class PrintLog {
 
 		if (counter == 0)
 			System.out.println("A categoria não existe");
-		sc.close();
 	}
 
 	public static void showTypePriority() {
@@ -116,27 +114,32 @@ public class PrintLog {
 		}
 		if (counter == 0)
 			System.out.println("Não existe tarefas com essa prioridade");
-		sc.close();
 	}
 
 	public static void showTask(ArrayList<Task> tasks) {
 		showMessageList();
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Digite o número escolhido: ");
-		while (sc.hasNextLine()) {
-			int option = Integer.parseInt(sc.nextLine());
 
-			if (option == 1)
-				showListStatus(tasks);
-			else if (option == 2)
-				showListCategory(tasks);
-			else if (option == 3)
-				showListPriority(tasks);
-			else if (option == 4)
-				break;
-			else
+		int option;
+		while (true) {
+			try {
+				String input = sc.nextLine();
+				option = Integer.parseInt(input);
+				if (option >= 1 && option <= 3)
+					break;
 				System.out.println("Error: Opção inválida");
+			} catch (NumberFormatException e) {
+				System.out.println("Error: Entrada inválida. Digite um número válido.");
+			}
 		}
-		sc.close();
+
+		if (option == 1)
+			showListStatus(tasks);
+		else if (option == 2)
+			showListCategory(tasks);
+		else if (option == 3)
+			showListPriority(tasks);
 	}
+
 }
