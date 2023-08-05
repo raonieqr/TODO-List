@@ -31,13 +31,12 @@ public class PrintLog {
 		int option;
 		while (true) {
 			try {
-				option = sc.nextInt();
+				option = Integer.parseInt(sc.nextLine());
 				if (option >= 1 && option <= 3)
 					break;
 				System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 3.");
 			} catch (InputMismatchException e) {
 				System.out.println("Error: Entrada inválida. Digite um número válido.");
-				sc.next();
 			}
 		}
 		int counter = 0;
@@ -100,13 +99,12 @@ public class PrintLog {
 
 		while (true) {
 			try {
-				option = sc.nextInt();
+				option = Integer.parseInt(sc.nextLine());
 				if (option >= 1 && option <= 5)
 					break;
 				System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 5.");
 			} catch (InputMismatchException e) {
 				System.out.println("Error: Entrada inválida. Digite um número válido.");
-				sc.next();
 			}
 		}
 		int counter = 0;
@@ -125,9 +123,8 @@ public class PrintLog {
 		showMessageList();
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Digite o número escolhido: ");
-		while (sc.hasNextInt()) {
-			int option = sc.nextInt();
-			sc.nextLine();
+		while (sc.hasNextLine()) {
+			int option = Integer.parseInt(sc.nextLine());
 
 			if (option == 1)
 				showListStatus(tasks);

@@ -4,6 +4,7 @@ import enums.Priority;
 import enums.Status;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -40,7 +41,19 @@ public class Main
 			Priority priority = Priority.getPriorityFromUser(sc);
 			Status status = Status.getStatusFromUser(sc);
 
-			Task task = new Task(1, name, description, category, priority, status, LocalDateTime.now());
+			System.out.println("Qual data e hora da tarefa? Passe no formato dd/MM/yyyy HH:mm:ss");
+			String date = sc.nextLine();
+			LocalDateTime dateTime = null;
+
+			try {
+				String pattern = "dd/MM/yyyy HH:mm:ss";
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+				dateTime = LocalDateTime.parse(date, formatter);
+			} catch (Exception e) {
+				System.out.println("Error: Formato inválido. Formato correto dd/MM/yyyy HH:mm:ss");
+			}
+
+			Task task = new Task(1, name, description, category, priority, status, dateTime);
 			ArrayList<Task> tasks = new ArrayList<>();
 			tasks.add(task);
 			PrintLog.showTask(tasks);
