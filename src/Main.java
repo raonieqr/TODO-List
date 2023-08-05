@@ -21,16 +21,14 @@ public class Main
 		int option;
 		while (true) {
 			try {
-				option = sc.nextInt();
+				option = Integer.parseInt(sc.nextLine());
 				if (option >= 1 && option <= 4)
 					break;
 				System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 4.");
-			} catch (InputMismatchException e) {
+			} catch (Exception e) {
 				System.out.println("Error: Entrada inválida. Digite um número válido.");
-				sc.next();
 			}
 		}
-		sc.nextLine();
 		if (option == 1) {
 			System.out.println("Qual nome da tarefa? ");
 			String name = sc.nextLine();
@@ -38,38 +36,11 @@ public class Main
 			String description = sc.nextLine();
 			System.out.println("Qual categoria?");
 			String category = sc.nextLine();
-			System.out.println("Qual a prioridade ?");
-			System.out.println("1 - Muito baixa");
-			System.out.println("2 - Baixa");
-			System.out.println("3 - Média");
-			System.out.println("4 - Alta");
-			System.out.println("5 - Muito Alta");
-			int priorityValue;
-			while (true) {
-				try {
-					priorityValue = sc.nextInt();
-					if (priorityValue >= 1 && priorityValue <= 5)
-						break;
-					System.out.println("Error: Prioridade inválida. Escolha um número entre 1 e 5.");
-				} catch (InputMismatchException e) {
-					System.out.println("Error: Entrada inválida. Digite um número válido.");
-					sc.next();
-				}
-			}
-			sc.nextLine();
-			Priority priority = null;
-			if (priorityValue == 1)
-				priority = Priority.MUITO_BAIXA;
-			if (priorityValue == 2)
-				priority = Priority.BAIXA;
-			if (priorityValue == 3)
-				priority = Priority.MEDIA;
-			if (priorityValue == 4)
-				priority = Priority.ALTA;
-			if(priorityValue == 5)
-				priority = Priority.MUITO_ALTA;
 
-			Task task = new Task(1, "Comer", "comida japonesa", "alimento", priority, Status.TODO, LocalDateTime.now());
+			Priority priority = Priority.getPriorityFromUser(sc);
+			Status status = Status.getStatusFromUser(sc);
+
+			Task task = new Task(1, name, description, category, priority, status, LocalDateTime.now());
 			ArrayList<Task> tasks = new ArrayList<>();
 			tasks.add(task);
 			PrintLog.showTask(tasks);

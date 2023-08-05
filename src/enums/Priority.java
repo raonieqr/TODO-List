@@ -1,5 +1,10 @@
 package enums;
 
+import entities.PrintLog;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public enum Priority {
 	MUITO_BAIXA("muito baixa", 1),
 	BAIXA("baixa", 2),
@@ -22,4 +27,31 @@ public enum Priority {
 	public int getValue() {
 		return value;
 	}
+
+	public static Priority fromValue(int value) {
+		for (Priority priority : Priority.values()) {
+			if (priority.value == value) {
+				return priority;
+			}
+		}
+		throw new IllegalArgumentException("Valor de Prioridade inválido: " + value);
+	}
+
+	public static Priority getPriorityFromUser(Scanner sc) {
+		PrintLog.showTypePriority();
+		int priorityValue;
+		while (true) {
+			try {
+				priorityValue = Integer.parseInt(sc.nextLine());
+				if (priorityValue >= 1 && priorityValue <= 5)
+					break;
+				System.out.println("Error: Prioridade inválida. Escolha um número entre 1 e 5.");
+			} catch (InputMismatchException e) {
+				System.out.println("Error: Entrada inválida. Digite um número válido.");
+		}
+	}
+
+		return Priority.fromValue(priorityValue);
+	}
+
 }

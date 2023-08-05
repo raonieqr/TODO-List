@@ -13,6 +13,13 @@ public class PrintLog {
 		System.out.println("4 - Para sair dessa opção");
 	}
 
+	public static void showTypeStatus() {
+		System.out.println("Escolha o status:");
+		System.out.println("1 - Feito");
+		System.out.println("2 - Em andamento");
+		System.out.println("3 - A fazer");
+	}
+
 	public static void showListStatus(ArrayList<entities.Task> tasks) {
 		if (tasks.isEmpty()) {
 			System.out.println("A lista está vazia");
@@ -20,11 +27,7 @@ public class PrintLog {
 		}
 
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Escolha o status:");
-		System.out.println("1 - Feito");
-		System.out.println("2 - Em andamento");
-		System.out.println("3 - A fazer");
-
+		showTypeStatus();
 		int option;
 		while (true) {
 			try {
@@ -75,12 +78,22 @@ public class PrintLog {
 		sc.close();
 	}
 
+	public static void showTypePriority() {
+		System.out.println("Qual a prioridade ?");
+		System.out.println("1 - Muito baixa");
+		System.out.println("2 - Baixa");
+		System.out.println("3 - Média");
+		System.out.println("4 - Alta");
+		System.out.println("5 - Muito Alta");
+	}
+
 	public static void showListPriority(ArrayList<Task> tasks) {
 		if (tasks.isEmpty()) {
 			System.out.println("A lista está vazia");
 			return;
 		}
 
+		showTypePriority();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Escreva o número da prioridade: ");
 		int option;
