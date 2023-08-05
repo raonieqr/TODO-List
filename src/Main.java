@@ -1,8 +1,10 @@
+import entities.FileUtils;
 import entities.PrintLog;
 import entities.Task;
 import enums.Priority;
 import enums.Status;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -65,6 +67,13 @@ public class Main
 				else
 					PrintLog.showTask(tasks);
 			}
+		}
+		File currentDirectory = new File(".");
+		if (currentDirectory.getParent() == null)
+			FileUtils.writeToFile(tasks, new File(currentDirectory, "tasks.txt").getPath());
+		else {
+			File parentDirectory = currentDirectory.getParentFile();
+			FileUtils.writeToFile(tasks, new File(parentDirectory, "tasks.txt").getPath());
 		}
 	}
 }
