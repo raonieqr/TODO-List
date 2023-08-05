@@ -3,7 +3,7 @@ package enums;
 public enum Priority {
 	MUITO_BAIXA("muito baixa", 1),
 	BAIXA("baixa", 2),
-	MEDIA("media", 3),
+	MEDIA("média", 3),
 	ALTA("alta", 4),
 	MUITO_ALTA("muito alta", 5);
 

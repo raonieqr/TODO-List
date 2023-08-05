@@ -13,7 +13,7 @@ public class PrintLog {
 		System.out.println("4 - Para sair dessa opção");
 	}
 
-	public static void showListStatus(ArrayList<Task> tasks) {
+	public static void showListStatus(ArrayList<entities.Task> tasks) {
 		if (tasks.isEmpty()) {
 			System.out.println("A lista está vazia");
 			return;
@@ -60,6 +60,7 @@ public class PrintLog {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Escreva o nome da categoria: ");
 		String option = sc.nextLine().trim().toLowerCase();
+
 		int counter = 0;
 		for (Task task : tasks) {
 			String category = task.getCategory();
@@ -89,16 +90,21 @@ public class PrintLog {
 				option = sc.nextInt();
 				if (option >= 1 && option <= 5)
 					break;
-				System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 3.");
+				System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 5.");
 			} catch (InputMismatchException e) {
 				System.out.println("Error: Entrada inválida. Digite um número válido.");
 				sc.next();
 			}
 		}
+		int counter = 0;
 		for (Task task : tasks) {
-			if (task.getPriority().getValue() == option)
+			if (task.getPriority().getValue() == option) {
 				System.out.println(task);
+				counter++;
+			}
 		}
+		if (counter == 0)
+			System.out.println("Não existe tarefas com essa prioridade");
 		sc.close();
 	}
 
@@ -106,7 +112,6 @@ public class PrintLog {
 		showMessageList();
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Digite o número escolhido: ");
-
 		while (sc.hasNextInt()) {
 			int option = sc.nextInt();
 			sc.nextLine();
