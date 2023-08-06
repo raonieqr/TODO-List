@@ -1,1 +1,0 @@
-Task: id=1, name='a', description='a', category='a', priority=MUITO_BAIXA, status=DONE, date=2023-03-20T10:05:06
