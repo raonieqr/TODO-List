@@ -2,7 +2,6 @@ package enums;
 
 import entities.PrintLog;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public enum Priority {
