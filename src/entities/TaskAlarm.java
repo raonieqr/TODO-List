@@ -1,6 +1,5 @@
 package entities;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 public class TaskAlarm {
@@ -12,28 +11,48 @@ public class TaskAlarm {
 			for (Task task : tasks) {
 				if (task.getPriority().getValue() > taskMax.getPriority().getValue())
 					taskMax = task;
-				if (task.getDateTime().isBefore(taskMin.getDateTime()))
+				if (task.getDateTime().isBefore(taskMax.getDateTime()))
 					taskMin = task;
 			}
 
-			LocalDateTime now = LocalDateTime.now();
-			long sleepTimeMin = Duration.between(now, taskMin.getDateTime()).toMillis();
-			long sleepTimeMax = Duration.between(now, taskMax.getDateTime()).toMillis();
+			int sleepTimeMin = taskMin.getDateTime().getMinute() - LocalDateTime.now().getMinute();
+			int sleepTimeMax = taskMax.getDateTime().getMinute() - LocalDateTime.now().getMinute();
 
 			if (sleepTimeMin <= 0 && sleepTimeMax <= 0) {
-				System.out.println("Olá, está na hora de fazer sua tarefa " + taskMin.getName());
+				System.out.println("Aguardando...");
+				checkMessage(taskMax);
+				tasks.remove(taskMax);
+			}
+			else if (sleepTimeMin == sleepTimeMax && taskMax.getPriority().getValue() > taskMin.getPriority().getValue()) {
+				System.out.println("Aguardando...");
+				Thread.sleep(sleepTimeMax * 60000);
+				checkMessage(taskMax);
+				tasks.remove(taskMax);
+				checkMessage(taskMin);
 				tasks.remove(taskMin);
 			}
-			else if (sleepTimeMin <= 0) {
-				System.out.println("Olá, está na hora de fazer sua tarefa " + taskMin.getName());
+			else if (sleepTimeMin <= sleepTimeMax && taskMax.getPriority().getValue() > taskMin.getPriority().getValue()) {
+				System.out.println("Aguardando...");
+				Thread.sleep(sleepTimeMin * 60000);
+				checkMessage(taskMin);
 				tasks.remove(taskMin);
-				Thread.sleep(sleepTimeMax);
 			}
 			else {
-				System.out.println("Olá, está na hora de fazer sua tarefa " + taskMax.getName());
+				System.out.println("Aguardando...");
+				Thread.sleep(sleepTimeMax * 60000);
+				checkMessage(taskMax);
 				tasks.remove(taskMax);
-				Thread.sleep(sleepTimeMin);
 			}
 		}
+	}
+
+	public void checkMessage(Task task) {
+		System.out.println("Aguardando...");
+		if (task.getStatus().getValue() == 1)
+			System.out.println("Olá, foi feita a tarefa " + task.getName());
+		else if (task.getStatus().getValue() == 2)
+			System.out.println("Olá, está em andamento a tarefa " + task.getName());
+		else
+			System.out.println("Olá, está na hora de fazer sua tarefa " + task.getName());
 	}
 }
