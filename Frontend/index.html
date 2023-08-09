@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>TODO-List</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <h1 id="logo">TODO - List</h1>
+            </nav>
+        </header>
+        <section>
+            <button id="createTask">
+                <img src="./images/Icon.svg" alt="" srcset="">
+                <h2>Criar tarefa</h2>
+            </button>
+            <div id="taskForm" style="display: none;">
+                <form>
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" name="name">
+                    
+                    <label for="description">Descrição:</label>
+                    <input type="text" id="description" name="description">
+                    
+                    <label for="category">Categoria:</label>
+                    <input type="text" id="category" name="category">
+                    
+                    <label for="priority">Prioridade:</label>
+                    <input type="text" id="priority" name="priority">
+                    
+                    <label for="status">Status:</label>
+                    <input type="text" id="status" name="status">
+                    
+                    <label for="dateTime">Date e Hora:</label>
+                    <input type="text" id="dateTime" name="dateTime">
+                    
+                    <input type="submit" id="addTask" value="Adicionar">
+                </form>
+            </div>
+        </section>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
