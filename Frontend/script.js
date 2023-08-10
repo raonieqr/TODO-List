@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     let btn = document.getElementById("createTask");
     let sectionAdd = document.getElementById("taskForm");
-    let homeSection = document.getElementById("home")
+    let homeSection = document.getElementById("home");
+
     btn.addEventListener("click", function() {
         btn.classList.add = "hiddenItem";
         homeSection.style.display = "none";
@@ -11,40 +12,42 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     let btnSubmit = document.getElementById("addTask");
-    let task = {};
     let taskArray = [];
     let id = 1;
+
     btnSubmit.addEventListener("click", function() {
         event.preventDefault();
-        let name = document.getElementById("name")
-        let description = document.getElementById("description")
-        let category = document.getElementById("category")
-        let priority = document.getElementById("priority")
-        let status = document.getElementById("status")
-        let dateTime = document.getElementById("dateTime")
-        
-        task = {
-            id: id,
-            name: name.value,
-            description: description.value,
-            category: category.value,
-            priority: priority.value,
-            status: status.value,
-            dateTime: dateTime.value
-        }
-        
+        let task = createTaskObj();
         taskArray.push(task);
         alert("Tarefa " + task.name + " foi criada");
         id++;
-        name.value = "";
-        description.value = "";
-        category.value = "";
-        priority.value = "";
-        status.value = "";
-        dateTime.value = "";
+        clearInputs();
         console.log(taskArray);
-
     })
+
+    function createTaskObj() {
+        let name = document.getElementById("name").value;
+        let description = document.getElementById("description").value;
+        let category = document.getElementById("category").value;
+        let priority = document.getElementById("priority").value;
+        let status = document.getElementById("status").value;
+        let dateTime = document.getElementById("dateTime").value;
+        
+        return {
+            id: id,
+            name: name,
+            description: description,
+            category: category,
+            priority: priority,
+            status: status,
+            dateTime: dateTime
+        };
+    }
+
+    function clearInputs() {
+        let inputs = document.querySelectorAll("input[type='text'], select");
+        inputs.forEach(input => (input.value = ""));
+    }
 
     let btnShow = document.getElementById("showTask");
     let table = document.getElementById("tasks");
@@ -56,7 +59,10 @@ document.addEventListener("DOMContentLoaded", function() {
         table.style.display = "block";
 
         table.scrollIntoView({ behavior: "smooth" });
-    
+        generateTable(taskArray);
+    })
+
+    function generateTable(tasks) {
         let tbody = document.createElement("tbody");
         for (let i = 0; i < taskArray.length; i++) {
             let task = taskArray[i];
@@ -71,8 +77,6 @@ document.addEventListener("DOMContentLoaded", function() {
             let c6 = document.createElement("td");
             let c7 = document.createElement("td");
             let c8 = document.createElement("td");
-            let c9 = document.createElement("td");
-
     
             c1.innerText = task.id;
             c2.innerText = task.name;
@@ -93,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
             row.appendChild(c8);
             tbody.appendChild(row);
             table.appendChild(tbody);
-
+            
             ((index) => {
                 let trashIcon = row.querySelector("#trash");
                 trashIcon.addEventListener("click", function() {
@@ -103,7 +107,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             })(i);
 
-
         }
-    })
+    }
 })
