@@ -122,7 +122,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let headerRow = document.createElement("tr");
         headerRow.innerHTML = `
-            <th>Id</th><th>Nome</th><th>Descrição</th><th>Categoria</th><th>Prioridade</th><th>Status</th><th>Data e Hora</th><th>Ações</th>`;
+            <th>Id</th><th>Nome</th><th>Descrição</th><th>Categoria</th><th>Prioridade
+            </th><th>Status</th><th>Data e Hora</th><th>Ações</th>`;
         thead.appendChild(headerRow)
 
         for (let i = 0; i < taskArray.length; i++) {
@@ -164,7 +165,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 let trashIcon = row.querySelector("#trash");
                 trashIcon.addEventListener("click", function() {
                     taskArray.splice(index, 1);
+                    if (taskArray.length == 1)
+                        taskArray.pop();
                     tbody.removeChild(row);
+                    console.log(taskArray.length);
                 });
             })(i);
             
