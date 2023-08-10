@@ -97,21 +97,14 @@ document.addEventListener("DOMContentLoaded", function() {
     let table = document.getElementById("tasks");
     let btnAddTaskList = document.getElementById("addTaskList")
     btnShow.addEventListener("click", function() {
-        btnShow.style.display = "none";
-        sectionAdd.style.display = "none";
-        btnAddTaskList.style.display = "inline-block";
-        table.style.display = "block";
-
         table.scrollIntoView({ behavior: "smooth" });
         if (taskArray.length === 0) {
-            alert("Lista vazia")
-            let thead = document.createElement("thead");
-            let headerRow = document.createElement("tr");
-            headerRow.innerHTML = `
-                <th>Id</th><th>Nome</th><th>Descrição</th><th>Categoria</th><th>Prioridade</th><th>Status</th><th>Data e Hora</th><th>Ações</th>`;
-            thead.appendChild(headerRow);
-            table.appendChild(thead);
+            alert("Lista vazia");
+            return;
         } else {
+            btnAddTaskList.style.display = "inline-block";
+            btnShow.style.display = "none";
+            sectionAdd.style.display = "none";
             table.style.display = "block";
             table.scrollIntoView({ behavior: "smooth" });
             generateTable(taskArray);
@@ -173,32 +166,96 @@ document.addEventListener("DOMContentLoaded", function() {
                     taskArray.splice(index, 1);
                     tbody.removeChild(row);
                 });
-            })(i);            
+            })(i);
+            
+            let pencilIcon = row.querySelector("#pencil");
+            pencilIcon.addEventListener("click", function() {
+            toggleModal(task, i);
+            let nameInput = document.getElementById("nameEdit");
+            let descriptionInput = document.getElementById("descriptionEdit");
+            let categoryInput = document.getElementById("categoryEdit");
+            let priorityInput = document.getElementById("priorityEdit");
+            let statusInput = document.getElementById("statusEdit");
+            let dateTimeInput = document.getElementById("dateTimeEdit");
+            nameInput.value = task.name;
+            descriptionInput.value = task.description;
+            categoryInput.value = task.category;
+            priorityInput.value = task.priority;
+            statusInput.value = task.status;
+            dateTimeInput.value = task.dateTime;
+        }); 
+
+        let btnEditTask = document.getElementById("btnEditTask");
+        btnEditTask.addEventListener("click", editTaskHandler);
+
+        function editTaskHandler() {
+            let nameInput = document.getElementById("nameEdit");
+            let descriptionInput = document.getElementById("descriptionEdit");
+            let categoryInput = document.getElementById("categoryEdit");
+            let priorityInput = document.getElementById("priorityEdit");
+            let statusInput = document.getElementById("statusEdit");
+            let dateTimeInput = document.getElementById("dateTimeEdit");
+            task.name = nameInput.value;
+            task.description = descriptionInput.value;
+            task.category = categoryInput.value;
+            task.priority = priorityInput.value;
+            task.status = statusInput.value;
+            task.dateTime = dateTimeInput.value;
+
+            generateTable(taskArray);
+            toggleModal();
+
+            btnEditTask.removeEventListener("click", editTaskHandler);
         }
     }
+    
+}
+
+    function toggleModal() {
+        let editPage = document.getElementById("editPageTask");
+        let modalStyle = editPage.style.display;
+
+        if (modalStyle === "block") {
+            btnAddTaskList.style.display = "block";
+            table.classList.remove("modalBlur");
+            editPage.style.display = "none";
+        } else {
+            editPage.style.display = "block";
+            btnAddTaskList.style.display = "none";
+            table.classList.add("modalBlur");
+        }
+
+    }
+    let closeModal = document.getElementById("closeModal");
+    closeModal.addEventListener("click", function() {
+        let modal = document.getElementById("editPageTask");
+        if (modal.style.display === "block") {
+            toggleModal();
+        }
+    });
 
     btnAddTaskList.addEventListener("click", function() {
         homeSection.style.display = "none";
-        btnAddTaskList.style.display = "none";
-        table.style.display = "none";
-        sectionAdd.style.display = "flex";
-        sectionAdd.scrollIntoView({ behavior: "smooth" });
-        btnShow.style.display = "block";
-    
-        btnShow.removeEventListener("click", showTaskClickHandler);
-    
-        function showTaskClickHandler() {
-            btnShow.style.display = "none";
-            sectionAdd.style.display = "none";
-            btnAddTaskList.style.display = "inline-block";
-            table.style.display = "block";
-    
-            table.scrollIntoView({ behavior: "smooth" });
-            generateTable(taskArray);
-    
+            btnAddTaskList.style.display = "none";
+            table.style.display = "none";
+            sectionAdd.style.display = "flex";
+            sectionAdd.scrollIntoView({ behavior: "smooth" });
+            btnShow.style.display = "block";
+        
             btnShow.removeEventListener("click", showTaskClickHandler);
-        }
-    
-        btnShow.addEventListener("click", showTaskClickHandler);
+        
+            function showTaskClickHandler() {
+                btnShow.style.display = "none";
+                sectionAdd.style.display = "none";
+                btnAddTaskList.style.display = "inline-block";
+                table.style.display = "block";
+        
+                table.scrollIntoView({ behavior: "smooth" });
+                generateTable(taskArray);
+        
+                btnShow.removeEventListener("click", showTaskClickHandler);
+            }
+        
+            btnShow.addEventListener("click", showTaskClickHandler);
     });
 });
