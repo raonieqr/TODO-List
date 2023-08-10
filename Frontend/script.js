@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
         homeSection.style.display = "none";
         sectionAdd.style.display = "flex";
         sectionAdd.scrollIntoView({ behavior: "smooth" });
-        
     });
 
     let btnSubmit = document.getElementById("addTask");
@@ -18,12 +17,24 @@ document.addEventListener("DOMContentLoaded", function() {
     btnSubmit.addEventListener("click", function() {
         event.preventDefault();
         let task = createTaskObj();
+        console.log(task.dateTime);
         taskArray.push(task);
         alert("Tarefa " + task.name + " foi criada");
         id++;
         clearInputs();
-        console.log(taskArray);
     })
+
+    function isValidDate(dateString) {
+        const dateTimePattern = /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/;
+        let [date, time] = dateString.split(" ");
+        let [day, month, year] = date.split("/");
+        let [hours, minutes] = time.split(":");
+        if (parseInt(day, 10) > 30 || parseInt(month, 10) > 12 || parseInt(hours, 10) > 23 || parseInt(minutes, 10) > 59) {
+            alert("Error: datetime inválido");
+            return 0;
+        }
+        return dateTimePattern.test(dateString);
+    }
 
     function createTaskObj() {
         let name = document.getElementById("name").value;
@@ -33,6 +44,35 @@ document.addEventListener("DOMContentLoaded", function() {
         let status = document.getElementById("status").value;
         let dateTime = document.getElementById("dateTime").value;
         
+        if (!name || !description || !category || !priority || !status || !dateTime) {
+            alert("Error: Todos os campos devem ser preenchidos.");
+            return;
+        }
+    
+        if (!["todo", "doing", "done"].includes(status)) {
+            alert("Error: Status inválido. Permitidos: todo, doing ou done.");
+            return;
+        }
+    
+        if (isNaN(priority) || priority < 1 || priority > 5) {
+            alert("Error: Prioridade inválida. Use um número de 1 a 5.");
+            return;
+        }
+    
+        if (!isValidDate(dateTime)) {
+            try {
+                let [date, time] = dateTime.split(" ");
+                let [day, month, year] = date.split("/");s
+                let [hours, minutes] = time.split(":");
+
+                let monthTask = parseInt(month, 10) - 1;
+                dateTime = new Date(year, monthTask, day, hours, minutes);
+            } catch (error) {
+                alert("Error: Formato de data inválido. Use o formato DD-MM-YYYY HH:mm.");
+            }
+            return;
+        }
+
         return {
             id: id,
             name: name,
