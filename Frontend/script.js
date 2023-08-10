@@ -17,10 +17,12 @@ document.addEventListener("DOMContentLoaded", function() {
     btnSubmit.addEventListener("click", function() {
         event.preventDefault();
         let task = createTaskObj();
-        taskArray.push(task);
-        alert("Tarefa " + task.name + " foi criada");
-        id++;
-        clearInputs();
+        if (task) {
+            taskArray.push(task);
+            alert("Tarefa " + task.name + " foi criada");
+            id++;
+            clearInputs();
+        }
     })
 
     function isValidDate(dateString) {
@@ -33,9 +35,16 @@ document.addEventListener("DOMContentLoaded", function() {
         let [day, month, year] = date.split("/");
         let [hours, minutes] = time.split(":");
 
-
-        if (parseInt(day, 10) > 30 || parseInt(month, 10) > 12 || parseInt(hours, 10) > 23 || parseInt(minutes, 10) > 59) 
+        if (parseInt(month, 10) > 12 || parseInt(hours, 10) > 23 || parseInt(minutes, 10) > 59)
             return 0;
+    
+        if (parseInt(month, 10) === 2 && parseInt(day, 10) > 29)
+            return 0;
+        else if ([4, 6, 9, 11].includes(parseInt(month, 10)) && parseInt(day, 10) > 30) 
+            return 0;
+        else if (parseInt(day, 10) > 31)
+            return 0;
+    
         return 1;
     }
 
@@ -98,7 +107,19 @@ document.addEventListener("DOMContentLoaded", function() {
     })
 
     function generateTable(tasks) {
+        let thead= document.createElement("thead");
         let tbody = document.createElement("tbody");
+
+
+        while (table.firstChild) {
+            table.removeChild(table.firstChild);
+        }
+
+        let headerRow = document.createElement("tr");
+        headerRow.innerHTML = `
+            <th>Id</th><th>Nome</th><th>Descrição</th><th>Categoria</th><th>Prioridade</th><th>Status</th><th>Data e Hora</th><th>Ações</th>`;
+        thead.appendChild(headerRow)
+
         for (let i = 0; i < taskArray.length; i++) {
             let task = taskArray[i];
             
@@ -131,18 +152,40 @@ document.addEventListener("DOMContentLoaded", function() {
             row.appendChild(c7);
             row.appendChild(c8);
             tbody.appendChild(row);
+            table.appendChild(thead);
             table.appendChild(tbody);
-            
             ((index) => {
                 let trashIcon = row.querySelector("#trash");
                 trashIcon.addEventListener("click", function() {
                     taskArray.splice(index, 1);
                     tbody.removeChild(row);
                 });
-            })(i);
-
-            
+            })(i);            
         }
     }
 
-})
+    btnAddTaskList.addEventListener("click", function() {
+        homeSection.style.display = "none";
+        btnAddTaskList.style.display = "none";
+        table.style.display = "none";
+        sectionAdd.style.display = "flex";
+        sectionAdd.scrollIntoView({ behavior: "smooth" });
+        btnShow.style.display = "block";
+    
+        btnShow.removeEventListener("click", showTaskClickHandler);
+    
+        function showTaskClickHandler() {
+            btnShow.style.display = "none";
+            sectionAdd.style.display = "none";
+            btnAddTaskList.style.display = "inline-block";
+            table.style.display = "block";
+    
+            table.scrollIntoView({ behavior: "smooth" });
+            generateTable(taskArray);
+    
+            btnShow.removeEventListener("click", showTaskClickHandler);
+        }
+    
+        btnShow.addEventListener("click", showTaskClickHandler);
+    });
+});
