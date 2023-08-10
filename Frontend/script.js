@@ -103,7 +103,19 @@ document.addEventListener("DOMContentLoaded", function() {
         table.style.display = "block";
 
         table.scrollIntoView({ behavior: "smooth" });
-        generateTable(taskArray);
+        if (taskArray.length === 0) {
+            alert("Lista vazia")
+            let thead = document.createElement("thead");
+            let headerRow = document.createElement("tr");
+            headerRow.innerHTML = `
+                <th>Id</th><th>Nome</th><th>Descrição</th><th>Categoria</th><th>Prioridade</th><th>Status</th><th>Data e Hora</th><th>Ações</th>`;
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+        } else {
+            table.style.display = "block";
+            table.scrollIntoView({ behavior: "smooth" });
+            generateTable(taskArray);
+        }
     })
 
     function generateTable(tasks) {
@@ -154,6 +166,7 @@ document.addEventListener("DOMContentLoaded", function() {
             tbody.appendChild(row);
             table.appendChild(thead);
             table.appendChild(tbody);
+
             ((index) => {
                 let trashIcon = row.querySelector("#trash");
                 trashIcon.addEventListener("click", function() {
