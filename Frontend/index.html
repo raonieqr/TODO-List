@@ -1,51 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <title>TODO-List</title>
-</head>
-<body>
+  </head>
+  <body>
+      <header>
+        <nav>
+         <h1 id="logo">TODO - List</h1>
+        </nav>
+      </header>
     <div class="container">
-        <header>
-            <nav>
-                <h1 id="logo">TODO - List</h1>
-            </nav>
-        </header>
-        <section>
-            <button id="createTask">
-                <img src="./images/Icon.svg" alt="" srcset="">
-                <h2>Criar tarefa</h2>
-            </button>
-            <div id="taskForm" style="display: none;">
-                <form>
-                    <label for="name">Nome:</label>
-                    <input type="text" id="name" name="name">
-                    
-                    <label for="description">Descrição:</label>
-                    <input type="text" id="description" name="description">
-                    
-                    <label for="category">Categoria:</label>
-                    <input type="text" id="category" name="category">
-                    
-                    <label for="priority">Prioridade:</label>
-                    <input type="text" id="priority" name="priority">
-                    
-                    <label for="status">Status:</label>
-                    <input type="text" id="status" name="status">
-                    
-                    <label for="dateTime">Date e Hora:</label>
-                    <input type="text" id="dateTime" name="dateTime">
-                    
-                    <input type="submit" id="addTask" value="Adicionar">
-                </form>
+      <section id="home">
+        <h1>Bem vindo</h1>
+        <p>Para adicionar uma tarefa basta clicar no botão abaixo</p>
+        <button id="createTask">
+          <img src="./images/Icon.svg" alt="" srcset="" />
+          <h2>Criar tarefa</h2>
+        </button>
+      </section>
+      <section id="taskForm" style="display: none;">
+        <i id="showTask" class="ph ph-list-magnifying-glass"></i>
+        <div id="addPageTask">
+          <h1>Adicionar tarefa</h1>
+          <form id="taskForm-detail">
+            <div class="inputTask">
+              <div class="form-detail">
+                <label class="sr-only" for="name">Nome:</label>
+                <input type="text" id="name" name="name" placeholder="Nome" />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="category">Categoria:</label>
+                <input
+                type="text"
+                id="category"
+                name="category"
+                placeholder="Categoria"
+                />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="status">Status:</label>
+                <input required="true"
+                type="text"
+                id="status"
+                name="status"
+                placeholder="Status"
+                />
+              </div>
             </div>
-        </section>
+            <div class="inputTask">
+              <div class="form-detail">
+                <label class="sr-only" for="description">Descrição:</label>
+                <input
+                type="text"
+                id="description"
+                name="description"
+                placeholder="Descrição"
+                required
+                />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="priority">Prioridade:</label>
+                <input
+                type="text"
+                id="priority"
+                name="priority"
+                placeholder="Prioridade"
+                />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="dateTime">Date e Hora:</label>
+                <input
+                type="text"
+                id="dateTime"
+                name="dateTime"
+                placeholder="Data e Hora"
+                />
+              </div>
+            </div>
+          </form>
+          <button id="addTask">Adicionar</button>
+        </div>
+      </section>
+      <table id="tasks" style="display: none;">
+        <i id="addTaskList" class="ph ph-plus" style="display: none;"></i>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th>Data e Hora</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+      </table>
     </div>
     <script src="./script.js"></script>
-</body>
+  </body>
 </html>

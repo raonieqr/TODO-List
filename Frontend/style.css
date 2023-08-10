@@ -1,28 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
-    font-size: 64.5%;
+    font-size: 62.5%;
 }
 
 body {
     font-family: Roboto, Helvetica, sans-serif;
-    background-color: #a3a3a3;
+    overflow: hidden;
+    height: 100dvh;
+    width: 100%;
 }
 
 .container {
     display: flex;
     flex-direction: column;
-    max-width: 100rem;
-    margin: 0 auto;
+    position: relative;
+    max-width: 980px;
+    place-content: center;
+    place-items: center;
+    width: 100%;
+    height: 83dvh;
+    margin: -4.8rem auto;
 }
 
 nav {
     display: flex;
-    max-width: 98rem;
-    margin: 0 auto;
+    place-items: center;
     place-content: center;
     background-color: #F9C259;
-    width: 80%;
     border-radius: .5rem;
-    margin-top: 20%;
+    height: 7dvh;
+}
+
+nav a {
+    text-decoration: none;
+    cursor: pointer;
 }
 
 nav h1 {
@@ -30,19 +46,32 @@ nav h1 {
     color: #fbfbfb
 }
 
+
 section {
     display: flex;
-    margin: 0 auto;
-    margin-top: 2.4rem;
+    flex-direction: column;
     background-color: #FCFCFC;
-    width: 80%;
-    height: 50rem;
     border-radius: .5rem;
-    place-items: center;
-    place-content: center;
 }
 
-button {
+section#home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section#home h1 {
+    font-size: 3.2rem;
+}
+
+section#home p {
+    margin-top: 1rem;
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
+    max-width: 23ch;
+    text-align: center;
+}
+button#createTask {
     display: flex;
     place-content: center;
     place-items: center;
@@ -66,44 +95,166 @@ button h2 {
     color: #fbfbfb;
 }
 
-#taskForm form {
-    display: grid;
-    grid-template-columns: repeat(2, 150px);
+
+.ph-caret-left{
+    position:absolute;
+    top: 8rem;
+    left: 2rem;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+.ph-list-magnifying-glass{
+    position:absolute;
+    top: 8rem;
+    right: 2rem;
+    font-size: 3rem;
+    cursor: pointer;
+} 
+
+.ph-plus {
+    position:absolute;
+    top: 8rem;
+    right: 2rem;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+
+.hiddenItem {
+    display: none;
+}
+
+#addPageTask {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    background-color: rgba(209, 209, 209, 0.829);
+    padding: 5rem;
+    border-radius: 1rem;
+    -webkit-box-shadow: 8px 11px 12px -5px rgba(0,0,0,0.26);
+    -moz-box-shadow: 8px 11px 12px -5px rgba(0,0,0,0.26);
+    box-shadow: 8px 11px 12px -5px rgba(0,0,0,0.26);
+    gap: 2rem;
 }
 
-#taskForm form label {
+#addPageTask h1 {
+    font-size: 1.8rem;
+}
+
+
+form#taskForm-detail {
+    display: flex;
+    flex-direction: row;
+    gap: 2.8rem;
+}
+
+form#taskForm-detail .inputTask{
+    
+}
+
+form#taskForm-detail .form-detail {
+    margin-bottom: 1rem;
+}
+
+form#taskForm-detail label {
     font-size: 1.6rem;
-
 }
 
-#taskForm form input {
-    width: 28rem;
-    height: 2rem;
-    border: 1px solid rgb(171, 171, 171);
-    background-color: #ebebeb;
-    border-radius: .2rem;
-    margin-bottom: 1.4rem;
-    margin-top: .5rem;
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
-#taskForm #addTask {
-    grid-column: span 2;
-    width: 50%; 
-    max-width: 15rem;
-    height: 3rem;
-    margin: 0 auto;
-    margin-top: 3rem;
+#taskForm-detail input {
+    width: 20rem;
+    border: 1px solid rgb(203, 203, 203);
+    background-color: #efefef;
+    border-radius: .7rem;
+    padding: .7rem 1rem;
+}
+
+#addTask {
+    text-align: center;
+    padding: .8rem 3.5rem;
     border: none;
-    border-radius: 0.2rem;
     color: #fff;
-    background-color: #2ea44f;
+    background-color: #36b159;
     cursor: pointer;
     border-radius: .6rem;
+    transition: 300ms;
 }
 
-#taskForm #addTask:hover {
+
+#addTask:hover {
   background-color: #2c974b;
+}
+
+#taskForm-detail #showTask {
+    text-align: center;
+    padding: .8rem 5rem;
+    margin-top: 1rem;
+    border: none;
+    color: #fff;
+    background-color: #3d6ed1;
+    cursor: pointer;
+    border-radius: .6rem;
+    transition: 300ms;
+
+}
+
+#taskForm-detail #showTask:hover {
+    background-color: #3362a8;
+  }
+#tasks {
+    display: flex;
+    border: 1px solid rgb(170, 170, 170);
+    border-radius: .5rem;
+    border-spacing: 0;
+    color: #fff;
+    font-size: 1rem;
+}
+
+#tasks thead{
+    margin-top: 10rem;
+    background-color: #2c5a97;
+}
+
+#tasks thead th{
+    border-right: 1rem;
+    padding: 1em;
+}
+
+#tasks th {
+    font-size: 1.6rem;
+}
+
+#tasks tbody td {
+    font-size: 1.6rem;
+    color: black;
+    text-align: center;
+    border: 1px solid rgb(170, 170, 170);
+    padding: 1rem;
+}
+
+.ph-pencil-line {
+    cursor: pointer;
+    font-size: 1.6rem;
+    padding: 1rem;
+    padding-right: 0;
+}
+
+.ph-trash {
+    cursor: pointer;
+    font-size: 1.6rem;
+    color: rgb(170, 63, 63);
+    padding: 1rem;
 }
