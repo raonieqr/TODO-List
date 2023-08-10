@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
     btnSubmit.addEventListener("click", function() {
         event.preventDefault();
         let task = createTaskObj();
-        console.log(task.dateTime);
         taskArray.push(task);
         alert("Tarefa " + task.name + " foi criada");
         id++;
@@ -26,14 +25,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function isValidDate(dateString) {
         const dateTimePattern = /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/;
+        return dateTimePattern.test(dateString);
+    }
+
+    function checkDateInput(dateString) {
         let [date, time] = dateString.split(" ");
         let [day, month, year] = date.split("/");
         let [hours, minutes] = time.split(":");
-        if (parseInt(day, 10) > 30 || parseInt(month, 10) > 12 || parseInt(hours, 10) > 23 || parseInt(minutes, 10) > 59) {
-            alert("Error: datetime inválido");
+
+
+        if (parseInt(day, 10) > 30 || parseInt(month, 10) > 12 || parseInt(hours, 10) > 23 || parseInt(minutes, 10) > 59) 
             return 0;
-        }
-        return dateTimePattern.test(dateString);
+        return 1;
     }
 
     function createTaskObj() {
@@ -59,19 +62,11 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
     
-        if (!isValidDate(dateTime)) {
-            try {
-                let [date, time] = dateTime.split(" ");
-                let [day, month, year] = date.split("/");s
-                let [hours, minutes] = time.split(":");
-
-                let monthTask = parseInt(month, 10) - 1;
-                dateTime = new Date(year, monthTask, day, hours, minutes);
-            } catch (error) {
-                alert("Error: Formato de data inválido. Use o formato DD-MM-YYYY HH:mm.");
-            }
+        if (!isValidDate(dateTime) || !checkDateInput(dateTime)) {
+            alert(`Error: data ${dateTime} inválida`);
             return;
         }
+
 
         return {
             id: id,
@@ -143,10 +138,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 trashIcon.addEventListener("click", function() {
                     taskArray.splice(index, 1);
                     tbody.removeChild(row);
-                    console.log(taskArray.length)
                 });
             })(i);
 
+            
         }
     }
+
 })
