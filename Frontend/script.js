@@ -170,43 +170,9 @@ document.addEventListener("DOMContentLoaded", function() {
             
             let pencilIcon = row.querySelector("#pencil");
             pencilIcon.addEventListener("click", function() {
-            toggleModal(task, i);
-            let nameInput = document.getElementById("nameEdit");
-            let descriptionInput = document.getElementById("descriptionEdit");
-            let categoryInput = document.getElementById("categoryEdit");
-            let priorityInput = document.getElementById("priorityEdit");
-            let statusInput = document.getElementById("statusEdit");
-            let dateTimeInput = document.getElementById("dateTimeEdit");
-            nameInput.value = task.name;
-            descriptionInput.value = task.description;
-            categoryInput.value = task.category;
-            priorityInput.value = task.priority;
-            statusInput.value = task.status;
-            dateTimeInput.value = task.dateTime;
+                openEditModal(task, i);
         }); 
 
-        let btnEditTask = document.getElementById("btnEditTask");
-        btnEditTask.addEventListener("click", editTaskHandler);
-
-        function editTaskHandler() {
-            let nameInput = document.getElementById("nameEdit");
-            let descriptionInput = document.getElementById("descriptionEdit");
-            let categoryInput = document.getElementById("categoryEdit");
-            let priorityInput = document.getElementById("priorityEdit");
-            let statusInput = document.getElementById("statusEdit");
-            let dateTimeInput = document.getElementById("dateTimeEdit");
-            task.name = nameInput.value;
-            task.description = descriptionInput.value;
-            task.category = categoryInput.value;
-            task.priority = priorityInput.value;
-            task.status = statusInput.value;
-            task.dateTime = dateTimeInput.value;
-
-            generateTable(taskArray);
-            toggleModal();
-
-            btnEditTask.removeEventListener("click", editTaskHandler);
-        }
     }
     
 }
@@ -226,6 +192,70 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
     }
+
+    function openEditModal(task, index) {
+        toggleModal();
+        let nameInput = document.getElementById("nameEdit");
+        let descriptionInput = document.getElementById("descriptionEdit");
+        let categoryInput = document.getElementById("categoryEdit");
+        let priorityInput = document.getElementById("priorityEdit");
+        let statusInput = document.getElementById("statusEdit");
+        let dateTimeInput = document.getElementById("dateTimeEdit");
+
+        nameInput.value = task.name;
+        descriptionInput.value = task.description;
+        categoryInput.value = task.category;
+        priorityInput.value = task.priority;
+        statusInput.value = task.status;
+        dateTimeInput.value = task.dateTime;
+
+        let btnEditTask = document.getElementById("btnEditTask");
+        btnEditTask.addEventListener("click", editTaskHandler);
+
+        function editTaskHandler() {
+            let name = nameInput.value;
+            let description = descriptionInput.value;
+            let category = categoryInput.value;
+            let priority = priorityInput.value;
+            let status = statusInput.value;
+            let dateTime = dateTimeInput.value; 
+
+            if (!name || !description || !category || !priority || !status || !dateTime) {
+                alert("Error: Todos os campos devem ser preenchidos.");
+                return;
+            }
+        
+            if (!["todo", "doing", "done"].includes(status)) {
+                alert("Error: Status inválido. Permitidos: todo, doing ou done.");
+                return;
+            }
+        
+            if (isNaN(priority) || priority < 1 || priority > 5) {
+                alert("Error: Prioridade inválida. Use um número de 1 a 5.");
+                return;
+            }
+        
+            if (!isValidDate(dateTime) || !checkDateInput(dateTime)) {
+                alert(`Error: data ${dateTime} inválida`);
+                return;
+            }    
+
+            taskArray[index].name = name;
+            taskArray[index].description = descriptionInput.value;
+            taskArray[index].category = categoryInput.value;
+            taskArray[index].priority = priorityInput.value;
+            taskArray[index].status = statusInput.value;
+            taskArray[index].dateTime = dateTimeInput.value;
+
+            generateTable(taskArray);
+            toggleModal();
+
+            btnEditTask.removeEventListener("click", editTaskHandler);
+        }
+
+    }
+
+
     let closeModal = document.getElementById("closeModal");
     closeModal.addEventListener("click", function() {
         let modal = document.getElementById("editPageTask");
