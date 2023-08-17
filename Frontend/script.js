@@ -11,17 +11,23 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     let btnSubmit = document.getElementById("addTask");
-    let taskArray = [];
+    let taskStr = localStorage.getItem('taskArray');
+    let taskObj;
+    if (taskStr) 
+        taskObj = JSON.parse(taskStr);
+    else
+        taskObj = [];
     let id = 1;
 
     btnSubmit.addEventListener("click", function() {
         event.preventDefault();
         let task = createTaskObj();
         if (task) {
-            taskArray.push(task);
+            taskObj.push(task);
             alert("Tarefa " + task.name + " foi criada");
             id++;
             clearInputs();
+            localStorage.setItem('taskArray',JSON.stringify(taskArray));
         }
     })
 
@@ -170,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (taskArray.length == 1)
                         taskArray.pop();
                     tbody.removeChild(row);
-                    console.log(taskArray.length);
                 });
             })(i);
             
