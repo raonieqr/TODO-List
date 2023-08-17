@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let [day, month, year] = date.split("/");
         let [hours, minutes] = time.split(":");
 
+        let diff = new Date(year, month - 1, day, hours, minutes).getTime() - Date.now();
         if (parseInt(month, 10) > 12 || parseInt(hours, 10) > 23 || parseInt(minutes, 10) > 59)
             return 0;
     
@@ -44,7 +45,8 @@ document.addEventListener("DOMContentLoaded", function() {
             return 0;
         else if (parseInt(day, 10) > 31)
             return 0;
-    
+        else if (diff < 0)
+            return 0;
         return 1;
     }
 
@@ -65,8 +67,8 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Error: Status inválido. Permitidos: todo, doing ou done.");
             return;
         }
-    
-        if (isNaN(priority) || priority < 1 || priority > 5) {
+        let regex = /^[1-5]$/;
+        if (isNaN(priority) || !regex.test(priority)) {
             alert("Error: Prioridade inválida. Use um número de 1 a 5.");
             return;
         }
