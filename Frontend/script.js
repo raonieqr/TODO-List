@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Tarefa " + task.name + " foi criada");
             id++;
             clearInputs();
-            localStorage.setItem('taskArray',JSON.stringify(taskArray));
+            localStorage.setItem('taskArray',JSON.stringify(taskObj));
         }
     })
 
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let btnAddTaskList = document.getElementById("addTaskList")
     btnShow.addEventListener("click", function() {
         table.scrollIntoView({ behavior: "smooth" });
-        if (taskArray.length === 0) {
+        if (taskObj.length === 0) {
             alert("Lista vazia");
             return;
         } else {
@@ -115,11 +115,11 @@ document.addEventListener("DOMContentLoaded", function() {
             sectionAdd.style.display = "none";
             table.style.display = "block";
             table.scrollIntoView({ behavior: "smooth" });
-            generateTable(taskArray);
+            generateTable();
         }
     })
 
-    function generateTable(tasks) {
+    function generateTable() {
         let thead= document.createElement("thead");
         let tbody = document.createElement("tbody");
 
@@ -134,8 +134,8 @@ document.addEventListener("DOMContentLoaded", function() {
             </th><th>Status</th><th>Data e Hora</th><th>Ações</th>`;
         thead.appendChild(headerRow)
 
-        for (let i = 0; i < taskArray.length; i++) {
-            let task = taskArray[i];
+        for (let i = 0; i < taskObj.length; i++) {
+            let task = taskObj[i];
             
             let row = document.createElement("tr");
     
@@ -172,9 +172,9 @@ document.addEventListener("DOMContentLoaded", function() {
             ((index) => {
                 let trashIcon = row.querySelector("#trash");
                 trashIcon.addEventListener("click", function() {
-                    taskArray.splice(index, 1);
-                    if (taskArray.length == 1)
-                        taskArray.pop();
+                    taskObj.splice(index, 1);
+                    localStorage.removeItem("taskArray");
+                    localStorage.setItem("taskArray", JSON.stringify(taskObj));
                     tbody.removeChild(row);
                 });
             })(i);
@@ -251,14 +251,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }    
 
-            taskArray[index].name = name;
-            taskArray[index].description = descriptionInput.value;
-            taskArray[index].category = categoryInput.value;
-            taskArray[index].priority = priorityInput.value;
-            taskArray[index].status = statusInput.value;
-            taskArray[index].dateTime = dateTimeInput.value;
-
-            generateTable(taskArray);
+            taskObj[index].name = name;
+            taskObj[index].description = descriptionInput.value;
+            taskObj[index].category = categoryInput.value;
+            taskObj[index].priority = priorityInput.value;
+            taskObj[index].status = statusInput.value;
+            taskObj[index].dateTime = dateTimeInput.value;
+            localStorage.removeItem("taskArray");
+            localStorage.setItem("taskArray", JSON.stringify(taskObj));
+            generateTable();
             toggleModal();
 
             btnEditTask.removeEventListener("click", editTaskHandler);
@@ -292,7 +293,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 table.style.display = "block";
         
                 table.scrollIntoView({ behavior: "smooth" });
-                generateTable(taskArray);
+                generateTable();
         
                 btnShow.removeEventListener("click", showTaskClickHandler);
             }
