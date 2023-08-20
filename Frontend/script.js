@@ -126,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     } else {
       btnAddTaskList.style.display = 'inline-block';
-      actionButton.style.display = 'block';
       btnShow.style.display = 'none';
       sectionAdd.style.display = 'none';
       table.style.display = 'block';
@@ -155,10 +154,6 @@ document.addEventListener('DOMContentLoaded', function () {
           <th>Data e Hora</th>
           <th>Ações</th>`;
     thead.appendChild(headerRow);
-
-    const button = document.createElement('button');
-
-    table.appendChild(button);
 
     for (let i = 0; i < taskObj.length; i++) {
       let task = taskObj[i];
@@ -215,7 +210,20 @@ document.addEventListener('DOMContentLoaded', function () {
       pencilIcon.addEventListener('click', function () {
         openEditModal(task, i);
       });
+
     }
+    
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    checkboxes.forEach(function(checkbox) {
+      checkbox.addEventListener("change", function() {
+        let checked = Array.from(checkboxes).some((boxes) => boxes.checked);
+        if (checked)
+          actionButton.style.display = 'block';
+        else
+          actionButton.style.display = 'none';
+      });
+    });
 
     actionButton.addEventListener('click', function () {
       let rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
@@ -226,7 +234,6 @@ document.addEventListener('DOMContentLoaded', function () {
       const selectedRowsArray = checkedRows.map((row) => {
         return Number(row.querySelector('td:nth-child(2)').textContent);
       });
-
       console.log(selectedRowsArray);
     });
   }
