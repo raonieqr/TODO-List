@@ -81,11 +81,11 @@ button#createTask {
   border: none;
   border-radius: 1.5rem;
   background-color: #F9C259;
+  transition: 300ms ;
 }
 
 button:hover {
   background-color: #fba80ecf;
-  transition: 10ms ;
   cursor: pointer;
 }
 
@@ -197,7 +197,6 @@ form#taskForm-detail label {
   gap: 2.8rem;
 }
 
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -231,13 +230,28 @@ form#taskForm-detail label {
 
 
 #addTask:hover {
-background-color: #2c974b;
+  background-color: #2c974b;
 }
 
 .modalBlur {
   -webkit-filter: blur(8px);
   filter: blur(8px);
   opacity: 1;
+}
+
+#actions {
+  border: none;
+  padding: 1rem;
+  border-radius: .5rem;
+  margin-left: 66.5rem;
+  margin-bottom: 1rem;
+  background-color: rgb(65, 117, 212);
+  color: #fff;
+  transition: 300ms;
+}
+
+#actions:hover {
+  background-color: rgba(65, 116, 212, 0.912);
 }
 
 #tasks {
@@ -247,31 +261,32 @@ background-color: #2c974b;
   border-spacing: 0;
   color: #fff;
   font-size: 1rem;
-  padding: 0;
-  margin: 0;
 }
 
 #tasks thead{
-  margin-top: 10rem;
   background-color: #2c9753;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #tasks thead th{
-  border-right: 1rem;
-  padding: 1em;
+  padding: 1.5rem;
 }
 
 #tasks th {
   font-size: 1.6rem;
 }
 
+
 #tasks tbody td {
   font-size: 1.6rem;
   color: black;
   text-align: center;
   border: 1px solid rgb(170, 170, 170);
-  padding: 1rem;
+  padding: .8rem;
 }
+
 
 .ph-pencil-line {
   cursor: pointer;
