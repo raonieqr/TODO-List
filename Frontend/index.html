@@ -94,17 +94,22 @@
       </section>
       <table id="tasks" style="display: none">
         <i id="addTaskList" class="ph ph-plus" style="display: none"></i>
-        <button id="actions" style="display: none;">Editar status</button>
+        <button id="actions" style="display: none">Editar status</button>
       </table>
       <section id="edit">
-        <div id="editPageTask" style="display: none;">
+        <div id="editPageTask" style="display: none">
           <h1>Editar tarefa</h1>
           <i id="closeModal" class="ph ph-x"></i>
           <form id="editTask">
             <div class="inputTask">
               <div class="form-detail">
                 <label class="sr-only" for="name">Nome:</label>
-                <input type="text" id="nameEdit" name="name" placeholder="Nome" />
+                <input
+                  type="text"
+                  id="nameEdit"
+                  name="name"
+                  placeholder="Nome"
+                />
               </div>
               <div class="form-detail">
                 <label class="sr-only" for="category">Categoria:</label>
@@ -158,6 +163,33 @@
             </div>
           </form>
           <button id="btnEditTask">Salvar</button>
+        </div>
+      </section>
+      <section id="editStatusPage">
+        <div id="editStatusTask" style="display: none;">
+          <h1>Escolha o status</h1>
+          <i id="closeModal" class="ph ph-x"></i>
+          <div id="editStatus">
+            <div class="boxes">
+              <label for="todo">
+                <input type="radio" name="statusValue" id="todo" />
+                A fazer
+              </label>
+            </div>
+            <div class="boxes">
+              <label for="doing">
+                <input type="radio" name="statusValue" id="doing" />
+                Em andamento
+              </label>
+            </div>
+            <div class="boxes">
+              <label for="done">
+                <input type="radio" name="statusValue" id="done" />
+                Finalizado
+              </label>
+            </div>
+          </div>
+          <button id="btnStatusTask">Salvar</button>
         </div>
       </section>
     </div>
