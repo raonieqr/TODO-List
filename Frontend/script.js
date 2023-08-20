@@ -225,6 +225,10 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
+
+    let radios = document.querySelectorAll('input[type="radio"]');
+    let btnSaveStatus = document.getElementById("btnStatusTask");
+
     actionButton.addEventListener('click', function () {
       let rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
       let checkedRows = rows.filter((row) => {
@@ -234,6 +238,18 @@ document.addEventListener('DOMContentLoaded', function () {
       const selectedRowsArray = checkedRows.map((row) => {
         return Number(row.querySelector('td:nth-child(2)').textContent);
       });
+
+      let editStatusPage = document.getElementById("editStatusPage");
+      let editStatusTask = document.getElementById("editStatusTask");
+      editStatusTask.style.display = "block";
+      while(selectedRowsArray.length != 0) {
+        let index = selectedRowsArray.pop();
+        taskObj.forEach(task => {
+          if (task.id === index)
+            task.status = "done";
+        });
+      }
+      console.log(taskObj);
       console.log(selectedRowsArray);
     });
   }
