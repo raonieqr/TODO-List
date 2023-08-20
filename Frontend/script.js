@@ -1,7 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
+  
   let btn = document.getElementById('createTask');
   let sectionAdd = document.getElementById('taskForm');
   let homeSection = document.getElementById('home');
+  const actionButton = document.getElementById('actions');
+
 
   btn.addEventListener('click', function () {
     btn.classList.add = 'hiddenItem';
@@ -12,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let btnSubmit = document.getElementById('addTask');
   let taskStr = localStorage.getItem('taskArray');
+
   let taskObj;
   if (taskStr) taskObj = JSON.parse(taskStr);
   else taskObj = [];
@@ -35,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function checkDateInput(dateString) {
+
     let [date, time] = dateString.split(' ');
     let [day, month, year] = date.split('/');
     let [hours, minutes] = time.split(':');
@@ -60,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function createTaskObj() {
+
     let name = document.getElementById('name').value;
     let description = document.getElementById('description').value;
     let category = document.getElementById('category').value;
@@ -120,6 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     } else {
       btnAddTaskList.style.display = 'inline-block';
+      actionButton.style.display = 'block';
       btnShow.style.display = 'none';
       sectionAdd.style.display = 'none';
       table.style.display = 'block';
@@ -150,8 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
     thead.appendChild(headerRow);
 
     const button = document.createElement('button');
-    button.id = 'actions';
-    button.textContent = 'Realizar ação';
+
     table.appendChild(button);
 
     for (let i = 0; i < taskObj.length; i++) {
@@ -210,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
         openEditModal(task, i);
       });
     }
-    const actionButton = document.getElementById('actions');
+
     actionButton.addEventListener('click', function () {
       let rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
       let checkedRows = rows.filter((row) => {
@@ -242,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function openEditModal(task, index) {
     toggleModal();
+
     let nameInput = document.getElementById('nameEdit');
     let descriptionInput = document.getElementById('descriptionEdit');
     let categoryInput = document.getElementById('categoryEdit');
@@ -300,6 +307,7 @@ document.addEventListener('DOMContentLoaded', function () {
       taskObj[index].priority = priorityInput.value;
       taskObj[index].status = statusInput.value;
       taskObj[index].dateTime = dateTimeInput.value;
+
       localStorage.removeItem('taskArray');
       localStorage.setItem('taskArray', JSON.stringify(taskObj));
       generateTable();
