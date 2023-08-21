@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-  
   let btn = document.getElementById('createTask');
   let sectionAdd = document.getElementById('taskForm');
   let homeSection = document.getElementById('home');
   const actionButton = document.getElementById('actions');
-
 
   btn.addEventListener('click', function () {
     btn.classList.add = 'hiddenItem';
@@ -39,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function checkDateInput(dateString) {
-
     let [date, time] = dateString.split(' ');
     let [day, month, year] = date.split('/');
     let [hours, minutes] = time.split(':');
@@ -65,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function createTaskObj() {
-
     let name = document.getElementById('name').value;
     let description = document.getElementById('description').value;
     let category = document.getElementById('category').value;
@@ -196,10 +192,8 @@ document.addEventListener('DOMContentLoaded', function () {
       ((index) => {
         let trashIcon = row.querySelector('#trash');
         trashIcon.addEventListener('click', function () {
-          if (taskObj.length == 1)
-            taskObj.pop();
-          else
-            taskObj.splice(index, 1);
+          if (taskObj.length == 1) taskObj.pop();
+          else taskObj.splice(index, 1);
           localStorage.removeItem('taskArray');
           localStorage.setItem('taskArray', JSON.stringify(taskObj));
           tbody.removeChild(row);
@@ -210,47 +204,56 @@ document.addEventListener('DOMContentLoaded', function () {
       pencilIcon.addEventListener('click', function () {
         openEditModal(task, i);
       });
-
     }
-    
+
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-    checkboxes.forEach(function(checkbox) {
-      checkbox.addEventListener("change", function() {
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener('change', function () {
         let checked = Array.from(checkboxes).some((boxes) => boxes.checked);
-        if (checked)
-          actionButton.style.display = 'block';
-        else
-          actionButton.style.display = 'none';
+        if (checked) actionButton.style.display = 'block';
+        else actionButton.style.display = 'none';
       });
     });
 
-
-    let radios = document.querySelectorAll('input[type="radio"]');
-    let btnSaveStatus = document.getElementById("btnStatusTask");
-
+    let isStatusModalOpen = false;
     actionButton.addEventListener('click', function () {
-      let rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
-      let checkedRows = rows.filter((row) => {
+      console.log("oi");
+      toggleModalStatus();
+      isStatusModalOpen = !isStatusModalOpen;
+    });
+
+    let btnSaveStatus = document.getElementById('btnStatusTask');
+
+    btnSaveStatus.addEventListener('click', function () {
+      let radios = document.querySelectorAll('input[type="radio"]:checked');
+      let selectedRowsArray = [];
+
+      var rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
+      var checkedRows = rows.filter((row) => {
         return row.querySelector('input[type="checkbox"]').checked;
       });
 
-      const selectedRowsArray = checkedRows.map((row) => {
+      selectedRowsArray = checkedRows.map((row) => {
         return Number(row.querySelector('td:nth-child(2)').textContent);
       });
 
-      let editStatusPage = document.getElementById("editStatusPage");
-      let editStatusTask = document.getElementById("editStatusTask");
-      editStatusTask.style.display = "block";
-      while(selectedRowsArray.length != 0) {
-        let index = selectedRowsArray.pop();
-        taskObj.forEach(task => {
-          if (task.id === index)
-            task.status = "done";
-        });
-      }
-      console.log(taskObj);
-      console.log(selectedRowsArray);
+      if (radios.length > 0) {
+        var valueRadio = radios[0].value;
+        while (selectedRowsArray.length !== 0) {
+          let index = selectedRowsArray.pop();
+          taskObj.forEach((task) => {
+            if (task.id === index) {
+              task.status = valueRadio;
+            }
+          });
+        }
+      } else alert('Error: seleciona uma opção');
+      localStorage.setItem('taskArray', JSON.stringify(taskObj));
+      generateTable();
+      toggleModalStatus();
+      actionButton.style.display = 'none';
+      isStatusModalOpen = false;
     });
   }
 
@@ -345,6 +348,30 @@ document.addEventListener('DOMContentLoaded', function () {
     let modal = document.getElementById('editPageTask');
     if (modal.style.display === 'block') {
       toggleModal();
+    }
+  });
+
+  function toggleModalStatus() {
+    let editPage = document.getElementById('editStatusTask');
+    let modalStyle = editPage.style.display;
+    if (modalStyle === 'block') {
+      table.classList.remove('modalBlur');
+      actionButton.style.display = 'block';
+      editPage.style.display = 'none';
+      btnAddTaskList.style.display = 'block';
+    } else {
+      editPage.style.display = 'block';
+      table.classList.add('modalBlur');
+      actionButton.style.display = 'none';
+      btnAddTaskList.style.display = 'none';
+    }
+  }
+
+  let closeModalStatus = document.getElementById('closeModalStatus');
+  closeModalStatus.addEventListener('click', function () {
+    let modal = document.getElementById('editStatusTask');
+    if (modal.style.display === 'block') {
+      toggleModalStatus();
     }
   });
 
