@@ -215,47 +215,43 @@ document.addEventListener('DOMContentLoaded', function () {
         else actionButton.style.display = 'none';
       });
     });
-
-    let isStatusModalOpen = false;
-    actionButton.addEventListener('click', function () {
-      console.log("oi");
-      toggleModalStatus();
-      isStatusModalOpen = !isStatusModalOpen;
-    });
-
-    let btnSaveStatus = document.getElementById('btnStatusTask');
-
-    btnSaveStatus.addEventListener('click', function () {
-      let radios = document.querySelectorAll('input[type="radio"]:checked');
-      let selectedRowsArray = [];
-
-      var rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
-      var checkedRows = rows.filter((row) => {
-        return row.querySelector('input[type="checkbox"]').checked;
-      });
-
-      selectedRowsArray = checkedRows.map((row) => {
-        return Number(row.querySelector('td:nth-child(2)').textContent);
-      });
-
-      if (radios.length > 0) {
-        var valueRadio = radios[0].value;
-        while (selectedRowsArray.length !== 0) {
-          let index = selectedRowsArray.pop();
-          taskObj.forEach((task) => {
-            if (task.id === index) {
-              task.status = valueRadio;
-            }
-          });
-        }
-      } else alert('Error: seleciona uma opção');
-      localStorage.setItem('taskArray', JSON.stringify(taskObj));
-      generateTable();
-      toggleModalStatus();
-      actionButton.style.display = 'none';
-      isStatusModalOpen = false;
-    });
   }
+
+  actionButton.addEventListener('click', function () {
+    toggleModalStatus();
+  });
+
+  let btnSaveStatus = document.getElementById('btnStatusTask');
+
+  btnSaveStatus.addEventListener('click', function () {
+    let radios = document.querySelectorAll('input[type="radio"]:checked');
+    let selectedRowsArray = [];
+
+    var rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
+    var checkedRows = rows.filter((row) => {
+      return row.querySelector('input[type="checkbox"]').checked;
+    });
+
+    selectedRowsArray = checkedRows.map((row) => {
+      return Number(row.querySelector('td:nth-child(2)').textContent);
+    });
+
+    if (radios.length > 0) {
+      var valueRadio = radios[0].value;
+      while (selectedRowsArray.length !== 0) {
+        let index = selectedRowsArray.pop();
+        taskObj.forEach((task) => {
+          if (task.id === index) {
+            task.status = valueRadio;
+          }
+        });
+      }
+    } else alert('Error: seleciona uma opção');
+    localStorage.setItem('taskArray', JSON.stringify(taskObj));
+    generateTable();
+    alert("Status modificado!");
+    toggleModalStatus();
+  });
 
   function toggleModal() {
     let editPage = document.getElementById('editPageTask');
@@ -355,8 +351,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let editPage = document.getElementById('editStatusTask');
     let modalStyle = editPage.style.display;
     if (modalStyle === 'block') {
+      console.log("editStatus em block");
       table.classList.remove('modalBlur');
-      actionButton.style.display = 'block';
+      // actionButton.style.display = 'block';
       editPage.style.display = 'none';
       btnAddTaskList.style.display = 'block';
     } else {
@@ -379,6 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
     homeSection.style.display = 'none';
     btnAddTaskList.style.display = 'none';
     table.style.display = 'none';
+    actionButton.style.display = 'none';
     sectionAdd.style.display = 'flex';
     sectionAdd.scrollIntoView({ behavior: 'smooth' });
     btnShow.style.display = 'block';
