@@ -351,9 +351,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let editPage = document.getElementById('editStatusTask');
     let modalStyle = editPage.style.display;
     if (modalStyle === 'block') {
-      console.log("editStatus em block");
       table.classList.remove('modalBlur');
-      // actionButton.style.display = 'block';
       editPage.style.display = 'none';
       btnAddTaskList.style.display = 'block';
     } else {
