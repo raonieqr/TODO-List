@@ -192,14 +192,20 @@ document.addEventListener('DOMContentLoaded', function () {
       ((index) => {
         let trashIcon = row.querySelector('#trash');
         trashIcon.addEventListener('click', function () {
-          if (taskObj.length == 1) {
+          if (taskObj.length === 1) {
             taskObj.pop();
             actionButton.style.display = 'none';
-          }
-          else taskObj.splice(index, 1);
+          } 
+          else
+            taskObj.splice(index, 1);
           localStorage.removeItem('taskArray');
           localStorage.setItem('taskArray', JSON.stringify(taskObj));
           tbody.removeChild(row);
+          let checkedCheckboxes = document.querySelectorAll(
+            'input[type="checkbox"]:checked'
+          );
+          if (checkedCheckboxes.length === 0)
+            actionButton.style.display = 'none';
         });
       })(i);
 
