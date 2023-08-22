@@ -192,7 +192,10 @@ document.addEventListener('DOMContentLoaded', function () {
       ((index) => {
         let trashIcon = row.querySelector('#trash');
         trashIcon.addEventListener('click', function () {
-          if (taskObj.length == 1) taskObj.pop();
+          if (taskObj.length == 1) {
+            taskObj.pop();
+            actionButton.style.display = 'none';
+          }
           else taskObj.splice(index, 1);
           localStorage.removeItem('taskArray');
           localStorage.setItem('taskArray', JSON.stringify(taskObj));
