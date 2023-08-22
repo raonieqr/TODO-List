@@ -347,6 +347,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+
+  function clearCheckboxes() {
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => (checkbox.checked = false));
+  }
+
+  function clearRadios() {
+    let radios = document.querySelectorAll('input[type="radio"]');
+    radios.forEach((radio) => (radio.checked = false));
+  }
+
   function toggleModalStatus() {
     let editPage = document.getElementById('editStatusTask');
     let modalStyle = editPage.style.display;
@@ -354,6 +365,8 @@ document.addEventListener('DOMContentLoaded', function () {
       table.classList.remove('modalBlur');
       editPage.style.display = 'none';
       btnAddTaskList.style.display = 'block';
+      clearCheckboxes();
+      clearRadios();
     } else {
       editPage.style.display = 'block';
       table.classList.add('modalBlur');
@@ -367,6 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let modal = document.getElementById('editStatusTask');
     if (modal.style.display === 'block') {
       toggleModalStatus();
+      clearRadios();
     }
   });
 
