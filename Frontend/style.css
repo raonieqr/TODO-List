@@ -261,11 +261,12 @@ form#taskForm-detail label {
 }
 
 #actions {
+  position: absolute;
   border: none;
   padding: 1rem;
   border-radius: .5rem;
-  margin-left: 66.5rem;
-  margin-bottom: 1rem;
+  top: 37%;
+  right: 3%;
   background-color: rgb(65, 117, 212);
   color: #fff;
   transition: 300ms;
