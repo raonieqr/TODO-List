@@ -265,8 +265,9 @@ form#taskForm-detail label {
   border: none;
   padding: 1rem;
   border-radius: .5rem;
-  top: 37%;
-  right: 3%;
+  top: 8rem;
+  left: 2rem;
+  cursor: pointer;
   background-color: rgb(65, 117, 212);
   color: #fff;
   transition: 300ms;
