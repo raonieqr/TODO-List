@@ -116,10 +116,9 @@ document.addEventListener('DOMContentLoaded', function () {
   let table = document.getElementById('tasks');
   let btnAddTaskList = document.getElementById('addTaskList');
   btnShow.addEventListener('click', function () {
-    table.scrollIntoView({ behavior: 'smooth' });
-    if (taskObj.length === 0) {
+    if (taskObj.length <= 0) {
       alert('Lista vazia');
-      return;
+      // return;
     } else {
       btnAddTaskList.style.display = 'inline-block';
       btnShow.style.display = 'none';
@@ -401,21 +400,20 @@ document.addEventListener('DOMContentLoaded', function () {
     sectionAdd.style.display = 'flex';
     sectionAdd.scrollIntoView({ behavior: 'smooth' });
     btnShow.style.display = 'block';
-
+  
     btnShow.removeEventListener('click', showTaskClickHandler);
-
-    function showTaskClickHandler() {
-      btnShow.style.display = 'none';
-      sectionAdd.style.display = 'none';
-      btnAddTaskList.style.display = 'inline-block';
-      table.style.display = 'block';
-
-      table.scrollIntoView({ behavior: 'smooth' });
-      generateTable();
-
-      btnShow.removeEventListener('click', showTaskClickHandler);
-    }
-
-    btnShow.addEventListener('click', showTaskClickHandler);
   });
+  
+  function showTaskClickHandler() {
+    btnShow.style.display = 'none';
+    sectionAdd.style.display = 'none';
+    btnAddTaskList.style.display = 'inline-block';
+    table.style.display = 'block';
+  
+    table.scrollIntoView({ behavior: 'smooth' });
+    generateTable();
+  
+    btnShow.removeEventListener('click', showTaskClickHandler);
+  }
+  
 });
