@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
   btnShow.addEventListener('click', function () {
     if (taskObj.length <= 0) {
       alert('Lista vazia');
-      // return;
     } else {
       btnAddTaskList.style.display = 'inline-block';
       btnShow.style.display = 'none';
