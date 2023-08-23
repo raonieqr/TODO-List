@@ -33,16 +33,18 @@ public class Main
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
 		int idCounter = 1;
-		while (option != 4) {
+		while (option != 6) {
 			System.out.println("Escolha uma opções abaixo");
 			System.out.println("1 - Criar tarefa");
 			System.out.println("2 - Visualizar tarefas");
 			System.out.println("3 - Aguardar alarme");
-			System.out.println("4 - Sair");
+			System.out.println("4 - Editar status da tarefa");
+			System.out.println("5 - Deletar tarefa");
+			System.out.println("6 - Sair");
 			while (true) {
 				try {
 					option = Integer.parseInt(sc.nextLine());
-					if (option >= 1 && option <= 4)
+					if (option >= 1 && option <= 6)
 						break;
 					System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 4.");
 				} catch (Exception e) {
@@ -109,6 +111,44 @@ public class Main
 			if (option == 3) {
 				TaskAlarm taskAlarm = new TaskAlarm();
 				taskAlarm.run(taskWithAlarm);
+			}
+			if (option == 4) {
+				if (tasks.isEmpty()) {
+					System.out.println("Error: Lista vazia. Tente novamente");
+					continue;
+				}
+				for(Task task: tasks)
+					System.out.println(task);
+				System.out.println("Escolha o id da tarefa que gostaria de editar:");
+				int index = Integer.parseInt(sc.nextLine());
+				for (Task task: tasks) {
+					if (task.getId() == index) {
+						System.out.println("Qual o novo status da tarefa? ");
+						System.out.println("1 - Feito");
+						System.out.println("2 - Em andamento");
+						System.out.println("3 - A fazer");
+						String status = sc.nextLine();
+						while(!status.matches("^[1-3]$")) {
+							System.out.println("Error: Status inválido. Escolha um número entre 1 e 3.");
+							status = sc.nextLine();
+						}
+						task.setStatus(Status.fromValue(Integer.parseInt(status)));
+					}
+				}
+			}
+			if(option == 5) {
+				if (tasks.isEmpty()) {
+					System.out.println("Error: Lista vazia. Tente novamente");
+					continue;
+				}
+				for(Task task: tasks)
+					System.out.println(task);
+				System.out.println("Digite o id da tarefa que gostaria de deletar:");
+				int index = Integer.parseInt(sc.nextLine());
+				if (index >= 0 && (index - 1) <= tasks.size())
+					tasks.remove((index - 1));
+				else
+					System.out.println("Error: Index não encontrado");
 			}
 		}
 		if (!tasks.isEmpty()) {

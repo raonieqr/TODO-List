@@ -41,7 +41,7 @@ public enum Status {
 		while (true) {
 			try {
 				statusValue = Integer.parseInt(sc.nextLine());
-				if (statusValue >= 1 && statusValue <= 5)
+				if (statusValue >= 1 && statusValue <= 3)
 					break;
 				System.out.println("Error: Status inválido. Escolha um número entre 1 e 3.");
 			} catch (NumberFormatException e) {
