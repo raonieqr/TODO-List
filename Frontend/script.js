@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
       alert(`Error: data ${dateTime} inválida`);
       return;
     }
+    //TODO: create class for localStorage
     localStorage.setItem('lastId', String(lastId + 1));
     return {
       id: lastId,
