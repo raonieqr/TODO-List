@@ -1,4 +1,4 @@
-package entities;
+package todo_list.entities;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;

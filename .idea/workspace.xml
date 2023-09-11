@@ -4,217 +4,158 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2641a816-503e-48fc-b676-cb36fa8d0a99" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/TODO-List.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TODO-List.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="7325a502-6b9d-43e6-947a-ec1a3f7e39e9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Enum" />
-        <option value="Class" />
-        <option value="JUnit5 Test Class" />
-      </list>
-    </option>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3
-}</component>
-  <component name="ProjectId" id="2TWhgwb3EU56nALuRTI04yI9Ke3" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2VFjtkeRnGRLc5lJpbM4OhwFzkC" />
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "create.test.in.the.same.root": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/Users/rasilva/Developer/TODO-List",
+    "last_opened_file_path": "/Users/rasilva/Developer/gradle/TODO-List",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
-    <key name="CreateTestDialog.RecentsKey">
-      <recent name="test.entities" />
-    </key>
-  </component>
-  <component name="RunManager" selected="JUnit.TaskTest">
-    <configuration name="TaskTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TODO-List" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.entities.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.entities" />
-      <option name="MAIN_CLASS_NAME" value="test.entities.TaskTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+  <component name="RunManager" selected="Gradle.TaskTest">
+    <configuration name="TODO-List [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
     </configuration>
-    <configuration name="TaskTest.testAddTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TODO-List" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.entities.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.entities" />
-      <option name="MAIN_CLASS_NAME" value="test.entities.TaskTest" />
-      <option name="METHOD_NAME" value="testAddTask" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="TaskTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":app:test" />
+            <option value="--tests" />
+            <option value="&quot;todo_list.entities.TaskTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
     </configuration>
-    <configuration name="TaskTest.testDeleteTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TODO-List" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.entities.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.entities" />
-      <option name="MAIN_CLASS_NAME" value="test.entities.TaskTest" />
-      <option name="METHOD_NAME" value="testDeleteTask" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="TaskTest.testAddTask" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":app:test" />
+            <option value="--tests" />
+            <option value="&quot;todo_list.entities.TaskTest.testAddTask&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
     </configuration>
-    <configuration name="TaskTest.testEditTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TODO-List" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.entities.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.entities" />
-      <option name="MAIN_CLASS_NAME" value="test.entities.TaskTest" />
-      <option name="METHOD_NAME" value="testEditTask" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TaskTest.testReadTask" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TODO-List" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.entities.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.entities" />
-      <option name="MAIN_CLASS_NAME" value="test.entities.TaskTest" />
-      <option name="METHOD_NAME" value="testReadTask" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="TaskTest.testReadTask" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":app:test" />
+            <option value="--tests" />
+            <option value="&quot;todo_list.entities.TaskTest.testReadTask&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TaskTest" />
-        <item itemvalue="JUnit.TaskTest.testReadTask" />
-        <item itemvalue="JUnit.TaskTest.testEditTask" />
-        <item itemvalue="JUnit.TaskTest.testDeleteTask" />
-        <item itemvalue="JUnit.TaskTest.testAddTask" />
+        <item itemvalue="Gradle.TaskTest" />
+        <item itemvalue="Gradle.TaskTest.testAddTask" />
+        <item itemvalue="Gradle.TODO-List [dependencies]" />
+        <item itemvalue="Gradle.TaskTest.testReadTask" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2641a816-503e-48fc-b676-cb36fa8d0a99" name="Changes" comment="" />
-      <created>1691164859139</created>
+      <changelist id="7325a502-6b9d-43e6-947a-ec1a3f7e39e9" name="Changes" comment="" />
+      <created>1694438948603</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1691164859139</updated>
-      <workItem from="1691164861881" duration="12805000" />
-      <workItem from="1691189377426" duration="107000" />
-      <workItem from="1691189489632" duration="51000" />
-      <workItem from="1691189568273" duration="115000" />
-      <workItem from="1691189702178" duration="50000" />
-      <workItem from="1691189896202" duration="107000" />
-      <workItem from="1691190018309" duration="58000" />
-      <workItem from="1691190096956" duration="56000" />
-      <workItem from="1691190168448" duration="63000" />
-      <workItem from="1691190248311" duration="98000" />
-      <workItem from="1691190347561" duration="9995000" />
-      <workItem from="1691254902828" duration="1850000" />
-      <workItem from="1691256846173" duration="402000" />
-      <workItem from="1691257495578" duration="49000" />
-      <workItem from="1691257556338" duration="132000" />
-      <workItem from="1691258016851" duration="361000" />
-      <workItem from="1691258391389" duration="11731000" />
-      <workItem from="1691279086316" duration="3129000" />
-      <workItem from="1691284647399" duration="52000" />
-      <workItem from="1691280918155" duration="3867000" />
-      <workItem from="1691280873916" duration="722000" />
-      <workItem from="1691444831608" duration="820000" />
-      <workItem from="1691447956788" duration="1597000" />
-      <workItem from="1692792776405" duration="86000" />
-      <workItem from="1692792877008" duration="70000" />
-      <workItem from="1692795225385" duration="141000" />
-      <workItem from="1692830591038" duration="61000" />
-      <workItem from="1692831667912" duration="5485000" />
+      <updated>1694438948603</updated>
+      <workItem from="1694438950216" duration="2382000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

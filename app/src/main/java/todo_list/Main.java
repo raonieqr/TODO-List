@@ -1,9 +1,11 @@
-import entities.FileUtils;
-import entities.PrintLog;
-import entities.Task;
-import entities.TaskAlarm;
-import enums.Priority;
-import enums.Status;
+package todo_list;
+
+import todo_list.entities.FileUtils;
+import todo_list.entities.PrintLog;
+import todo_list.entities.Task;
+import todo_list.entities.TaskAlarm;
+import todo_list.enums.Priority;
+import todo_list.enums.Status;
 
 import java.io.File;
 import java.time.LocalDateTime;

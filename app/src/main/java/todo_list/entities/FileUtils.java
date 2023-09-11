@@ -1,4 +1,4 @@
-package entities;
+package todo_list.entities;
 
 import java.io.BufferedWriter;
 import java.io.File;
