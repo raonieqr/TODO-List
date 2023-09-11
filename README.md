@@ -30,19 +30,18 @@ The task will be added to the list of tasks.
 
 - This test ensures that a task can be successfully added to the list of tasks.
 
-
 #### `testReadTask`
 
 - This test verifies that the properties of a task can be read correctly.
 
 #### `testEditTask`
 
-This test ensures that a task's properties can be successfully edited.
-
+- This test ensures that a task's properties can be successfully edited.
 
 #### `testDeleteTask`
 
-This test validates that a task can be successfully deleted from the list of tasks.
+- This test validates that a task can be successfully deleted from the list of tasks.
+
 
 ## Gradle
   - Gradle was added to take care of dependency injections, testing and running the program.
