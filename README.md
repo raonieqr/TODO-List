@@ -16,24 +16,24 @@ The task will be added to the list of tasks.
 
 ## New Feature: Task Alarm Notification
 
-The new Task Alarm Notification feature enables the application to monitor the task list continuously and alert users when it is time to complete a task. 
+- The new Task Alarm Notification feature enables the application to monitor the task list continuously and alert users when it is time to complete a task. 
 
 ## Testing
 
-The functionality of the TODO-List application has been tested using JUnit tests. The tests cover various aspects of task management, ensuring the reliability and correctness of the implemented features.
+- The functionality of the TODO-List application has been tested using JUnit tests. The tests cover various aspects of task management, ensuring the reliability and correctness of the implemented features.
 
 ### TaskTest
 
-The `TaskTest` class includes several test methods to verify the behavior of the `Task` class:
+- The `TaskTest` class includes several test methods to verify the behavior of the `Task` class:
 
 #### `testAddTask`
 
-This test ensures that a task can be successfully added to the list of tasks.
+- This test ensures that a task can be successfully added to the list of tasks.
 
 
 #### `testReadTask`
 
-This test verifies that the properties of a task can be read correctly.
+- This test verifies that the properties of a task can be read correctly.
 
 #### `testEditTask`
 
@@ -43,3 +43,7 @@ This test ensures that a task's properties can be successfully edited.
 #### `testDeleteTask`
 
 This test validates that a task can be successfully deleted from the list of tasks.
+
+## Gradle
+  - Gradle was added to take care of dependency injections, testing and running the program.
+    The commands can be used: gradle test to run the tests, gradle build to build the project and gradle run to run
