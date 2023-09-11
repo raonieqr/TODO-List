@@ -1,7 +1,7 @@
-package entities;
+package todo_list.entities;
 
-import enums.Priority;
-import enums.Status;
+import todo_list.enums.Priority;
+import todo_list.enums.Status;
 
 import java.time.LocalDateTime;
 

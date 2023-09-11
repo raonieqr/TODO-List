@@ -1,8 +1,7 @@
-package enums;
+package todo_list.enums;
 
-import entities.PrintLog;
+import todo_list.entities.PrintLog;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public enum Status {

@@ -1,4 +1,4 @@
-package entities;
+package todo_list.entities;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -21,7 +21,7 @@ public class PrintLog {
 		System.out.println("3 - A fazer");
 	}
 
-	public static void showListStatus(ArrayList<entities.Task> tasks) {
+	public static void showListStatus(ArrayList<Task> tasks) {
 		showTypeStatus();
 		Scanner sc = new Scanner(System.in);
 		int option;

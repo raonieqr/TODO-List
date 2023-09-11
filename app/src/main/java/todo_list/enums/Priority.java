@@ -1,6 +1,6 @@
-package enums;
+package todo_list.enums;
 
-import entities.PrintLog;
+import todo_list.entities.PrintLog;
 
 import java.util.Scanner;
 
@@ -45,10 +45,11 @@ public enum Priority {
 				if (priorityValue >= 1 && priorityValue <= 5)
 					break;
 				System.out.println("Error: Prioridade inválida. Escolha um número entre 1 e 5.");
-			} catch (NumberFormatException e) {
+			}
+			catch (NumberFormatException e) {
 				System.out.println("Error: Entrada inválida. Digite um número válido.");
+			}
 		}
-	}
 
 		return Priority.fromValue(priorityValue);
 	}

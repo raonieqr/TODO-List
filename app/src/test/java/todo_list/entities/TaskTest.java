@@ -1,9 +1,8 @@
-package test.entities;
+package todo_list.entities;
 
-import entities.Task;
-import enums.Priority;
-import enums.Status;
 import org.junit.jupiter.api.Test;
+import todo_list.enums.Priority;
+import todo_list.enums.Status;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ class TaskTest {
 		tasks.add(task);
 
 		//Then
-		assertTrue(tasks.size() == 1);
+		assertEquals(1, tasks.size());
 		System.out.println("Tarefa criada com sucesso!");
 
 	}
@@ -48,13 +47,13 @@ class TaskTest {
 		LocalDateTime dateTime = task.getDateTime();
 
 		//Then
-		assertEquals(1, task.getId());
-		assertEquals("task1", task.getName());
-		assertEquals("comer", task.getDescription());
-		assertEquals("alimento", task.getCategory());
-		assertEquals(Priority.MEDIA, task.getPriority());
-		assertEquals(Status.TODO, task.getStatus());
-		assertEquals(LocalDateTime.of(2023, 10, 23, 22, 00), task.getDateTime());
+		assertEquals(1, id);
+		assertEquals("task1", name);
+		assertEquals("comer", description);
+		assertEquals("alimento", category);
+		assertEquals(Priority.MEDIA, priority);
+		assertEquals(Status.TODO, status);
+		assertEquals(LocalDateTime.of(2023, 10, 23, 22, 00), dateTime);
 		System.out.println("Tarefa lida com sucesso!");
 
 	}
