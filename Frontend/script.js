@@ -1,35 +1,40 @@
 document.addEventListener('DOMContentLoaded', function () {
+
   let btn = document.getElementById('createTask');
   let sectionAdd = document.getElementById('taskForm');
   let homeSection = document.getElementById('home');
   const actionButton = document.getElementById('actions');
 
-  btn.addEventListener('click', function () {
-    btn.classList.add = 'hiddenItem';
+  function handleButtonClick() {
+    btn.classList.add('hiddenItem');
     homeSection.style.display = 'none';
     sectionAdd.style.display = 'flex';
     sectionAdd.scrollIntoView({ behavior: 'smooth' });
-  });
+  }
+
+  btn.addEventListener('click', handleButtonClick);
 
   let btnSubmit = document.getElementById('addTask');
   let taskStr = localStorage.getItem('taskArray');
-
-  let taskObj;
-  if (taskStr) taskObj = JSON.parse(taskStr);
-  else taskObj = [];
+  let taskObj = taskStr ? JSON.parse(taskStr) : [];
   let lastId = parseInt(localStorage.getItem('lastId')) || 1;
 
-  btnSubmit.addEventListener('click', function () {
+  function handleTaskSubmission(event) {
     event.preventDefault();
-    let task = createTaskObj();
+
+    const task = createTaskObj();
+
     if (task) {
       taskObj.push(task);
-      alert('Tarefa ' + task.name + ' foi criada');
+      alert(`Tarefa ${task.name} foi criada`);
       lastId++;
       clearInputs();
       localStorage.setItem('taskArray', JSON.stringify(taskObj));
     }
-  });
+  }
+
+  btnSubmit.addEventListener('click', handleTaskSubmission);
+
 
   function isValidDate(dateString) {
     const dateTimePattern = /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/;
@@ -61,51 +66,72 @@ document.addEventListener('DOMContentLoaded', function () {
     return 1;
   }
 
-  function createTaskObj() {
-    let name = document.getElementById('name').value;
-    let description = document.getElementById('description').value;
-    let category = document.getElementById('category').value;
-    let priority = document.getElementById('priority').value;
-    let status = document.getElementById('status').value;
-    let dateTime = document.getElementById('dateTime').value;
+  function isNotEmpty(value) {
+    return value.trim() !== '';
+  }
 
-    if (
-      !name ||
-      !description ||
-      !category ||
-      !priority ||
-      !status ||
-      !dateTime
-    ) {
-      alert('Error: Todos os campos devem ser preenchidos.');
-      return;
+  function isValidStatus(status) {
+    const validStatus = ['todo', 'doing', 'done'];
+    return validStatus.includes(status);
+  }
+
+  function isValidPriority(priority) {
+    const priorityRegex = /^[1-5]$/;
+    return priorityRegex.test(priority);
+  }
+
+  class LocalStorageManager {
+    static getLastId() {
+      return parseInt(localStorage.getItem('lastId')) || 1;
     }
 
-    if (!['todo', 'doing', 'done'].includes(status)) {
+    static incrementLastId() {
+      const lastId = this.getLastId();
+      localStorage.setItem('lastId', String(lastId + 1));
+    }
+
+    static storeTask(task) {
+      const lastId = this.getLastId() || 1;
+      const taskWithId = { id: lastId, ...task };
+      localStorage.setItem('lastId', String(lastId + 1));
+      localStorage.setItem('taskArray', JSON.stringify(taskWithId));
+    }
+  }
+
+
+  function createTaskObj() {
+    const fields = ['name', 'description', 'category', 'priority', 'status', 'dateTime'];
+    const inputValues = {};
+
+    for (const field of fields) {
+      inputValues[field] = document.getElementById(field).value;
+      if (!isNotEmpty(inputValues[field])) {
+        alert('Error: Todos os campos devem ser preenchidos.');
+        return;
+      }
+    }
+
+    if (!isValidStatus(inputValues.status)) {
       alert('Error: Status inválido. Permitidos: todo, doing ou done.');
       return;
     }
-    let regex = /^[1-5]$/;
-    if (isNaN(priority) || !regex.test(priority)) {
+
+    if (!isValidPriority(inputValues.priority)) {
       alert('Error: Prioridade inválida. Use um número de 1 a 5.');
       return;
     }
 
-    if (!isValidDate(dateTime) || !checkDateInput(dateTime)) {
-      alert(`Error: data ${dateTime} inválida`);
+    if (!isValidDate(inputValues.dateTime) || !checkDateInput(inputValues.dateTime)) {
+      alert(`Error: data ${inputValues.dateTime} inválida`);
       return;
     }
-    //TODO: create class for localStorage
-    localStorage.setItem('lastId', String(lastId + 1));
-    return {
-      id: lastId,
-      name: name,
-      description: description,
-      category: category,
-      priority: priority,
-      status: status,
-      dateTime: dateTime,
-    };
+
+    const id = lastId;
+    inputValues.id = id;
+
+    LocalStorageManager.storeTask(inputValues);
+
+    return inputValues;
   }
 
   function clearInputs() {
@@ -116,10 +142,11 @@ document.addEventListener('DOMContentLoaded', function () {
   let btnShow = document.getElementById('showTask');
   let table = document.getElementById('tasks');
   let btnAddTaskList = document.getElementById('addTaskList');
-  btnShow.addEventListener('click', function () {
-    if (taskObj.length <= 0) {
-      alert('Lista vazia');
-    } else {
+  
+  function showTaskList() {
+    if (taskObj.length <= 0)
+        alert('Lista vazia');
+    else {
       btnAddTaskList.style.display = 'inline-block';
       btnShow.style.display = 'none';
       sectionAdd.style.display = 'none';
@@ -127,7 +154,9 @@ document.addEventListener('DOMContentLoaded', function () {
       table.scrollIntoView({ behavior: 'smooth' });
       generateTable();
     }
-  });
+  }
+
+  btnShow.addEventListener('click', showTaskList);
 
   function generateTable() {
     let thead = document.createElement('thead');
