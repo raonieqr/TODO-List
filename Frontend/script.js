@@ -98,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-
   function createTaskObj() {
     const fields = ['name', 'description', 'category', 'priority', 'status', 'dateTime'];
     const inputValues = {};
@@ -158,6 +157,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
   btnShow.addEventListener('click', showTaskList);
 
+  function createTableCell(text){
+    let cell = document.createElement('td');
+  
+    cell.innerHTML = text;
+  
+    return cell;
+  }
+  
+  function generateTableRow(cells) {
+    let row = document.createElement('tr');
+  
+    cells.forEach((cell) => {
+  
+      row.appendChild(cell);
+    });
+  
+    return row;
+  }
+
   function generateTable() {
     let thead = document.createElement('thead');
     let tbody = document.createElement('tbody');
@@ -177,42 +195,25 @@ document.addEventListener('DOMContentLoaded', function () {
           <th>Status</th>
           <th>Data e Hora</th>
           <th>Ações</th>`;
+          
     thead.appendChild(headerRow);
 
     for (let i = 0; i < taskObj.length; i++) {
+
       let task = taskObj[i];
 
-      let row = document.createElement('tr');
+      let c0 = createTableCell('<input type="checkbox" />')
+      let c1 = createTableCell(task.id)
+      let c2 = createTableCell(task.name)
+      let c3 = createTableCell(task.description)
+      let c4 = createTableCell(task.category)
+      let c5 = createTableCell(task.priority)
+      let c6 = createTableCell(task.status)
+      let c7 = createTableCell(task.dateTime)
+      let c8 = createTableCell('<i id="pencil" class="ph ph-pencil-line"></i>'
+       + '<i id="trash" class="ph ph-trash"></i>')
 
-      let c0 = document.createElement('td');
-      let c1 = document.createElement('td');
-      let c2 = document.createElement('td');
-      let c3 = document.createElement('td');
-      let c4 = document.createElement('td');
-      let c5 = document.createElement('td');
-      let c6 = document.createElement('td');
-      let c7 = document.createElement('td');
-      let c8 = document.createElement('td');
-
-      c0.innerHTML = '<input type="checkbox" />';
-      c1.innerText = task.id;
-      c2.innerText = task.name;
-      c3.innerText = task.description;
-      c4.innerText = task.category;
-      c5.innerText = task.priority;
-      c6.innerText = task.status;
-      c7.innerText = task.dateTime;
-      c8.innerHTML =
-        '<i id="pencil" class="ph ph-pencil-line"></i><i id="trash" class="ph ph-trash"></i>';
-      row.appendChild(c0);
-      row.appendChild(c1);
-      row.appendChild(c2);
-      row.appendChild(c3);
-      row.appendChild(c4);
-      row.appendChild(c5);
-      row.appendChild(c6);
-      row.appendChild(c7);
-      row.appendChild(c8);
+      let row = generateTableRow([c0, c1, c2, c3, c4, c5, c6, c7, c8])
       tbody.appendChild(row);
       table.appendChild(thead);
       table.appendChild(tbody);
@@ -278,13 +279,12 @@ document.addEventListener('DOMContentLoaded', function () {
       while (selectedRowsArray.length !== 0) {
         let index = selectedRowsArray.pop();
         taskObj.forEach((task) => {
-          if (task.id === index) {
+          if (task.id === index)
             task.status = valueRadio;
-          }
         });
       }
     } else alert('Error: seleciona uma opção');
-    localStorage.setItem('taskArray', JSON.stringify(taskObj));
+    LocalStorageManager.storeTask(taskObj)
     generateTable();
     alert("Status modificado!");
     toggleModalStatus();
@@ -333,13 +333,9 @@ document.addEventListener('DOMContentLoaded', function () {
       let status = statusInput.value;
       let dateTime = dateTimeInput.value;
 
-      if (
-        !name ||
-        !description ||
-        !category ||
-        !priority ||
-        !status ||
-        !dateTime
+      if (!name || !description ||
+        !category || !priority ||
+        !status || !dateTime
       ) {
         alert('Error: Todos os campos devem ser preenchidos.');
         return;
