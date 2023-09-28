@@ -102,6 +102,11 @@ document.addEventListener('DOMContentLoaded', function () {
       
       this.incrementLastId();
     }
+
+    static storeUpdate(taskArray, taskObj) {
+      localStorage.removeItem(taskArray);
+      localStorage.setItem(taskArray, JSON.stringify(taskObj));
+    }
   }
 
   function createTaskObj() {
@@ -209,20 +214,19 @@ document.addEventListener('DOMContentLoaded', function () {
   function handleDeleteTask(index, row) {
     if (taskObj.length === 1) {
       taskObj.pop();
+
       actionButton.style.display = 'none';
-    } else {
+    } 
+    else
       taskObj.splice(index, 1);
-    }
     
-    localStorage.removeItem('taskArray');
-    localStorage.setItem('taskArray', JSON.stringify(taskObj));
+    LocalStorageManager.storeUpdate("taskArray", taskObj);
     
     row.parentNode.removeChild(row);
   
     let checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    if (checkedCheckboxes.length === 0) {
+    if (checkedCheckboxes.length === 0) 
       actionButton.style.display = 'none';
-    }
   }
 
   function createTaskRow(task) {
@@ -240,16 +244,25 @@ document.addEventListener('DOMContentLoaded', function () {
     return generateTableRow([c0, c1, c2, c3, c4, c5, c6, c7, c8]);
   }
 
+  function handleCheckboxChange(checkboxes) {
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener('change', function () {
+        let checked = Array.from(checkboxes).some((boxes) => boxes.checked);
+        if (checked) actionButton.style.display = 'block';
+        else actionButton.style.display = 'none';
+      });
+    });
+  }
+
   function generateTable() {
     let thead = document.createElement('thead');
     let tbody = document.createElement('tbody');
 
-    while (table.firstChild) {
+    while (table.firstChild)
       table.removeChild(table.firstChild);
-    }
 
     let headerRow = createTableHeaderRow();
-          
+      
     thead.appendChild(headerRow);
 
     for (let i = 0; i < taskObj.length; i++) {
@@ -257,6 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
       let task = taskObj[i];
 
       let row = createTaskRow(task);
+
       tbody.appendChild(row);
       table.appendChild(thead);
       table.appendChild(tbody);
@@ -272,18 +286,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-    checkboxes.forEach(function (checkbox) {
-      checkbox.addEventListener('change', function () {
-        let checked = Array.from(checkboxes).some((boxes) => boxes.checked);
-        if (checked) actionButton.style.display = 'block';
-        else actionButton.style.display = 'none';
-      });
-    });
+    handleCheckboxChange(checkboxes);
+
   }
 
   actionButton.addEventListener('click', function () {
     toggleModalStatus();
   });
+ 
 
   let btnSaveStatus = document.getElementById('btnStatusTask');
 
@@ -300,6 +310,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return Number(row.querySelector('td:nth-child(2)').textContent);
     });
 
+    // selectedRowsArray = getSelectedRowIdsFromTable();
     if (radios.length > 0) {
       var valueRadio = radios[0].value;
       while (selectedRowsArray.length !== 0) {
@@ -309,10 +320,15 @@ document.addEventListener('DOMContentLoaded', function () {
             task.status = valueRadio;
         });
       }
-    } else alert('Error: seleciona uma opção');
-    LocalStorageManager.storeTask(taskObj)
+    } 
+    else alert('Error: seleciona uma opção');
+
+    LocalStorageManager.storeUpdate("taskArray", taskObj);
+
     generateTable();
+
     alert("Status modificado!");
+    
     toggleModalStatus();
   });
 
@@ -420,15 +436,20 @@ document.addEventListener('DOMContentLoaded', function () {
   function toggleModalStatus() {
     let editPage = document.getElementById('editStatusTask');
     let modalStyle = editPage.style.display;
+
     if (modalStyle === 'block') {
       table.classList.remove('modalBlur');
+
       editPage.style.display = 'none';
       btnAddTaskList.style.display = 'block';
+
       clearCheckboxes();
       clearRadios();
     } else {
       editPage.style.display = 'block';
+
       table.classList.add('modalBlur');
+
       actionButton.style.display = 'none';
       btnAddTaskList.style.display = 'none';
     }
