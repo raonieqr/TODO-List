@@ -21,16 +21,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function handleTaskSubmission(event) {
     event.preventDefault();
-
-    const task = createTaskObj();
-
+  
+    let task = createTaskObj();
+  
     if (task) {
-      taskObj.push(task);
       alert(`Tarefa ${task.name} foi criada`);
+      taskObj.push(task);
       lastId++;
       clearInputs();
       localStorage.setItem('taskArray', JSON.stringify(taskObj));
     }
+  
   }
 
   btnSubmit.addEventListener('click', handleTaskSubmission);
@@ -84,17 +85,23 @@ document.addEventListener('DOMContentLoaded', function () {
     static getLastId() {
       return parseInt(localStorage.getItem('lastId')) || 1;
     }
-
+  
     static incrementLastId() {
       const lastId = this.getLastId();
       localStorage.setItem('lastId', String(lastId + 1));
     }
-
+  
     static storeTask(task) {
-      const lastId = this.getLastId() || 1;
-      const taskWithId = { id: lastId, ...task };
-      localStorage.setItem('lastId', String(lastId + 1));
-      localStorage.setItem('taskArray', JSON.stringify(taskWithId));
+      const lastId = this.getLastId();
+      const taskArray = JSON.parse(localStorage.getItem('taskArray')) || [];
+  
+      task.id = lastId;
+  
+      taskArray.push(task);
+      
+      localStorage.setItem('taskArray', JSON.stringify(taskArray));
+      
+      this.incrementLastId();
     }
   }
 
@@ -106,27 +113,24 @@ document.addEventListener('DOMContentLoaded', function () {
       inputValues[field] = document.getElementById(field).value;
       if (!isNotEmpty(inputValues[field])) {
         alert('Error: Todos os campos devem ser preenchidos.');
-        return;
+        return null;
       }
     }
 
     if (!isValidStatus(inputValues.status)) {
       alert('Error: Status inválido. Permitidos: todo, doing ou done.');
-      return;
+      return null;
     }
 
     if (!isValidPriority(inputValues.priority)) {
       alert('Error: Prioridade inválida. Use um número de 1 a 5.');
-      return;
+      return null;
     }
 
     if (!isValidDate(inputValues.dateTime) || !checkDateInput(inputValues.dateTime)) {
       alert(`Error: data ${inputValues.dateTime} inválida`);
-      return;
+      return null;
     }
-
-    const id = lastId;
-    inputValues.id = id;
 
     LocalStorageManager.storeTask(inputValues);
 
@@ -242,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
       pencilIcon.addEventListener('click', function () {
         openEditModal(task, i);
       });
+
     }
 
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
