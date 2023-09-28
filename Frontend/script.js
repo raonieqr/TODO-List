@@ -225,6 +225,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  function createTaskRow(task) {
+    let c0 = createTableCell('<input type="checkbox" />');
+    let c1 = createTableCell(task.id);
+    let c2 = createTableCell(task.name);
+    let c3 = createTableCell(task.description);
+    let c4 = createTableCell(task.category);
+    let c5 = createTableCell(task.priority);
+    let c6 = createTableCell(task.status);
+    let c7 = createTableCell(task.dateTime);
+    let c8 = createTableCell('<i id="pencil" class="ph ph-pencil-line"></i>'
+     + '<i id="trash" class="ph ph-trash"></i>');
+  
+    return generateTableRow([c0, c1, c2, c3, c4, c5, c6, c7, c8]);
+  }
+
   function generateTable() {
     let thead = document.createElement('thead');
     let tbody = document.createElement('tbody');
@@ -241,18 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       let task = taskObj[i];
 
-      let c0 = createTableCell('<input type="checkbox" />')
-      let c1 = createTableCell(task.id)
-      let c2 = createTableCell(task.name)
-      let c3 = createTableCell(task.description)
-      let c4 = createTableCell(task.category)
-      let c5 = createTableCell(task.priority)
-      let c6 = createTableCell(task.status)
-      let c7 = createTableCell(task.dateTime)
-      let c8 = createTableCell('<i id="pencil" class="ph ph-pencil-line"></i>'
-       + '<i id="trash" class="ph ph-trash"></i>')
-
-      let row = generateTableRow([c0, c1, c2, c3, c4, c5, c6, c7, c8])
+      let row = createTaskRow(task);
       tbody.appendChild(row);
       table.appendChild(thead);
       table.appendChild(tbody);
