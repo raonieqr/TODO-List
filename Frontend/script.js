@@ -50,8 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let diff =
       new Date(year, month - 1, day, hours, minutes).getTime() - Date.now();
     if (
-      parseInt(month, 10) > 12 ||
-      parseInt(hours, 10) > 23 ||
+      parseInt(month, 10) > 12 || parseInt(hours, 10) > 23 ||
       parseInt(minutes, 10) > 59
     )
       return 0;
@@ -111,24 +110,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (const field of fields) {
       inputValues[field] = document.getElementById(field).value;
+
       if (!isNotEmpty(inputValues[field])) {
         alert('Error: Todos os campos devem ser preenchidos.');
+
         return null;
       }
     }
 
     if (!isValidStatus(inputValues.status)) {
       alert('Error: Status inválido. Permitidos: todo, doing ou done.');
+
       return null;
     }
 
     if (!isValidPriority(inputValues.priority)) {
       alert('Error: Prioridade inválida. Use um número de 1 a 5.');
+
       return null;
     }
 
     if (!isValidDate(inputValues.dateTime) || !checkDateInput(inputValues.dateTime)) {
       alert(`Error: data ${inputValues.dateTime} inválida`);
+
       return null;
     }
 
@@ -180,6 +184,28 @@ document.addEventListener('DOMContentLoaded', function () {
     return row;
   }
 
+  function createTableHeaderRow() {
+    const headerRow = document.createElement('tr');
+    headerRow.innerHTML = `
+      <th></th>
+      <th>Id</th>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Categoria</th>
+      <th>Prioridade</th>
+      <th>Status</th>
+      <th>Data e Hora</th>
+      <th>Ações</th>
+    `;
+    return headerRow;
+  }
+  
+  function addEditTaskEvent(pencilIcon, task, index) {
+    pencilIcon.addEventListener('click', function () {
+      openEditModal(task, index);
+    });
+  }
+
   function generateTable() {
     let thead = document.createElement('thead');
     let tbody = document.createElement('tbody');
@@ -188,17 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
       table.removeChild(table.firstChild);
     }
 
-    let headerRow = document.createElement('tr');
-    headerRow.innerHTML = `
-          <th></th>
-          <th>Id</th>
-          <th>Nome</th>
-          <th>Descrição</th>
-          <th>Categoria</th>
-          <th>Prioridade</th>
-          <th>Status</th>
-          <th>Data e Hora</th>
-          <th>Ações</th>`;
+    let headerRow = createTableHeaderRow();
           
     thead.appendChild(headerRow);
 
@@ -243,10 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
       })(i);
 
       let pencilIcon = row.querySelector('#pencil');
-      pencilIcon.addEventListener('click', function () {
-        openEditModal(task, i);
-      });
-
+      addEditTaskEvent(pencilIcon, task, i);
     }
 
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
