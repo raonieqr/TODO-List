@@ -206,6 +206,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function handleDeleteTask(index, row) {
+    if (taskObj.length === 1) {
+      taskObj.pop();
+      actionButton.style.display = 'none';
+    } else {
+      taskObj.splice(index, 1);
+    }
+    
+    localStorage.removeItem('taskArray');
+    localStorage.setItem('taskArray', JSON.stringify(taskObj));
+    
+    row.parentNode.removeChild(row);
+  
+    let checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    if (checkedCheckboxes.length === 0) {
+      actionButton.style.display = 'none';
+    }
+  }
+
   function generateTable() {
     let thead = document.createElement('thead');
     let tbody = document.createElement('tbody');
@@ -238,25 +257,10 @@ document.addEventListener('DOMContentLoaded', function () {
       table.appendChild(thead);
       table.appendChild(tbody);
 
-      ((index) => {
-        let trashIcon = row.querySelector('#trash');
-        trashIcon.addEventListener('click', function () {
-          if (taskObj.length === 1) {
-            taskObj.pop();
-            actionButton.style.display = 'none';
-          } 
-          else
-            taskObj.splice(index, 1);
-          localStorage.removeItem('taskArray');
-          localStorage.setItem('taskArray', JSON.stringify(taskObj));
-          tbody.removeChild(row);
-          let checkedCheckboxes = document.querySelectorAll(
-            'input[type="checkbox"]:checked'
-          );
-          if (checkedCheckboxes.length === 0)
-            actionButton.style.display = 'none';
-        });
-      })(i);
+      let trashIcon = row.querySelector('#trash');
+      trashIcon.addEventListener('click', function () {
+        handleDeleteTask(i, row);
+      });
 
       let pencilIcon = row.querySelector('#pencil');
       addEditTaskEvent(pencilIcon, task, i);
