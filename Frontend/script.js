@@ -378,54 +378,78 @@ document.addEventListener('DOMContentLoaded', function () {
     dateTimeInput.value = task.dateTime;
 
     let btnEditTask = document.getElementById('btnEditTask');
-    btnEditTask.addEventListener('click', editTaskHandler);
 
-    function editTaskHandler() {
-      let name = nameInput.value;
-      let description = descriptionInput.value;
-      let category = categoryInput.value;
-      let priority = priorityInput.value;
-      let status = statusInput.value;
-      let dateTime = dateTimeInput.value;
+    btnEditTask.removeEventListener('click', editTaskHandler);
 
-      if (!name || !description ||
-        !category || !priority ||
-        !status || !dateTime
-      ) {
+
+    let modal = document.getElementById('editPageTask');
+    modal.style.display = 'block';
+
+    btnEditTask.addEventListener('click', function () {
+        editTaskHandler(index);
+        table.classList.remove('modalBlur');
+        modal.style.display = 'none';
+    });
+
+    btnEditTask.addEventListener('click', function () {
+        editTaskHandler(task, index);
+    });
+
+  }
+
+  function editTaskHandler(index) {
+    let nameInput = document.getElementById('nameEdit');
+    let descriptionInput = document.getElementById('descriptionEdit');
+    let categoryInput = document.getElementById('categoryEdit');
+    let priorityInput = document.getElementById('priorityEdit');
+    let statusInput = document.getElementById('statusEdit');
+    let dateTimeInput = document.getElementById('dateTimeEdit');
+
+    let name = nameInput.value;
+    let description = descriptionInput.value;
+    let category = categoryInput.value;
+    let priority = priorityInput.value;
+    let status = statusInput.value;
+    let dateTime = dateTimeInput.value;
+
+    if (!name || !description || !category || !priority || !status || !dateTime) {
         alert('Error: Todos os campos devem ser preenchidos.');
         return;
-      }
+    }
 
-      if (!['todo', 'doing', 'done'].includes(status)) {
+    if (!['todo', 'doing', 'done'].includes(status)) {
         alert('Error: Status inválido. Permitidos: todo, doing ou done.');
         return;
-      }
+    }
 
-      if (isNaN(priority) || priority < 1 || priority > 5) {
+    if (isNaN(priority) || priority < 1 || priority > 5) {
         alert('Error: Prioridade inválida. Use um número de 1 a 5.');
         return;
-      }
-
-      if (!isValidDate(dateTime) || !checkDateInput(dateTime)) {
-        alert(`Error: data ${dateTime} inválida`);
-        return;
-      }
-
-      taskObj[index].name = name;
-      taskObj[index].description = descriptionInput.value;
-      taskObj[index].category = categoryInput.value;
-      taskObj[index].priority = priorityInput.value;
-      taskObj[index].status = statusInput.value;
-      taskObj[index].dateTime = dateTimeInput.value;
-
-      localStorage.removeItem('taskArray');
-      localStorage.setItem('taskArray', JSON.stringify(taskObj));
-      generateTable();
-      toggleModal();
-
-      btnEditTask.removeEventListener('click', editTaskHandler);
     }
+
+    if (!isValidDate(dateTime) || !checkDateInput(dateTime)) {
+        alert(`Error: Data ${dateTime} inválida`);
+        return;
+    }
+
+    if (typeof taskObj[index] !== "undefined") {
+      taskObj[index].name = name;
+      taskObj[index].description = description;
+      taskObj[index].category = category;
+      taskObj[index].priority = priority;
+      taskObj[index].status = status;
+      taskObj[index].dateTime = dateTime;
+
+      LocalStorageManager.storeUpdate("taskArray", taskObj);
+
+      generateTable();
+    
+      toggleModal();
+    }
+    btnEditTask.removeEventListener('click', editTaskHandler);
+
   }
+
 
   let closeModal = document.getElementById('closeModal');
   closeModal.addEventListener('click', function () {
