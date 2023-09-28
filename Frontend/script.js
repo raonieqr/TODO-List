@@ -297,12 +297,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let btnSaveStatus = document.getElementById('btnStatusTask');
 
-  btnSaveStatus.addEventListener('click', function () {
-    let radios = document.querySelectorAll('input[type="radio"]:checked');
-    let selectedRowsArray = [];
-
-    var rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
-    var checkedRows = rows.filter((row) => {
+  function getSelectedRowIdsFromTable() {
+    let rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
+    let checkedRows = rows.filter((row) => {
       return row.querySelector('input[type="checkbox"]').checked;
     });
 
@@ -310,18 +307,32 @@ document.addEventListener('DOMContentLoaded', function () {
       return Number(row.querySelector('td:nth-child(2)').textContent);
     });
 
-    // selectedRowsArray = getSelectedRowIdsFromTable();
+    return selectedRowsArray;
+  }
+
+  function updateStatusForSelectedRows() {
+    let radios = document.querySelectorAll('input[type="radio"]:checked');
+    let selectedRowsArray = [];
+
+    selectedRowsArray = getSelectedRowIdsFromTable();
+
     if (radios.length > 0) {
       var valueRadio = radios[0].value;
+
       while (selectedRowsArray.length !== 0) {
         let index = selectedRowsArray.pop();
+
         taskObj.forEach((task) => {
+        
           if (task.id === index)
             task.status = valueRadio;
         });
       }
     } 
-    else alert('Error: seleciona uma opção');
+    else {
+      alert('Error: selecione uma opção');
+      return;
+    }
 
     LocalStorageManager.storeUpdate("taskArray", taskObj);
 
@@ -330,7 +341,9 @@ document.addEventListener('DOMContentLoaded', function () {
     alert("Status modificado!");
     
     toggleModalStatus();
-  });
+  }
+
+  btnSaveStatus.addEventListener('click', updateStatusForSelectedRows);
 
   function toggleModal() {
     let editPage = document.getElementById('editPageTask');
@@ -417,6 +430,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let closeModal = document.getElementById('closeModal');
   closeModal.addEventListener('click', function () {
     let modal = document.getElementById('editPageTask');
+
     if (modal.style.display === 'block') {
       toggleModal();
     }
@@ -445,7 +459,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       clearCheckboxes();
       clearRadios();
-    } else {
+
+    } 
+    else {
       editPage.style.display = 'block';
 
       table.classList.add('modalBlur');
@@ -458,13 +474,15 @@ document.addEventListener('DOMContentLoaded', function () {
   let closeModalStatus = document.getElementById('closeModalStatus');
   closeModalStatus.addEventListener('click', function () {
     let modal = document.getElementById('editStatusTask');
+
     if (modal.style.display === 'block') {
       toggleModalStatus();
+
       clearRadios();
     }
   });
 
-  btnAddTaskList.addEventListener('click', function () {
+  function showTaskForm() {
     homeSection.style.display = 'none';
     btnAddTaskList.style.display = 'none';
     table.style.display = 'none';
@@ -472,10 +490,12 @@ document.addEventListener('DOMContentLoaded', function () {
     sectionAdd.style.display = 'flex';
     sectionAdd.scrollIntoView({ behavior: 'smooth' });
     btnShow.style.display = 'block';
-  
+
     btnShow.removeEventListener('click', showTaskClickHandler);
-  });
-  
+  }
+
+  btnAddTaskList.addEventListener('click', showTaskForm);
+
   function showTaskClickHandler() {
     btnShow.style.display = 'none';
     sectionAdd.style.display = 'none';
