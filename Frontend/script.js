@@ -204,12 +204,6 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
     return headerRow;
   }
-  
-  function addEditTaskEvent(pencilIcon, task, index) {
-    pencilIcon.addEventListener('click', function () {
-      openEditModal(task, index);
-    });
-  }
 
   function handleDeleteTask(index, row) {
     if (taskObj.length === 1) {
@@ -254,6 +248,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  var indexEdit = 0;
+
   function generateTable() {
     let thead = document.createElement('thead');
     let tbody = document.createElement('tbody');
@@ -281,7 +277,11 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       let pencilIcon = row.querySelector('#pencil');
-      addEditTaskEvent(pencilIcon, task, i);
+      pencilIcon.addEventListener('click', function () {
+        console.log("pencil click")
+        indexEdit = i;
+        openEditModal(task, i);
+      });
     }
 
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function openEditModal(task, index) {
+  function openEditModal(task) {
     toggleModal();
 
     let nameInput = document.getElementById('nameEdit');
@@ -377,24 +377,15 @@ document.addEventListener('DOMContentLoaded', function () {
     statusInput.value = task.status;
     dateTimeInput.value = task.dateTime;
 
-    let btnEditTask = document.getElementById('btnEditTask');
-
-    btnEditTask.removeEventListener('click', editTaskHandler);
+  }
 
 
-    let modal = document.getElementById('editPageTask');
-    modal.style.display = 'block';
+  btnEditTask.addEventListener('click', () => test());
 
-    btnEditTask.addEventListener('click', function () {
-        editTaskHandler(index);
-        table.classList.remove('modalBlur');
-        modal.style.display = 'none';
-    });
-
-    btnEditTask.addEventListener('click', function () {
-        editTaskHandler(task, index);
-    });
-
+  function test() {
+    console.log(btnEditTask)
+    editTaskHandler(indexEdit);
+   
   }
 
   function editTaskHandler(index) {
@@ -446,8 +437,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
       toggleModal();
     }
-    btnEditTask.removeEventListener('click', editTaskHandler);
-
   }
 
 
