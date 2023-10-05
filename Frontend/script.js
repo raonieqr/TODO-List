@@ -43,27 +43,41 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function checkDateInput(dateString) {
-    let [date, time] = dateString.split(' ');
-    let [day, month, year] = date.split('/');
-    let [hours, minutes] = time.split(':');
-
-    let diff =
-      new Date(year, month - 1, day, hours, minutes).getTime() - Date.now();
+    const [date, time] = dateString.split(' ');
+    const [day, month, year] = date.split('/');
+    const [hours, minutes] = time.split(':');
+    const parsedMonth = parseInt(month, 10);
+    const parsedHours = parseInt(hours, 10);
+    const parsedMinutes = parseInt(minutes, 10);
+  
+    const diff = new Date(year, parsedMonth - 1, day,
+       parsedHours, parsedMinutes).getTime() - Date.now();
+  
     if (
-      parseInt(month, 10) > 12 || parseInt(hours, 10) > 23 ||
-      parseInt(minutes, 10) > 59
+      isInvalidMonth(parsedMonth) ||
+      isInvalidTime(parsedHours, parsedMinutes) ||
+      isInvalidDay(parsedMonth, day) ||
+      isNegativeDiff(diff)
     )
       return 0;
 
-    if (parseInt(month, 10) === 2 && parseInt(day, 10) > 29) return 0;
-    else if (
-      [4, 6, 9, 11].includes(parseInt(month, 10)) &&
-      parseInt(day, 10) > 30
-    )
-      return 0;
-    else if (parseInt(day, 10) > 31) return 0;
-    else if (diff < 0) return 0;
     return 1;
+  }
+  
+  function isInvalidMonth(month) {
+    return month > 12;
+  }
+  
+  function isInvalidTime(hours, minutes) {
+    return hours > 23 || minutes > 59;
+  }
+  
+  function isInvalidDay(month, day) {
+    return (month === 2 && day > 29) || ([4, 6, 9, 11].includes(month) && day > 30) || day > 31;
+  }
+  
+  function isNegativeDiff(diff) {
+    return diff < 0;
   }
 
   function isNotEmpty(value) {
@@ -278,9 +292,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       let pencilIcon = row.querySelector('#pencil');
       pencilIcon.addEventListener('click', function () {
-        console.log("pencil click")
         indexEdit = i;
-        openEditModal(task, i);
+        openEditModal(task);
       });
     }
 
@@ -380,12 +393,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 
-  btnEditTask.addEventListener('click', () => test());
+  btnEditTask.addEventListener('click', () => saveEditTask());
 
-  function test() {
-    console.log(btnEditTask)
+  function saveEditTask() {
     editTaskHandler(indexEdit);
-   
   }
 
   function editTaskHandler(index) {
