@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
   let btnSubmit = document.getElementById('addTask');
   let taskStr = LocalStorageManager.getStorage('taskArray');
   let taskObj = taskStr ? JSON.parse(taskStr) : [];
-  let lastId = LocalStorageManager.getLastId();
 
   function handleTaskSubmission(event) {
     event.preventDefault();
@@ -29,9 +28,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (task) {
       alert(`Tarefa ${task.name} foi criada`);
       taskObj.push(task);
-      lastId++;
+      LocalStorageManager.incrementLastId();
       clearInputs();
-      localStorage.setItem('taskArray', JSON.stringify(taskObj));
+      LocalStorageManager.storeTask(taskObj);
     }
   
   }
