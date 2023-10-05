@@ -94,35 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
     return priorityRegex.test(priority);
   }
 
-  class LocalStorageManager {
-    static getLastId() {
-      return parseInt(localStorage.getItem('lastId')) || 1;
-    }
-  
-    static incrementLastId() {
-      const lastId = this.getLastId();
-      localStorage.setItem('lastId', String(lastId + 1));
-    }
-  
-    static storeTask(task) {
-      const lastId = this.getLastId();
-      const taskArray = JSON.parse(localStorage.getItem('taskArray')) || [];
-  
-      task.id = lastId;
-  
-      taskArray.push(task);
-      
-      localStorage.setItem('taskArray', JSON.stringify(taskArray));
-      
-      this.incrementLastId();
-    }
-
-    static storeUpdate(taskArray, taskObj) {
-      localStorage.removeItem(taskArray);
-      localStorage.setItem(taskArray, JSON.stringify(taskObj));
-    }
-  }
-
   function createTaskObj() {
     const fields = ['name', 'description', 'category', 'priority', 'status', 'dateTime'];
     const inputValues = {};
@@ -400,56 +371,88 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function editTaskHandler(index) {
-    let nameInput = document.getElementById('nameEdit');
-    let descriptionInput = document.getElementById('descriptionEdit');
-    let categoryInput = document.getElementById('categoryEdit');
-    let priorityInput = document.getElementById('priorityEdit');
-    let statusInput = document.getElementById('statusEdit');
-    let dateTimeInput = document.getElementById('dateTimeEdit');
-
-    let name = nameInput.value;
-    let description = descriptionInput.value;
-    let category = categoryInput.value;
-    let priority = priorityInput.value;
-    let status = statusInput.value;
-    let dateTime = dateTimeInput.value;
-
-    if (!name || !description || !category || !priority || !status || !dateTime) {
-        alert('Error: Todos os campos devem ser preenchidos.');
-        return;
+    const taskInputs = getTaskInputs();
+  
+    if (!validateFields(taskInputs) ||
+        !isValidStatus(taskInputs.status) ||
+        !isValidPriority(taskInputs.priority) ||
+        !isValidDateTime(taskInputs.dateTime)) {
+      return;
     }
-
-    if (!['todo', 'doing', 'done'].includes(status)) {
-        alert('Error: Status inválido. Permitidos: todo, doing ou done.');
-        return;
-    }
-
-    if (isNaN(priority) || priority < 1 || priority > 5) {
-        alert('Error: Prioridade inválida. Use um número de 1 a 5.');
-        return;
-    }
-
-    if (!isValidDate(dateTime) || !checkDateInput(dateTime)) {
-        alert(`Error: Data ${dateTime} inválida`);
-        return;
-    }
-
-    if (typeof taskObj[index] !== "undefined") {
-      taskObj[index].name = name;
-      taskObj[index].description = description;
-      taskObj[index].category = category;
-      taskObj[index].priority = priority;
-      taskObj[index].status = status;
-      taskObj[index].dateTime = dateTime;
-
-      LocalStorageManager.storeUpdate("taskArray", taskObj);
-
+  
+    if (updateTask(index, taskInputs)) {
       generateTable();
-
-      alert(`A tarefa ${taskObj[index].name} foi editada!`)
-    
+      alert(`A tarefa ${taskObj[index].name} foi editada!`);
       toggleModal();
     }
+  }
+  
+  function getTaskInputs() {
+    const nameInput = document.getElementById('nameEdit');
+    const descriptionInput = document.getElementById('descriptionEdit');
+    const categoryInput = document.getElementById('categoryEdit');
+    const priorityInput = document.getElementById('priorityEdit');
+    const statusInput = document.getElementById('statusEdit');
+    const dateTimeInput = document.getElementById('dateTimeEdit');
+  
+    return {
+      name: nameInput.value,
+      description: descriptionInput.value,
+      category: categoryInput.value,
+      priority: priorityInput.value,
+      status: statusInput.value,
+      dateTime: dateTimeInput.value
+    };
+  }
+  
+  function validateFields(taskInputs) {
+    const { name, description, category, priority, status, dateTime } = taskInputs;
+    if (!name || !description || !category || !priority || !status || !dateTime) {
+      alert('Erro: Todos os campos devem ser preenchidos.');
+      return false;
+    }
+    return true;
+  }
+  
+  function isValidStatus(status) {
+    if (!['todo', 'doing', 'done'].includes(status)) {
+      alert('Erro: Status inválido. Permitidos: todo, doing ou done.');
+      return false;
+    }
+    return true;
+  }
+  
+  function isValidPriority(priority) {
+    const numericPriority = Number(priority);
+    if (isNaN(numericPriority) || numericPriority < 1 || numericPriority > 5) {
+      alert('Erro: Prioridade inválida. Use um número de 1 a 5.');
+      return false;
+    }
+    return true;
+  }
+  
+  function isValidDateTime(dateTime) {
+    if (!isValidDate(dateTime) || !checkDateInput(dateTime)) {
+      alert(`Erro: Data ${dateTime} inválida`);
+      return false;
+    }
+    return true;
+  }
+  
+  function updateTask(index, taskInputs) {
+    if (typeof taskObj[index] !== "undefined") {
+      taskObj[index].name = taskInputs.name;
+      taskObj[index].description = taskInputs.description;
+      taskObj[index].category = taskInputs.category;
+      taskObj[index].priority = taskInputs.priority;
+      taskObj[index].status = taskInputs.status;
+      taskObj[index].dateTime = taskInputs.dateTime;
+  
+      LocalStorageManager.storeUpdate("taskArray", taskObj);
+  
+      return true;
+    }
+    return false;
   }
 
   let closeModal = document.getElementById('closeModal');
