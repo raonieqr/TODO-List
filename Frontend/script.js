@@ -1,3 +1,5 @@
+import {LocalStorageManager} from './LocalStorageManager';
+
 document.addEventListener('DOMContentLoaded', function () {
 
   let btn = document.getElementById('createTask');
@@ -15,9 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
   btn.addEventListener('click', handleButtonClick);
 
   let btnSubmit = document.getElementById('addTask');
-  let taskStr = localStorage.getItem('taskArray');
+  let taskStr = LocalStorageManager.getStorage('taskArray');
   let taskObj = taskStr ? JSON.parse(taskStr) : [];
-  let lastId = parseInt(localStorage.getItem('lastId')) || 1;
+  let lastId = LocalStorageManager.getLastId();
 
   function handleTaskSubmission(event) {
     event.preventDefault();
