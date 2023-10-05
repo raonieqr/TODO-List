@@ -1,10 +1,10 @@
-class LocalStorageManager {
+export class LocalStorageManager {
     static getLastId() {
       return parseInt(localStorage.getItem('lastId')) || 1;
     }
 
     static getStorage(taskArray) {
-        localStorage.getItem(taskArray);
+        return localStorage.getItem(taskArray);
     }
   
     static incrementLastId() {
