@@ -434,19 +434,16 @@ document.addEventListener('DOMContentLoaded', function () {
       LocalStorageManager.storeUpdate("taskArray", taskObj);
 
       generateTable();
+
+      alert(`A tarefa ${taskObj[index].name} foi editada!`)
     
       toggleModal();
     }
   }
 
-
   let closeModal = document.getElementById('closeModal');
   closeModal.addEventListener('click', function () {
-    let modal = document.getElementById('editPageTask');
-
-    if (modal.style.display === 'block') {
       toggleModal();
-    }
   });
 
 
@@ -486,13 +483,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let closeModalStatus = document.getElementById('closeModalStatus');
   closeModalStatus.addEventListener('click', function () {
-    let modal = document.getElementById('editStatusTask');
-
-    if (modal.style.display === 'block') {
       toggleModalStatus();
 
       clearRadios();
-    }
   });
 
   function showTaskForm() {
