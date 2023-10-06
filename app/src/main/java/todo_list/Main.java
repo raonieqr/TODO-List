@@ -15,34 +15,23 @@ import java.util.*;
 public class Main
 {
 	public static boolean validateFields(String name, String description, String category) {
-		if (name.isEmpty() || containsNumber(name) || description.isEmpty() || containsNumber(description) ||
-				category.isEmpty() || containsNumber(category))
-			return false;
-		return true;
+		return ! name.isEmpty() && ! description.isEmpty() && ! category.isEmpty();
 	}
 
-	public static boolean containsNumber(String input) {
-		for (char c : input.toCharArray()) {
-			if (Character.isDigit(c))
-				return true;
-		}
-		return false;
-	}
+
 	public static void main(String[] args) throws InterruptedException {
+
 		System.out.println("Bem vindo a TODO-List");
+
 		ArrayList<Task> tasks = new ArrayList<>();
 		ArrayList<Task> taskWithAlarm = new ArrayList<>();
 		Scanner sc = new Scanner(System.in);
+
 		int option = 0;
 		int idCounter = 1;
+
 		while (option != 6) {
-			System.out.println("Escolha uma opções abaixo");
-			System.out.println("1 - Criar tarefa");
-			System.out.println("2 - Visualizar tarefas");
-			System.out.println("3 - Aguardar alarme");
-			System.out.println("4 - Editar status da tarefa");
-			System.out.println("5 - Deletar tarefa");
-			System.out.println("6 - Sair");
+			PrintLog.showMenu();
 			while (true) {
 				try {
 					option = Integer.parseInt(sc.nextLine());
@@ -68,16 +57,16 @@ public class Main
 				Priority priority = Priority.getPriorityFromUser(sc);
 				Status status = Status.getStatusFromUser(sc);
 
-				System.out.println("Qual data e hora da tarefa? Passe no formato dd/MM/yyyy HH:mm:ss");
+				System.out.println("Qual data e hora da tarefa? Passe no formato dd/MM/yyyy HH:mm");
 				String date = sc.nextLine();
 				LocalDateTime dateTime = null;
 
 				try {
-					String pattern = "dd/MM/yyyy HH:mm:ss";
+					String pattern = "dd/MM/yyyy HH:mm";
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 					dateTime = LocalDateTime.parse(date, formatter);
 				} catch (Exception e) {
-					System.out.println("Error: Formato inválido. Formato correto dd/MM/yyyy HH:mm:ss");
+					System.out.println("Error: Formato inválido. Formato correto dd/MM/yyyy HH:mm");
 					continue;
 				}
 				System.out.println("Deseja colocar alarme para esta tarefa?");
