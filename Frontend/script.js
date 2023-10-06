@@ -1,111 +1,84 @@
+import {LocalStorageManager} from './LocalStorageManager';
+import * as check from './validations';
+
 document.addEventListener('DOMContentLoaded', function () {
+
   let btn = document.getElementById('createTask');
   let sectionAdd = document.getElementById('taskForm');
   let homeSection = document.getElementById('home');
   const actionButton = document.getElementById('actions');
+  let isAddTask = false;
 
-  btn.addEventListener('click', function () {
-    btn.classList.add = 'hiddenItem';
+  function handleButtonClick() {
+    btn.classList.add('hiddenItem');
     homeSection.style.display = 'none';
     sectionAdd.style.display = 'flex';
     sectionAdd.scrollIntoView({ behavior: 'smooth' });
-  });
+  }
+
+  btn.addEventListener('click', handleButtonClick);
 
   let btnSubmit = document.getElementById('addTask');
-  let taskStr = localStorage.getItem('taskArray');
+  let taskStr = LocalStorageManager.getStorage("taskArray");
+  let taskObj = taskStr ? JSON.parse(taskStr) : [];
+  console.log(JSON.stringify(taskObj, null, 2));
 
-  let taskObj;
-  if (taskStr) taskObj = JSON.parse(taskStr);
-  else taskObj = [];
-  let lastId = parseInt(localStorage.getItem('lastId')) || 1;
-
-  btnSubmit.addEventListener('click', function () {
+  function handleTaskSubmission(event) {
     event.preventDefault();
+  
     let task = createTaskObj();
+  
     if (task) {
+      alert(`Tarefa ${task.name} foi criada`);
       taskObj.push(task);
-      alert('Tarefa ' + task.name + ' foi criada');
-      lastId++;
+      isAddTask = true
       clearInputs();
-      localStorage.setItem('taskArray', JSON.stringify(taskObj));
     }
-  });
-
-  function isValidDate(dateString) {
-    const dateTimePattern = /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/;
-    return dateTimePattern.test(dateString);
+  
   }
 
-  function checkDateInput(dateString) {
-    let [date, time] = dateString.split(' ');
-    let [day, month, year] = date.split('/');
-    let [hours, minutes] = time.split(':');
-
-    let diff =
-      new Date(year, month - 1, day, hours, minutes).getTime() - Date.now();
-    if (
-      parseInt(month, 10) > 12 ||
-      parseInt(hours, 10) > 23 ||
-      parseInt(minutes, 10) > 59
-    )
-      return 0;
-
-    if (parseInt(month, 10) === 2 && parseInt(day, 10) > 29) return 0;
-    else if (
-      [4, 6, 9, 11].includes(parseInt(month, 10)) &&
-      parseInt(day, 10) > 30
-    )
-      return 0;
-    else if (parseInt(day, 10) > 31) return 0;
-    else if (diff < 0) return 0;
-    return 1;
+  btnSubmit.addEventListener('click', handleTaskSubmission);
+  if (isAddTask) {
+    LocalStorageManager.storeTask(taskObj);
+    isAddTask = false;
   }
+
 
   function createTaskObj() {
-    let name = document.getElementById('name').value;
-    let description = document.getElementById('description').value;
-    let category = document.getElementById('category').value;
-    let priority = document.getElementById('priority').value;
-    let status = document.getElementById('status').value;
-    let dateTime = document.getElementById('dateTime').value;
+    const fields = ['name', 'description', 'category', 'priority', 'status', 'dateTime'];
+    const inputValues = {};
 
-    if (
-      !name ||
-      !description ||
-      !category ||
-      !priority ||
-      !status ||
-      !dateTime
-    ) {
-      alert('Error: Todos os campos devem ser preenchidos.');
-      return;
+    for (const field of fields) {
+      inputValues[field] = document.getElementById(field).value;
+
+      if (!check.isNotEmpty(inputValues[field])) {
+        alert('Error: Todos os campos devem ser preenchidos.');
+
+        return null;
+      }
     }
 
-    if (!['todo', 'doing', 'done'].includes(status)) {
+    if (!check.isValidStatus(inputValues.status)) {
       alert('Error: Status inválido. Permitidos: todo, doing ou done.');
-      return;
-    }
-    let regex = /^[1-5]$/;
-    if (isNaN(priority) || !regex.test(priority)) {
-      alert('Error: Prioridade inválida. Use um número de 1 a 5.');
-      return;
+
+      return null;
     }
 
-    if (!isValidDate(dateTime) || !checkDateInput(dateTime)) {
-      alert(`Error: data ${dateTime} inválida`);
-      return;
+    if (!check.isValidPriority(inputValues.priority)) {
+      alert('Error: Prioridade inválida. Use um número de 1 a 5.');
+
+      return null;
     }
-    //TODO: create class for localStorage
-    localStorage.setItem('lastId', String(lastId + 1));
-    return {
-      id: lastId,
-      name: name,
-      description: description,
-      category: category,
-      priority: priority,
-      status: status,
-      dateTime: dateTime,
-    };
+
+    if (!check.isValidDate(inputValues.dateTime) || !check.isDateInput(inputValues.dateTime)) {
+      alert(`Error: data ${inputValues.dateTime} inválida`);
+
+      return null;
+    }
+
+    LocalStorageManager.storeTask(inputValues);
+
+    return inputValues;
   }
 
   function clearInputs() {
@@ -116,10 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
   let btnShow = document.getElementById('showTask');
   let table = document.getElementById('tasks');
   let btnAddTaskList = document.getElementById('addTaskList');
-  btnShow.addEventListener('click', function () {
-    if (taskObj.length <= 0) {
-      alert('Lista vazia');
-    } else {
+  
+  function showTaskList() {
+    if (taskObj.length <= 0)
+        alert('Lista vazia');
+    else {
       btnAddTaskList.style.display = 'inline-block';
       btnShow.style.display = 'none';
       sectionAdd.style.display = 'none';
@@ -127,95 +101,79 @@ document.addEventListener('DOMContentLoaded', function () {
       table.scrollIntoView({ behavior: 'smooth' });
       generateTable();
     }
-  });
+  }
 
-  function generateTable() {
-    let thead = document.createElement('thead');
-    let tbody = document.createElement('tbody');
+  btnShow.addEventListener('click', showTaskList);
 
-    while (table.firstChild) {
-      table.removeChild(table.firstChild);
-    }
+  function createTableCell(text){
+    let cell = document.createElement('td');
+  
+    cell.innerHTML = text;
+  
+    return cell;
+  }
+  
+  function generateTableRow(cells) {
+    let row = document.createElement('tr');
+  
+    cells.forEach((cell) => {
+  
+      row.appendChild(cell);
+    });
+  
+    return row;
+  }
 
-    let headerRow = document.createElement('tr');
+  function createTableHeaderRow() {
+    const headerRow = document.createElement('tr');
     headerRow.innerHTML = `
-          <th></th>
-          <th>Id</th>
-          <th>Nome</th>
-          <th>Descrição</th>
-          <th>Categoria</th>
-          <th>Prioridade</th>
-          <th>Status</th>
-          <th>Data e Hora</th>
-          <th>Ações</th>`;
-    thead.appendChild(headerRow);
+      <th></th>
+      <th>Id</th>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Categoria</th>
+      <th>Prioridade</th>
+      <th>Status</th>
+      <th>Data e Hora</th>
+      <th>Ações</th>
+    `;
+    return headerRow;
+  }
 
-    for (let i = 0; i < taskObj.length; i++) {
-      let task = taskObj[i];
+  function handleDeleteTask(index, row) {
+    if (taskObj.length === 1) {
+      taskObj.pop();
 
-      let row = document.createElement('tr');
+      actionButton.style.display = 'none';
+    } 
+    else
+      taskObj.splice(index, 1);
+    
+    LocalStorageManager.storeUpdate("taskArray", taskObj);
+    
+    row.parentNode.removeChild(row);
+  
+    let checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    if (checkedCheckboxes.length === 0) 
+      actionButton.style.display = 'none';
+  }
 
-      let c0 = document.createElement('td');
-      let c1 = document.createElement('td');
-      let c2 = document.createElement('td');
-      let c3 = document.createElement('td');
-      let c4 = document.createElement('td');
-      let c5 = document.createElement('td');
-      let c6 = document.createElement('td');
-      let c7 = document.createElement('td');
-      let c8 = document.createElement('td');
+  function createTaskRow(task) {
+    let c0 = createTableCell('<input type="checkbox" />');
+    let c1 = createTableCell(task.id);
+    let c2 = createTableCell(task.name);
+    let c3 = createTableCell(task.description);
+    let c4 = createTableCell(task.category);
+    let c5 = createTableCell(task.priority);
+    let c6 = createTableCell(task.status);
+    let c7 = createTableCell(task.dateTime);
+    let c8 = createTableCell('<i id="pencil" class="ph ph-pencil-line"></i>'
+     + '<i id="trash" class="ph ph-trash"></i>');
+  
+    return generateTableRow([c0, c1, c2, c3, c4, c5, c6, c7, c8]);
+  }
 
-      c0.innerHTML = '<input type="checkbox" />';
-      c1.innerText = task.id;
-      c2.innerText = task.name;
-      c3.innerText = task.description;
-      c4.innerText = task.category;
-      c5.innerText = task.priority;
-      c6.innerText = task.status;
-      c7.innerText = task.dateTime;
-      c8.innerHTML =
-        '<i id="pencil" class="ph ph-pencil-line"></i><i id="trash" class="ph ph-trash"></i>';
-      row.appendChild(c0);
-      row.appendChild(c1);
-      row.appendChild(c2);
-      row.appendChild(c3);
-      row.appendChild(c4);
-      row.appendChild(c5);
-      row.appendChild(c6);
-      row.appendChild(c7);
-      row.appendChild(c8);
-      tbody.appendChild(row);
-      table.appendChild(thead);
-      table.appendChild(tbody);
-
-      ((index) => {
-        let trashIcon = row.querySelector('#trash');
-        trashIcon.addEventListener('click', function () {
-          if (taskObj.length === 1) {
-            taskObj.pop();
-            actionButton.style.display = 'none';
-          } 
-          else
-            taskObj.splice(index, 1);
-          localStorage.removeItem('taskArray');
-          localStorage.setItem('taskArray', JSON.stringify(taskObj));
-          tbody.removeChild(row);
-          let checkedCheckboxes = document.querySelectorAll(
-            'input[type="checkbox"]:checked'
-          );
-          if (checkedCheckboxes.length === 0)
-            actionButton.style.display = 'none';
-        });
-      })(i);
-
-      let pencilIcon = row.querySelector('#pencil');
-      pencilIcon.addEventListener('click', function () {
-        openEditModal(task, i);
-      });
-    }
-
-    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
+  function handleCheckboxChange(checkboxes) {
     checkboxes.forEach(function (checkbox) {
       checkbox.addEventListener('change', function () {
         let checked = Array.from(checkboxes).some((boxes) => boxes.checked);
@@ -225,18 +183,57 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  var indexEdit = 0;
+
+  function generateTable() {
+    let thead = document.createElement('thead');
+    let tbody = document.createElement('tbody');
+
+    while (table.firstChild)
+      table.removeChild(table.firstChild);
+
+    let headerRow = createTableHeaderRow();
+      
+    thead.appendChild(headerRow);
+
+    for (let i = 0; i < taskObj.length; i++) {
+
+      let task = taskObj[i];
+
+      let row = createTaskRow(task);
+
+      tbody.appendChild(row);
+      table.appendChild(thead);
+      table.appendChild(tbody);
+
+      let trashIcon = row.querySelector('#trash');
+      trashIcon.addEventListener('click', function () {
+        handleDeleteTask(i, row);
+      });
+
+      let pencilIcon = row.querySelector('#pencil');
+      pencilIcon.addEventListener('click', function () {
+        indexEdit = i;
+        openEditModal(task);
+      });
+    }
+
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    handleCheckboxChange(checkboxes);
+
+  }
+
   actionButton.addEventListener('click', function () {
     toggleModalStatus();
   });
+ 
 
   let btnSaveStatus = document.getElementById('btnStatusTask');
 
-  btnSaveStatus.addEventListener('click', function () {
-    let radios = document.querySelectorAll('input[type="radio"]:checked');
-    let selectedRowsArray = [];
-
-    var rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
-    var checkedRows = rows.filter((row) => {
+  function getSelectedRowIdsFromTable() {
+    let rows = Array.from(document.querySelectorAll('#tasks tbody tr'));
+    let checkedRows = rows.filter((row) => {
       return row.querySelector('input[type="checkbox"]').checked;
     });
 
@@ -244,22 +241,43 @@ document.addEventListener('DOMContentLoaded', function () {
       return Number(row.querySelector('td:nth-child(2)').textContent);
     });
 
+    return selectedRowsArray;
+  }
+
+  function updateStatusForSelectedRows() {
+    let radios = document.querySelectorAll('input[type="radio"]:checked');
+    let selectedRowsArray = [];
+
+    selectedRowsArray = getSelectedRowIdsFromTable();
+
     if (radios.length > 0) {
       var valueRadio = radios[0].value;
+
       while (selectedRowsArray.length !== 0) {
         let index = selectedRowsArray.pop();
+
         taskObj.forEach((task) => {
-          if (task.id === index) {
+        
+          if (task.id === index)
             task.status = valueRadio;
-          }
         });
       }
-    } else alert('Error: seleciona uma opção');
-    localStorage.setItem('taskArray', JSON.stringify(taskObj));
+    } 
+    else {
+      alert('Error: selecione uma opção');
+      return;
+    }
+
+    LocalStorageManager.storeUpdate("taskArray", taskObj);
+
     generateTable();
+
     alert("Status modificado!");
+    
     toggleModalStatus();
-  });
+  }
+
+  btnSaveStatus.addEventListener('click', updateStatusForSelectedRows);
 
   function toggleModal() {
     let editPage = document.getElementById('editPageTask');
@@ -276,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function openEditModal(task, index) {
+  function openEditModal(task) {
     toggleModal();
 
     let nameInput = document.getElementById('nameEdit');
@@ -293,66 +311,69 @@ document.addEventListener('DOMContentLoaded', function () {
     statusInput.value = task.status;
     dateTimeInput.value = task.dateTime;
 
-    let btnEditTask = document.getElementById('btnEditTask');
-    btnEditTask.addEventListener('click', editTaskHandler);
+  }
 
-    function editTaskHandler() {
-      let name = nameInput.value;
-      let description = descriptionInput.value;
-      let category = categoryInput.value;
-      let priority = priorityInput.value;
-      let status = statusInput.value;
-      let dateTime = dateTimeInput.value;
 
-      if (
-        !name ||
-        !description ||
-        !category ||
-        !priority ||
-        !status ||
-        !dateTime
-      ) {
-        alert('Error: Todos os campos devem ser preenchidos.');
-        return;
-      }
+  btnEditTask.addEventListener('click', () => saveEditTask());
 
-      if (!['todo', 'doing', 'done'].includes(status)) {
-        alert('Error: Status inválido. Permitidos: todo, doing ou done.');
-        return;
-      }
+  function saveEditTask() {
+    editTaskHandler(indexEdit);
+  }
 
-      if (isNaN(priority) || priority < 1 || priority > 5) {
-        alert('Error: Prioridade inválida. Use um número de 1 a 5.');
-        return;
-      }
-
-      if (!isValidDate(dateTime) || !checkDateInput(dateTime)) {
-        alert(`Error: data ${dateTime} inválida`);
-        return;
-      }
-
-      taskObj[index].name = name;
-      taskObj[index].description = descriptionInput.value;
-      taskObj[index].category = categoryInput.value;
-      taskObj[index].priority = priorityInput.value;
-      taskObj[index].status = statusInput.value;
-      taskObj[index].dateTime = dateTimeInput.value;
-
-      localStorage.removeItem('taskArray');
-      localStorage.setItem('taskArray', JSON.stringify(taskObj));
-      generateTable();
-      toggleModal();
-
-      btnEditTask.removeEventListener('click', editTaskHandler);
+  function editTaskHandler(index) {
+    const taskInputs = getTaskInputs();
+  
+    if (!check.validateFields(taskInputs) ||
+        !check.isValidStatus(taskInputs.status) ||
+        !check.isValidPriority(taskInputs.priority) ||
+        !check.isValidDateTime(taskInputs.dateTime)) {
+      return;
     }
+  
+    if (updateTask(index, taskInputs)) {
+      generateTable();
+      alert(`A tarefa ${taskObj[index].name} foi editada!`);
+      toggleModal();
+    }
+  }
+  
+  function getTaskInputs() {
+    const nameInput = document.getElementById('nameEdit');
+    const descriptionInput = document.getElementById('descriptionEdit');
+    const categoryInput = document.getElementById('categoryEdit');
+    const priorityInput = document.getElementById('priorityEdit');
+    const statusInput = document.getElementById('statusEdit');
+    const dateTimeInput = document.getElementById('dateTimeEdit');
+  
+    return {
+      name: nameInput.value,
+      description: descriptionInput.value,
+      category: categoryInput.value,
+      priority: priorityInput.value,
+      status: statusInput.value,
+      dateTime: dateTimeInput.value
+    };
+  }
+  
+  function updateTask(index, taskInputs) {
+    if (typeof taskObj[index] !== "undefined") {
+      taskObj[index].name = taskInputs.name;
+      taskObj[index].description = taskInputs.description;
+      taskObj[index].category = taskInputs.category;
+      taskObj[index].priority = taskInputs.priority;
+      taskObj[index].status = taskInputs.status;
+      taskObj[index].dateTime = taskInputs.dateTime;
+  
+      LocalStorageManager.storeUpdate("taskArray", taskObj);
+  
+      return true;
+    }
+    return false;
   }
 
   let closeModal = document.getElementById('closeModal');
   closeModal.addEventListener('click', function () {
-    let modal = document.getElementById('editPageTask');
-    if (modal.style.display === 'block') {
       toggleModal();
-    }
   });
 
 
@@ -369,15 +390,22 @@ document.addEventListener('DOMContentLoaded', function () {
   function toggleModalStatus() {
     let editPage = document.getElementById('editStatusTask');
     let modalStyle = editPage.style.display;
+
     if (modalStyle === 'block') {
       table.classList.remove('modalBlur');
+
       editPage.style.display = 'none';
       btnAddTaskList.style.display = 'block';
+
       clearCheckboxes();
       clearRadios();
-    } else {
+
+    } 
+    else {
       editPage.style.display = 'block';
+
       table.classList.add('modalBlur');
+
       actionButton.style.display = 'none';
       btnAddTaskList.style.display = 'none';
     }
@@ -385,14 +413,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let closeModalStatus = document.getElementById('closeModalStatus');
   closeModalStatus.addEventListener('click', function () {
-    let modal = document.getElementById('editStatusTask');
-    if (modal.style.display === 'block') {
       toggleModalStatus();
+
       clearRadios();
-    }
   });
 
-  btnAddTaskList.addEventListener('click', function () {
+  function showTaskForm() {
     homeSection.style.display = 'none';
     btnAddTaskList.style.display = 'none';
     table.style.display = 'none';
@@ -400,10 +426,12 @@ document.addEventListener('DOMContentLoaded', function () {
     sectionAdd.style.display = 'flex';
     sectionAdd.scrollIntoView({ behavior: 'smooth' });
     btnShow.style.display = 'block';
-  
+
     btnShow.removeEventListener('click', showTaskClickHandler);
-  });
-  
+  }
+
+  btnAddTaskList.addEventListener('click', showTaskForm);
+
   function showTaskClickHandler() {
     btnShow.style.display = 'none';
     sectionAdd.style.display = 'none';
