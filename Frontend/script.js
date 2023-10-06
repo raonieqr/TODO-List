@@ -1,8 +1,7 @@
 import {LocalStorageManager} from './LocalStorageManager';
 import * as check from './validations';
 
-document.addEventListener('DOMContentLoaded', function () {
-
+document.addEventListener('DOMContentLoaded', function() {
   let btn = document.getElementById('createTask');
   let sectionAdd = document.getElementById('taskForm');
   let homeSection = document.getElementById('home');
@@ -13,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.classList.add('hiddenItem');
     homeSection.style.display = 'none';
     sectionAdd.style.display = 'flex';
-    sectionAdd.scrollIntoView({ behavior: 'smooth' });
+    sectionAdd.scrollIntoView({behavior : 'smooth'});
   }
 
   btn.addEventListener('click', handleButtonClick);
@@ -25,16 +24,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function handleTaskSubmission(event) {
     event.preventDefault();
-  
+
     let task = createTaskObj();
-  
+
     if (task) {
       alert(`Tarefa ${task.name} foi criada`);
       taskObj.push(task);
       isAddTask = true
       clearInputs();
     }
-  
   }
 
   btnSubmit.addEventListener('click', handleTaskSubmission);
@@ -43,9 +41,9 @@ document.addEventListener('DOMContentLoaded', function () {
     isAddTask = false;
   }
 
-
   function createTaskObj() {
-    const fields = ['name', 'description', 'category', 'priority', 'status', 'dateTime'];
+    const fields =
+        [ 'name', 'description', 'category', 'priority', 'status', 'dateTime' ];
     const inputValues = {};
 
     for (const field of fields) {
@@ -70,7 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
       return null;
     }
 
-    if (!check.isValidDate(inputValues.dateTime) || !check.isDateInput(inputValues.dateTime)) {
+    if (!check.isValidDate(inputValues.dateTime) ||
+        !check.isDateInput(inputValues.dateTime)) {
       alert(`Error: data ${inputValues.dateTime} inválida`);
 
       return null;
@@ -89,38 +88,35 @@ document.addEventListener('DOMContentLoaded', function () {
   let btnShow = document.getElementById('showTask');
   let table = document.getElementById('tasks');
   let btnAddTaskList = document.getElementById('addTaskList');
-  
+
   function showTaskList() {
     if (taskObj.length <= 0)
-        alert('Lista vazia');
+      alert('Lista vazia');
     else {
       btnAddTaskList.style.display = 'inline-block';
       btnShow.style.display = 'none';
       sectionAdd.style.display = 'none';
       table.style.display = 'block';
-      table.scrollIntoView({ behavior: 'smooth' });
+      table.scrollIntoView({behavior : 'smooth'});
       generateTable();
     }
   }
 
   btnShow.addEventListener('click', showTaskList);
 
-  function createTableCell(text){
+  function createTableCell(text) {
     let cell = document.createElement('td');
-  
+
     cell.innerHTML = text;
-  
+
     return cell;
   }
-  
+
   function generateTableRow(cells) {
     let row = document.createElement('tr');
-  
-    cells.forEach((cell) => {
-  
-      row.appendChild(cell);
-    });
-  
+
+    cells.forEach((cell) => { row.appendChild(cell); });
+
     return row;
   }
 
@@ -145,16 +141,16 @@ document.addEventListener('DOMContentLoaded', function () {
       taskObj.pop();
 
       actionButton.style.display = 'none';
-    } 
-    else
+    } else
       taskObj.splice(index, 1);
-    
+
     LocalStorageManager.storeUpdate("taskArray", taskObj);
-    
+
     row.parentNode.removeChild(row);
-  
-    let checkedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    if (checkedCheckboxes.length === 0) 
+
+    let checkedCheckboxes =
+        document.querySelectorAll('input[type="checkbox"]:checked');
+    if (checkedCheckboxes.length === 0)
       actionButton.style.display = 'none';
   }
 
@@ -167,18 +163,20 @@ document.addEventListener('DOMContentLoaded', function () {
     let c5 = createTableCell(task.priority);
     let c6 = createTableCell(task.status);
     let c7 = createTableCell(task.dateTime);
-    let c8 = createTableCell('<i id="pencil" class="ph ph-pencil-line"></i>'
-     + '<i id="trash" class="ph ph-trash"></i>');
-  
-    return generateTableRow([c0, c1, c2, c3, c4, c5, c6, c7, c8]);
+    let c8 = createTableCell('<i id="pencil" class="ph ph-pencil-line"></i>' +
+                             '<i id="trash" class="ph ph-trash"></i>');
+
+    return generateTableRow([ c0, c1, c2, c3, c4, c5, c6, c7, c8 ]);
   }
 
   function handleCheckboxChange(checkboxes) {
-    checkboxes.forEach(function (checkbox) {
-      checkbox.addEventListener('change', function () {
+    checkboxes.forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
         let checked = Array.from(checkboxes).some((boxes) => boxes.checked);
-        if (checked) actionButton.style.display = 'block';
-        else actionButton.style.display = 'none';
+        if (checked)
+          actionButton.style.display = 'block';
+        else
+          actionButton.style.display = 'none';
       });
     });
   }
@@ -193,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
       table.removeChild(table.firstChild);
 
     let headerRow = createTableHeaderRow();
-      
+
     thead.appendChild(headerRow);
 
     for (let i = 0; i < taskObj.length; i++) {
@@ -207,12 +205,11 @@ document.addEventListener('DOMContentLoaded', function () {
       table.appendChild(tbody);
 
       let trashIcon = row.querySelector('#trash');
-      trashIcon.addEventListener('click', function () {
-        handleDeleteTask(i, row);
-      });
+      trashIcon.addEventListener('click',
+                                 function() { handleDeleteTask(i, row); });
 
       let pencilIcon = row.querySelector('#pencil');
-      pencilIcon.addEventListener('click', function () {
+      pencilIcon.addEventListener('click', function() {
         indexEdit = i;
         openEditModal(task);
       });
@@ -221,13 +218,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
     handleCheckboxChange(checkboxes);
-
   }
 
-  actionButton.addEventListener('click', function () {
-    toggleModalStatus();
-  });
- 
+  actionButton.addEventListener('click', function() { toggleModalStatus(); });
 
   let btnSaveStatus = document.getElementById('btnStatusTask');
 
@@ -257,13 +250,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let index = selectedRowsArray.pop();
 
         taskObj.forEach((task) => {
-        
           if (task.id === index)
             task.status = valueRadio;
         });
       }
-    } 
-    else {
+    } else {
       alert('Error: selecione uma opção');
       return;
     }
@@ -273,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
     generateTable();
 
     alert("Status modificado!");
-    
+
     toggleModalStatus();
   }
 
@@ -310,33 +301,29 @@ document.addEventListener('DOMContentLoaded', function () {
     priorityInput.value = task.priority;
     statusInput.value = task.status;
     dateTimeInput.value = task.dateTime;
-
   }
-
 
   btnEditTask.addEventListener('click', () => saveEditTask());
 
-  function saveEditTask() {
-    editTaskHandler(indexEdit);
-  }
+  function saveEditTask() { editTaskHandler(indexEdit); }
 
   function editTaskHandler(index) {
     const taskInputs = getTaskInputs();
-  
+
     if (!check.validateFields(taskInputs) ||
         !check.isValidStatus(taskInputs.status) ||
         !check.isValidPriority(taskInputs.priority) ||
         !check.isValidDateTime(taskInputs.dateTime)) {
       return;
     }
-  
+
     if (updateTask(index, taskInputs)) {
       generateTable();
       alert(`A tarefa ${taskObj[index].name} foi editada!`);
       toggleModal();
     }
   }
-  
+
   function getTaskInputs() {
     const nameInput = document.getElementById('nameEdit');
     const descriptionInput = document.getElementById('descriptionEdit');
@@ -344,17 +331,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const priorityInput = document.getElementById('priorityEdit');
     const statusInput = document.getElementById('statusEdit');
     const dateTimeInput = document.getElementById('dateTimeEdit');
-  
+
     return {
-      name: nameInput.value,
-      description: descriptionInput.value,
-      category: categoryInput.value,
-      priority: priorityInput.value,
-      status: statusInput.value,
-      dateTime: dateTimeInput.value
+      name : nameInput.value,
+      description : descriptionInput.value,
+      category : categoryInput.value,
+      priority : priorityInput.value,
+      status : statusInput.value,
+      dateTime : dateTimeInput.value
     };
   }
-  
+
   function updateTask(index, taskInputs) {
     if (typeof taskObj[index] !== "undefined") {
       taskObj[index].name = taskInputs.name;
@@ -363,19 +350,16 @@ document.addEventListener('DOMContentLoaded', function () {
       taskObj[index].priority = taskInputs.priority;
       taskObj[index].status = taskInputs.status;
       taskObj[index].dateTime = taskInputs.dateTime;
-  
+
       LocalStorageManager.storeUpdate("taskArray", taskObj);
-  
+
       return true;
     }
     return false;
   }
 
   let closeModal = document.getElementById('closeModal');
-  closeModal.addEventListener('click', function () {
-      toggleModal();
-  });
-
+  closeModal.addEventListener('click', function() { toggleModal(); });
 
   function clearCheckboxes() {
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -400,8 +384,7 @@ document.addEventListener('DOMContentLoaded', function () {
       clearCheckboxes();
       clearRadios();
 
-    } 
-    else {
+    } else {
       editPage.style.display = 'block';
 
       table.classList.add('modalBlur');
@@ -412,10 +395,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   let closeModalStatus = document.getElementById('closeModalStatus');
-  closeModalStatus.addEventListener('click', function () {
-      toggleModalStatus();
+  closeModalStatus.addEventListener('click', function() {
+    toggleModalStatus();
 
-      clearRadios();
+    clearRadios();
   });
 
   function showTaskForm() {
@@ -424,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function () {
     table.style.display = 'none';
     actionButton.style.display = 'none';
     sectionAdd.style.display = 'flex';
-    sectionAdd.scrollIntoView({ behavior: 'smooth' });
+    sectionAdd.scrollIntoView({behavior : 'smooth'});
     btnShow.style.display = 'block';
 
     btnShow.removeEventListener('click', showTaskClickHandler);
@@ -437,11 +420,10 @@ document.addEventListener('DOMContentLoaded', function () {
     sectionAdd.style.display = 'none';
     btnAddTaskList.style.display = 'inline-block';
     table.style.display = 'block';
-  
-    table.scrollIntoView({ behavior: 'smooth' });
+
+    table.scrollIntoView({behavior : 'smooth'});
     generateTable();
-  
+
     btnShow.removeEventListener('click', showTaskClickHandler);
   }
-  
 });
