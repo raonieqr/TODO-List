@@ -1,10 +1,10 @@
 
-function isValidDate(dateString) {
+  export function isValidDate(dateString) {
     const dateTimePattern = /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/;
     return dateTimePattern.test(dateString);
   }
 
-  function checkDateInput(dateString) {
+  export function isDateInput(dateString) {
     const [date, time] = dateString.split(' ');
     const [day, month, year] = date.split('/');
     const [hours, minutes] = time.split(':');
@@ -26,37 +26,37 @@ function isValidDate(dateString) {
     return 1;
   }
   
-  function isInvalidMonth(month) {
+  export function isInvalidMonth(month) {
     return month > 12;
   }
   
-  function isInvalidTime(hours, minutes) {
+  export function isInvalidTime(hours, minutes) {
     return hours > 23 || minutes > 59;
   }
   
-  function isInvalidDay(month, day) {
+  export function isInvalidDay(month, day) {
     return (month === 2 && day > 29) || ([4, 6, 9, 11].includes(month) && day > 30) || day > 31;
   }
   
-  function isNegativeDiff(diff) {
+  export function isNegativeDiff(diff) {
     return diff < 0;
   }
 
-  function isNotEmpty(value) {
+  export function isNotEmpty(value) {
     return value.trim() !== '';
   }
 
-  function isValidStatus(status) {
+  export function isValidStatus(status) {
     const validStatus = ['todo', 'doing', 'done'];
     return validStatus.includes(status);
   }
 
-  function isValidPriority(priority) {
+  export function isValidPriority(priority) {
     const priorityRegex = /^[1-5]$/;
     return priorityRegex.test(priority);
   }
 
-  function validateFields(taskInputs) {
+  export function validateFields(taskInputs) {
     const { name, description, category, priority, status, dateTime } = taskInputs;
     if (!name || !description || !category || !priority || !status || !dateTime) {
       alert('Erro: Todos os campos devem ser preenchidos.');
@@ -65,25 +65,8 @@ function isValidDate(dateString) {
     return true;
   }
   
-  function isValidStatus(status) {
-    if (!['todo', 'doing', 'done'].includes(status)) {
-      alert('Erro: Status inválido. Permitidos: todo, doing ou done.');
-      return false;
-    }
-    return true;
-  }
-  
-  function isValidPriority(priority) {
-    const numericPriority = Number(priority);
-    if (isNaN(numericPriority) || numericPriority < 1 || numericPriority > 5) {
-      alert('Erro: Prioridade inválida. Use um número de 1 a 5.');
-      return false;
-    }
-    return true;
-  }
-  
-  function isValidDateTime(dateTime) {
-    if (!isValidDate(dateTime) || !checkDateInput(dateTime)) {
+  export function isValidDateTime(dateTime) {
+    if (!isValidDate(dateTime) || !isDateInput(dateTime)) {
       alert(`Erro: Data ${dateTime} inválida`);
       return false;
     }
