@@ -1,6 +1,6 @@
 package todo_list.enums;
 
-import todo_list.entities.PrintLog;
+import todo_list.view.TaskView;
 
 import java.util.Scanner;
 
@@ -37,7 +37,7 @@ public enum Priority {
 	}
 
 	public static Priority getPriorityFromUser(Scanner sc) {
-		PrintLog.showTypePriority();
+		TaskView.showTypePriority();
 		int priorityValue;
 		while (true) {
 			try {

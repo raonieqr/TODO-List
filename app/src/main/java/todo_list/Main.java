@@ -1,7 +1,7 @@
 package todo_list;
 
-import todo_list.entities.FileUtils;
-import todo_list.entities.PrintLog;
+import todo_list.utils.FileManager;
+import todo_list.view.TaskView;
 import todo_list.entities.Task;
 import todo_list.entities.TaskAlarm;
 import todo_list.enums.Priority;
@@ -18,7 +18,6 @@ public class Main
 		return ! name.isEmpty() && ! description.isEmpty() && ! category.isEmpty();
 	}
 
-
 	public static void main(String[] args) throws InterruptedException {
 
 		System.out.println("Bem vindo a TODO-List");
@@ -31,7 +30,7 @@ public class Main
 		int idCounter = 1;
 
 		while (option != 6) {
-			PrintLog.showMenu();
+			TaskView.showMenu();
 			while (true) {
 				try {
 					option = Integer.parseInt(sc.nextLine());
@@ -97,7 +96,7 @@ public class Main
 				if (tasks.isEmpty())
 					System.out.println("A lista de tarefas está vazia");
 				else
-					PrintLog.showTask(tasks);
+					TaskView.showTask(tasks);
 			}
 			if (option == 3) {
 				TaskAlarm taskAlarm = new TaskAlarm();
@@ -145,10 +144,10 @@ public class Main
 		if (!tasks.isEmpty()) {
 			File currentDirectory = new File(".");
 			if (currentDirectory.getParent() == null)
-				FileUtils.writeToFile(tasks, new File(currentDirectory, "tasks.txt").getPath());
+				FileManager.writeToFile(tasks, new File(currentDirectory, "tasks.txt").getPath());
 			else {
 				File parentDirectory = currentDirectory.getParentFile();
-				FileUtils.writeToFile(tasks, new File(parentDirectory, "tasks.txt").getPath());
+				FileManager.writeToFile(tasks, new File(parentDirectory, "tasks.txt").getPath());
 			}
 		}
 	}
