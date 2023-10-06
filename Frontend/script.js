@@ -1,5 +1,5 @@
 import {LocalStorageManager} from './LocalStorageManager';
-import * as check from './validations'
+import * as check from './validations';
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let sectionAdd = document.getElementById('taskForm');
   let homeSection = document.getElementById('home');
   const actionButton = document.getElementById('actions');
+  let isAddTask = false;
 
   function handleButtonClick() {
     btn.classList.add('hiddenItem');
@@ -18,8 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
   btn.addEventListener('click', handleButtonClick);
 
   let btnSubmit = document.getElementById('addTask');
-  let taskStr = LocalStorageManager.getStorage('taskArray');
+  let taskStr = LocalStorageManager.getStorage("taskArray");
   let taskObj = taskStr ? JSON.parse(taskStr) : [];
+  console.log(JSON.stringify(taskObj, null, 2));
 
   function handleTaskSubmission(event) {
     event.preventDefault();
@@ -29,14 +31,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (task) {
       alert(`Tarefa ${task.name} foi criada`);
       taskObj.push(task);
-      LocalStorageManager.incrementLastId();
+      isAddTask = true
       clearInputs();
-      LocalStorageManager.storeTask(taskObj);
     }
   
   }
 
   btnSubmit.addEventListener('click', handleTaskSubmission);
+  if (isAddTask) {
+    LocalStorageManager.storeTask(taskObj);
+    isAddTask = false;
+  }
+
 
   function createTaskObj() {
     const fields = ['name', 'description', 'category', 'priority', 'status', 'dateTime'];
@@ -64,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return null;
     }
 
-    if (!check.isValidDate(inputValues.dateTime) || !checkDateInput(inputValues.dateTime)) {
+    if (!check.isValidDate(inputValues.dateTime) || !check.isDateInput(inputValues.dateTime)) {
       alert(`Error: data ${inputValues.dateTime} inválida`);
 
       return null;
