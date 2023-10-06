@@ -1,7 +1,6 @@
 package todo_list.entities;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PrintLog {
@@ -71,6 +70,15 @@ public class PrintLog {
 			System.out.println("A categoria não existe");
 	}
 
+	public static void showMenu() {
+		System.out.println("Escolha uma opções abaixo");
+		System.out.println("1 - Criar tarefa");
+		System.out.println("2 - Visualizar tarefas");
+		System.out.println("3 - Aguardar alarme");
+		System.out.println("4 - Editar status da tarefa");
+		System.out.println("5 - Deletar tarefa");
+		System.out.println("6 - Sair");
+	}
 	public static void showTypePriority() {
 		System.out.println("Qual a prioridade ?");
 		System.out.println("1 - Muito baixa");
