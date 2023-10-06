@@ -1,4 +1,4 @@
-package todo_list.entities;
+package todo_list.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FileUtils {
+public class FileManager {
 	public static void writeToFile(ArrayList<?> tasks, String filePath) {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
 			File file = new File(filePath);

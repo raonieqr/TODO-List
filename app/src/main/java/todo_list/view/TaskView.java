@@ -1,9 +1,11 @@
-package todo_list.entities;
+package todo_list.view;
+
+import todo_list.entities.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PrintLog {
+public class TaskView {
 	public static void showMessageList() {
 		System.out.println("Comandos para listar as atividades:");
 		System.out.println("1 - Consultar por status");

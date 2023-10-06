@@ -1,6 +1,6 @@
 package todo_list.enums;
 
-import todo_list.entities.PrintLog;
+import todo_list.view.TaskView;
 
 import java.util.Scanner;
 
@@ -35,7 +35,7 @@ public enum Status {
 	}
 
 	public static Status getStatusFromUser(Scanner sc) {
-		PrintLog.showTypeStatus();
+		TaskView.showTypeStatus();
 		int statusValue;
 		while (true) {
 			try {
