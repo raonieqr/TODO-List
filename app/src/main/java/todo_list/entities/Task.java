@@ -14,7 +14,8 @@ public class Task {
 	private Status status;
 	private LocalDateTime dateTime;
 
-	public Task(Integer id, String name, String description, String category, Priority priority, Status status, LocalDateTime dateTime)
+	public Task(Integer id, String name, String description, String category, Priority priority, Status status,
+							LocalDateTime dateTime)
 	{
 		this.id = id;
 		this.name = name;
