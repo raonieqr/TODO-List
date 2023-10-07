@@ -205,7 +205,7 @@ public class TaskView {
 		}
 	}
 
-	public static void createAlarm(List<Task> tasks) throws InterruptedException {
-		TaskController.createTaskAlarm(tasks);
+	public static void createAlarm(List<Task> taskWithAlarm) throws InterruptedException {
+		TaskController.createTaskAlarm(taskWithAlarm);
 	}
 }

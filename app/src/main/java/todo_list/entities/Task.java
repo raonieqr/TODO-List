@@ -17,7 +17,7 @@ public class Task {
 	private LocalDateTime dateTime;
 
 	public Task(Integer id, String name, String description, String category, Priority priority, Status status,
-							LocalDateTime dateTime)
+							LocalDateTime dateTime, boolean alarm)
 	{
 		this.id = id;
 		this.name = name;
@@ -26,6 +26,7 @@ public class Task {
 		this.priority = priority;
 		this.status = status;
 		this.dateTime = dateTime;
+		this.alarm = alarm;
 	}
 
 	public Integer getId() {

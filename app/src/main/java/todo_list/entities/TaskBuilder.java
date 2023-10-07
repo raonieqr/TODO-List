@@ -2,10 +2,11 @@ package todo_list.entities;
 
 import todo_list.enums.Priority;
 import todo_list.enums.Status;
+import todo_list.service.ITaskBuilder;
 
 import java.time.LocalDateTime;
 
-public class TaskBuilder {
+public class TaskBuilder implements ITaskBuilder {
 	private String name;
 	private String description;
 	private String category;
@@ -19,27 +20,27 @@ public class TaskBuilder {
 		this.description = description;
 	}
 
-	public TaskBuilder withCategory(String category) {
+	public ITaskBuilder withCategory(String category) {
 		this.category = category;
 		return this;
 	}
 
-	public TaskBuilder withPriority(Priority priority) {
+	public ITaskBuilder withPriority(Priority priority) {
 		this.priority = priority;
 		return this;
 	}
 
-	public TaskBuilder withStatus(Status status) {
+	public ITaskBuilder withStatus(Status status) {
 		this.status = status;
 		return this;
 	}
 
-	public TaskBuilder withDateTime(LocalDateTime dateTime) {
+	public ITaskBuilder withDateTime(LocalDateTime dateTime) {
 		this.dateTime = dateTime;
 		return this;
 	}
 
-	public TaskBuilder withAlarm(boolean alarm) {
+	public ITaskBuilder withAlarm(boolean alarm) {
 		this.alarm = alarm;
 		return this;
 	}
@@ -47,7 +48,7 @@ public class TaskBuilder {
 	public Task build() {
 		int idCounter = 1;
 
-		return new Task(idCounter++, name, description, category, priority, status, dateTime);
+		return new Task(idCounter++, name, description, category, priority, status, dateTime, alarm);
 	}
 }
 

@@ -14,11 +14,15 @@ public class TaskAlarm implements Runnable {
 	@Override
 	public void run() {
 		while (isRunning) {
+
 			synchronized (this) {
+
 				while (isPaused) {
+
 					while (isPaused || tasks.isEmpty()) {
 						try {
 								this.wait();
+
 						} catch (InterruptedException e) {
 							Thread.currentThread().interrupt();
 						}
@@ -54,11 +58,13 @@ public class TaskAlarm implements Runnable {
 
 	public void removeMax(Task taskMax, List<Task> tasks){
 		checkMessage(taskMax);
+
 		tasks.remove(taskMax);
 	}
 
 	public void removeMin(Task taskMin, List<Task> tasks){
 		checkMessage(taskMin);
+
 		tasks.remove(taskMin);
 	}
 
@@ -70,11 +76,13 @@ public class TaskAlarm implements Runnable {
 			removeMax(taskMax, tasks);
 		else if (sleepTimeMin == sleepTimeMax && taskMax.getPriority().getValue() > taskMin.getPriority().getValue()) {
 			Thread.sleep(sleepTimeMax * 60000);
+
 			removeMax(taskMax, tasks);
 			removeMin(taskMin, tasks);
 		}
 		else if (sleepTimeMin <= sleepTimeMax && taskMax.getPriority().getValue() > taskMin.getPriority().getValue()) {
 			Thread.sleep(sleepTimeMin * 60000);
+
 			removeMin(taskMin, tasks);
 		}
 		else {
@@ -85,6 +93,7 @@ public class TaskAlarm implements Runnable {
 
 	public void checkMessage(Task task) {
 		System.out.println("Aguardando...");
+
 		if (task.getStatus().getValue() == 1)
 			System.out.println("Olá, foi feita a tarefa " + task.getName());
 		else if (task.getStatus().getValue() == 2)

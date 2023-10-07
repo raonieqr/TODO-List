@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7325a502-6b9d-43e6-947a-ec1a3f7e39e9" name="Changes" comment="" />
+    <list default="true" id="7325a502-6b9d-43e6-947a-ec1a3f7e39e9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/todo_list/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/todo_list/controller/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/todo_list/entities/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/todo_list/entities/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/todo_list/entities/TaskAlarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/todo_list/entities/TaskAlarm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/todo_list/entities/TaskBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/todo_list/entities/TaskBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/todo_list/view/TaskView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/todo_list/view/TaskView.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,6 +41,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -50,24 +58,24 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "refactor/ccod-backend",
-    "last_opened_file_path": "/Users/rasilva/Developer/gradle/TODO-List",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;refactor/ccod-backend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/rasilva/Developer/gradle/TODO-List&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="TODO-List [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -182,6 +190,8 @@
       <updated>1694438948603</updated>
       <workItem from="1694438950216" duration="2382000" />
       <workItem from="1696611994939" duration="1027000" />
+      <workItem from="1696638563597" duration="14555000" />
+      <workItem from="1696685046531" duration="1996000" />
     </task>
     <servers />
   </component>
