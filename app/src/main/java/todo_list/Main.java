@@ -3,6 +3,8 @@ package todo_list;
 import todo_list.entities.TaskBuilder;
 import todo_list.utils.FileManager;
 import todo_list.utils.InputValidator;
+import todo_list.view.PriorityView;
+import todo_list.view.StatusView;
 import todo_list.view.TaskView;
 import todo_list.entities.Task;
 import todo_list.entities.TaskAlarm;
@@ -36,8 +38,8 @@ public class Main
 				String name = InputValidator.promptForUserInput("Qual nome da tarefa? ");
 				String description = InputValidator.promptForUserInput("Qual a descrição?");
 				String category = InputValidator.promptForUserInput("Qual categoria?");
-				Priority priority = Priority.getPriorityFromUser(sc);
-				Status status = Status.getStatusFromUser(sc);
+				Priority priority = PriorityView.getPriorityFromUser(sc);
+				Status status = StatusView.getStatusFromUser(sc);
 				LocalDateTime dateTime = InputValidator.promptForDateInput();
 
 				System.out.println("Deseja colocar alarme para esta tarefa?");
