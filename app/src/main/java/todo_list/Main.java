@@ -45,7 +45,7 @@ public class Main
 
 					break;
 				case 3:
-					TaskView.createAlarm(tasks);
+					TaskView.createAlarm(taskWithAlarm);
 
 					break;
 				case 4:
