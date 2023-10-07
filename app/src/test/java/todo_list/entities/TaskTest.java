@@ -17,7 +17,7 @@ class TaskTest {
 		//Given
 		ArrayList<Task> tasks = new ArrayList<>();
 		Task task = new Task(1, "task1", "comer", "alimento", Priority.MEDIA, Status.TODO,
-				LocalDateTime.of(2023, 10, 23, 22, 00));
+				LocalDateTime.of(2023, 10, 23, 22, 00), true);
 		System.out.println("Criando " + task.toString());
 
 		//When
@@ -34,7 +34,7 @@ class TaskTest {
 
 		//Given
 		Task task = new Task(1, "task1", "comer", "alimento", Priority.MEDIA, Status.TODO,
-				LocalDateTime.of(2023, 10, 23, 22, 00));
+				LocalDateTime.of(2023, 10, 23, 22, 00), true);
 		System.out.println("Criando " + task.toString());
 
 		//When
@@ -64,7 +64,7 @@ class TaskTest {
 		//Given
 		ArrayList<Task> tasks = new ArrayList<>();
 		Task task = new Task(1, "task1", "comer", "alimento", Priority.MEDIA, Status.TODO,
-				LocalDateTime.of(2023, 10, 23, 22, 00));
+				LocalDateTime.of(2023, 10, 23, 22, 00), true);
 		System.out.println("Criando " + task.toString());
 
 		int id = 2;
@@ -103,7 +103,7 @@ class TaskTest {
 		//Given
 		ArrayList<Task> tasks = new ArrayList<>();
 		Task task = new Task(1, "task1", "comer", "alimento", Priority.MEDIA, Status.TODO,
-				LocalDateTime.of(2023, 10, 23, 22, 00));
+				LocalDateTime.of(2023, 10, 23, 22, 00), true);
 		System.out.println("Criando " + task.toString());
 
 		//When
