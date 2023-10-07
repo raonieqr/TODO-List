@@ -55,10 +55,7 @@ public class TaskView {
 			return;
 		}
 
-		Scanner sc = new Scanner(System.in);
-
-		System.out.println("Escreva o nome da categoria: ");
-		String option = sc.nextLine().trim().toLowerCase();
+		String option = InputValidator.promptForUserInput("Escreva o nome da categoria: ").toLowerCase();
 
 		int counter = 0;
 
@@ -141,12 +138,12 @@ public class TaskView {
 		}
 	}
 
-	public static Task createTaskFromUserInput(Scanner sc){
+	public static Task createTaskFromUserInput(){
 		String name = InputValidator.promptForUserInput("Qual nome da tarefa? ");
 		String description = InputValidator.promptForUserInput("Qual a descrição?");
 		String category = InputValidator.promptForUserInput("Qual categoria?");
-		Priority priority = PriorityView.getPriorityFromUser(sc);
-		Status status = StatusView.getStatusFromUser(sc);
+		Priority priority = PriorityView.getPriorityFromUser();
+		Status status = StatusView.getStatusFromUser();
 		LocalDateTime dateTime = InputValidator.promptForDateInput();
 
 		boolean alarm = InputValidator.promptForAlarmInput();
@@ -155,6 +152,7 @@ public class TaskView {
 				.withDateTime(dateTime).withAlarm(alarm).build();
 
 	}
+
 	public static void createTaskAlarm(Task task, List<Task> tasks, List<Task> taskWithAlarm) {
 		TaskController.addTaskAndHandleAlarms(task, tasks, taskWithAlarm);
 

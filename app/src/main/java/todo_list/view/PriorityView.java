@@ -6,7 +6,7 @@ import todo_list.utils.InputValidator;
 import java.util.Scanner;
 
 public class PriorityView {
-	public static Priority getPriorityFromUser(Scanner sc) {
+	public static Priority getPriorityFromUser() {
 		TaskView.showTypePriority();
 
 		int priorityValue;
