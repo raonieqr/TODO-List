@@ -35,42 +35,8 @@ public class Main
 
 			option = InputValidator.promptForIntegerInput("Digite o número: ");
 			if (option == 1) {
-				String name = InputValidator.promptForUserInput("Qual nome da tarefa? ");
-				String description = InputValidator.promptForUserInput("Qual a descrição?");
-				String category = InputValidator.promptForUserInput("Qual categoria?");
-				Priority priority = PriorityView.getPriorityFromUser(sc);
-				Status status = StatusView.getStatusFromUser(sc);
-				LocalDateTime dateTime = InputValidator.promptForDateInput();
-
-				System.out.println("Deseja colocar alarme para esta tarefa?");
-
-				String alarmTest;
-				boolean alarm;
-				while (true) {
-						alarmTest = InputValidator.promptForUserInput("1 - Sim\n2 - Não");
-						if (alarmTest.matches("^1|2$")) {
-							alarm = alarmTest.equals("1");
-							break;
-						}
-						System.out.println("Erro: Entrada inválida. Tente novamente");
-				}
-
-				Task task = new TaskBuilder(name, description)
-						.withCategory(category)
-						.withPriority(priority)
-						.withStatus(status)
-						.withDateTime(dateTime)
-						.withAlarm(alarm)
-						.build();
-
-				tasks.add(task);
-
-				if (alarm) {
-					taskWithAlarm.add(task);
-					System.out.println("Criado alarme para a tarefa");
-				}
-				if (tasks.size() > 1)
-					tasks.sort(Comparator.comparing(Task::getDateTime).thenComparing(Task::getPriority));
+				Task task = TaskView.createTaskFromUserInput(sc);
+				TaskView.createTaskAlarm(task, tasks, taskWithAlarm);
 				System.out.println("Tarefa criada");
 			}
 			if (option == 2) {

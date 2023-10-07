@@ -12,6 +12,8 @@ public class Task {
 	private String category;
 	private Priority priority;
 	private Status status;
+
+	private boolean alarm;
 	private LocalDateTime dateTime;
 
 	public Task(Integer id, String name, String description, String category, Priority priority, Status status,
@@ -82,10 +84,19 @@ public class Task {
 		this.dateTime = dateTime;
 	}
 
+	public boolean isAlarm() {
+		return alarm;
+	}
+
+	public void setAlarm(boolean alarm) {
+		this.alarm = alarm;
+	}
+
 	@Override
 	public String toString()
 	{
 		return "Task: " + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + ", " +
-				"category='" + category + '\'' + ", priority=" + priority + ", status=" + status + ", date=" + dateTime;
+				"category='" + category + '\'' + ", priority=" + priority + ", status=" + status + ", date=" + dateTime + ", " +
+				"alarm=" + alarm;
 	}
 }

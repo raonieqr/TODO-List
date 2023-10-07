@@ -1,8 +1,16 @@
 package todo_list.view;
 
+import todo_list.controller.TaskController;
 import todo_list.entities.Task;
+import todo_list.entities.TaskBuilder;
+import todo_list.enums.Priority;
+import todo_list.enums.Status;
+import todo_list.utils.InputValidator;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class TaskView {
@@ -150,4 +158,21 @@ public class TaskView {
 			return;
 	}
 
+	public static Task createTaskFromUserInput(Scanner sc){
+		String name = InputValidator.promptForUserInput("Qual nome da tarefa? ");
+		String description = InputValidator.promptForUserInput("Qual a descrição?");
+		String category = InputValidator.promptForUserInput("Qual categoria?");
+		Priority priority = PriorityView.getPriorityFromUser(sc);
+		Status status = StatusView.getStatusFromUser(sc);
+		LocalDateTime dateTime = InputValidator.promptForDateInput();
+
+		boolean alarm = InputValidator.promptForAlarmInput();
+
+		return new TaskBuilder(name, description).withCategory(category).withPriority(priority).withStatus(status)
+				.withDateTime(dateTime).withAlarm(alarm).build();
+
+	}
+	public static void createTaskAlarm(Task task, List<Task> tasks, List<Task> taskWithAlarm) {
+		TaskController.addTaskAndHandleAlarms(task, tasks, taskWithAlarm);
+	}
 }

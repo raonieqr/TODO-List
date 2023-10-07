@@ -47,6 +47,22 @@ public class InputValidator {
 		return dateTime;
 	}
 
+	public static boolean promptForAlarmInput() {
+		System.out.println("Deseja colocar alarme para esta tarefa?");
+
+		String alarmTest;
+		boolean alarm;
+		while (true) {
+			alarmTest = InputValidator.promptForUserInput("1 - Sim\n2 - Não");
+			if (alarmTest.matches("^1|2$")) {
+				alarm = alarmTest.equals("1");
+				break;
+			}
+			System.out.println("Erro: Entrada inválida. Tente novamente");
+		}
+		return alarm;
+	}
+
 	public static String promptForUserInput(String prompt) {
 
 		Scanner sc = new Scanner(System.in);
