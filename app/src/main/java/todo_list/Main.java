@@ -31,16 +31,7 @@ public class Main
 
 		while (option != 6) {
 			TaskView.showMenu();
-			while (true) {
-				try {
-					option = Integer.parseInt(sc.nextLine());
-					if (option >= 1 && option <= 6)
-						break;
-					System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 4.");
-				} catch (Exception e) {
-					System.out.println("Error: Entrada inválida. Digite um número válido.");
-				}
-			}
+			option = promptForIntegerInput("Digite o número: ");
 			if (option == 1) {
 				System.out.println("Qual nome da tarefa? ");
 				String name = sc.nextLine();
@@ -50,7 +41,7 @@ public class Main
 				String category = sc.nextLine();
 
 				if(!validateFields(name, description, category)) {
-					System.out.println("Error: Você passou um valor inválido. Tente novamente");
+					System.out.println("Erro: Você passou um valor inválido. Tente novamente");
 					continue;
 				}
 				Priority priority = Priority.getPriorityFromUser(sc);
@@ -65,7 +56,7 @@ public class Main
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 					dateTime = LocalDateTime.parse(date, formatter);
 				} catch (Exception e) {
-					System.out.println("Error: Formato inválido. Formato correto dd/MM/yyyy HH:mm");
+					System.out.println("Erro: Formato inválido. Formato correto dd/MM/yyyy HH:mm");
 					continue;
 				}
 				System.out.println("Deseja colocar alarme para esta tarefa?");
@@ -79,7 +70,7 @@ public class Main
 							break;
 					}
 					catch (NumberFormatException e) {
-						System.out.println("Error: Entrada inválida. Tente novamente");
+						System.out.println("Erro: Entrada inválida. Tente novamente");
 					}
 				}
 				Task task = new Task(idCounter++, name, description, category, priority, status, dateTime);
@@ -104,7 +95,7 @@ public class Main
 			}
 			if (option == 4) {
 				if (tasks.isEmpty()) {
-					System.out.println("Error: Lista vazia. Tente novamente");
+					System.out.println("Erro: Lista vazia. Tente novamente");
 					continue;
 				}
 				for(Task task: tasks)
@@ -119,7 +110,7 @@ public class Main
 						System.out.println("3 - A fazer");
 						String status = sc.nextLine();
 						while(!status.matches("^[1-3]$")) {
-							System.out.println("Error: Status inválido. Escolha um número entre 1 e 3.");
+							System.out.println("Erro: Status inválido. Escolha um número entre 1 e 3.");
 							status = sc.nextLine();
 						}
 						task.setStatus(Status.fromValue(Integer.parseInt(status)));
@@ -128,7 +119,7 @@ public class Main
 			}
 			if(option == 5) {
 				if (tasks.isEmpty()) {
-					System.out.println("Error: Lista vazia. Tente novamente");
+					System.out.println("Erro: Lista vazia. Tente novamente");
 					continue;
 				}
 				for(Task task: tasks)
@@ -138,7 +129,7 @@ public class Main
 				if (index >= 0 && (index - 1) <= tasks.size())
 					tasks.remove((index - 1));
 				else
-					System.out.println("Error: Index não encontrado");
+					System.out.println("Erro: Index não encontrado");
 			}
 		}
 		if (!tasks.isEmpty()) {
@@ -150,5 +141,30 @@ public class Main
 				FileManager.writeToFile(tasks, new File(parentDirectory, "tasks.txt").getPath());
 			}
 		}
+	}
+
+	static int promptForIntegerInput(String prompt) {
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println(prompt);
+
+		String input = sc.nextLine();
+		while (!isNumber(input)) {
+
+			System.out.println("Erro: Entrada inválida. Tente novamente.");
+			System.out.println(prompt);
+
+			input = sc.nextLine();
+		}
+		return Integer.parseInt(input);
+	}
+
+	public static boolean isNumber(String input) {
+		for (char c : input.toCharArray()) {
+			if (Character.isDigit(c))
+				return true;
+		}
+		return false;
 	}
 }

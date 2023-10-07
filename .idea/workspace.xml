@@ -15,9 +15,37 @@
       <ProjectState />
     </projectState>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2VFjtkeRnGRLc5lJpbM4OhwFzkC" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
@@ -27,6 +55,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "refactor/ccod-backend",
     "last_opened_file_path": "/Users/rasilva/Developer/gradle/TODO-List",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -39,7 +68,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.TaskTest">
+  <component name="RunManager">
     <configuration name="TODO-List [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -152,6 +181,7 @@
       <option name="presentableId" value="Default" />
       <updated>1694438948603</updated>
       <workItem from="1694438950216" duration="2382000" />
+      <workItem from="1696611994939" duration="1027000" />
     </task>
     <servers />
   </component>
