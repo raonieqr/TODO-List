@@ -6,7 +6,7 @@ import todo_list.utils.InputValidator;
 import java.util.Scanner;
 
 public class StatusView {
-	public static Status getStatusFromUser(Scanner sc) {
+	public static Status getStatusFromUser() {
 		TaskView.showTypeStatus();
 
 		int statusValue;

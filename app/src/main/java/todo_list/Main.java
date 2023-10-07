@@ -35,7 +35,7 @@ public class Main
 			option = InputValidator.promptForIntegerInput("Digite o número: ");
 			switch (option) {
 				case 1:
-					Task task = TaskView.createTaskFromUserInput(sc);
+					Task task = TaskView.createTaskFromUserInput();
 
 					TaskView.createTaskAlarm(task, tasks, taskWithAlarm);
 
@@ -58,6 +58,9 @@ public class Main
 					break;
 			}
 		}
+
+		sc.close();
+
 		fileManager.createFile(tasks);
 	}
 }
