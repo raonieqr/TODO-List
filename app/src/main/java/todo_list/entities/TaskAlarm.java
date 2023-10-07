@@ -1,9 +1,10 @@
 package todo_list.entities;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.List;
+
 public class TaskAlarm {
-	public void run(ArrayList<Task> tasks) throws InterruptedException {
+	public void run(List<Task> tasks) throws InterruptedException {
 		while (!tasks.isEmpty()) {
 			Task taskMax = tasks.get(0);
 			Task taskMin = tasks.get(0);

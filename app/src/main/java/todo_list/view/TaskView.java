@@ -31,27 +31,20 @@ public class TaskView {
 
 	public static void showListStatus(ArrayList<Task> tasks) {
 		showTypeStatus();
-		Scanner sc = new Scanner(System.in);
-		int option;
-		while (true) {
-			try {
-				option = Integer.parseInt(sc.nextLine());
-				if (option >= 1 && option <= 3)
-					break;
-				System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 3.");
-			} catch (NumberFormatException e) {
-				System.out.println("Error: Entrada inválida. Digite um número válido.");
-			}
-		}
+
+		int option = InputValidator.getOptionForThree();
 		int counter = 0;
+
 		for (Task task : tasks) {
 			if (task.getStatus().getValue() == option) {
 				System.out.println(task);
 				counter++;
 			}
 		}
+
 		if (counter == 0)
 			System.out.println("Não existe tarefa com esse status");
+
 		if (counter > 0)
 			System.out.println("Total de tarefas: " + counter);
 	}
@@ -63,10 +56,12 @@ public class TaskView {
 		}
 
 		Scanner sc = new Scanner(System.in);
+
 		System.out.println("Escreva o nome da categoria: ");
 		String option = sc.nextLine().trim().toLowerCase();
 
 		int counter = 0;
+
 		for (Task task : tasks) {
 			String category = task.getCategory();
 			if (category != null && category.equals(option)) {
@@ -103,7 +98,7 @@ public class TaskView {
 		showTypePriority();
 
 		Scanner sc = new Scanner(System.in);
-		int option = InputValidator.getOption();
+		int option = InputValidator.getOptionForFive();
 
 		int counter = 0;
 		for (Task task : tasks) {
@@ -120,9 +115,15 @@ public class TaskView {
 	}
 
 	public static void showTask(ArrayList<Task> tasks) {
+
+		if (tasks.isEmpty()) {
+			System.out.println("A lista de tarefas está vazia");
+			return ;
+		}
+
 		showMessageList();
 
-		int option = InputValidator.getOption();
+		int option = InputValidator.getOptionForFive();
 
 		switch (option) {
 			case 1:
@@ -156,5 +157,57 @@ public class TaskView {
 	}
 	public static void createTaskAlarm(Task task, List<Task> tasks, List<Task> taskWithAlarm) {
 		TaskController.addTaskAndHandleAlarms(task, tasks, taskWithAlarm);
+
+		System.out.println("Tarefa criada");
+	}
+
+	public static void editTaskStatusById(List<Task> tasks) {
+		if (tasks.isEmpty()) {
+			System.out.println("Erro: Lista vazia. Tente novamente");
+			return;
+		}
+
+		tasks.forEach(System.out::println);
+		int status = 0;
+		int index = InputValidator.promptForIntegerInput("Escolha o ID da tarefa que gostaria de editar:");
+
+		for (Task selectedTask : tasks) {
+			if (selectedTask.getId() == index) {
+				TaskView.showTypeStatus();
+
+				status = InputValidator.getOptionForThree();
+
+				selectedTask.setStatus(Status.fromValue(status));
+
+				System.out.println("Tarefa editada!");
+			}
+		}
+
+		if (status == 0) {
+			System.out.println("Erro: ID não localizado");
+		}
+	}
+
+	public static void deleteTaskById(List<Task> tasks) {
+		if (tasks.isEmpty()) {
+			System.out.println("Erro: Lista vazia. Tente novamente");
+			return;
+		}
+
+		tasks.forEach(System.out::println);
+
+		int idDelete = InputValidator.promptForIntegerInput("Digite o ID para deletar: ");
+
+		if (idDelete >= 1 && idDelete <= tasks.size()) {
+			tasks.remove(idDelete - 1);
+			System.out.println("Tarefa removida com sucesso.");
+		}
+		else {
+			System.out.println("Erro: Índice não encontrado");
+		}
+	}
+
+	public static void createAlarm(List<Task> tasks) throws InterruptedException {
+		TaskController.createTaskAlarm(tasks);
 	}
 }

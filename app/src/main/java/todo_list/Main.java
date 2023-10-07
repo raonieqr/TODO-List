@@ -39,63 +39,23 @@ public class Main
 
 					TaskView.createTaskAlarm(task, tasks, taskWithAlarm);
 
-					System.out.println("Tarefa criada");
-
 					break;
 				case 2:
-					if (tasks.isEmpty())
-						System.out.println("A lista de tarefas está vazia");
-					else
 						TaskView.showTask(tasks);
 
 					break;
 				case 3:
-					TaskAlarm taskAlarm = new TaskAlarm();
-					taskAlarm.run(taskWithAlarm);
+					TaskView.createAlarm(tasks);
 
 					break;
 				case 4:
-					if (tasks.isEmpty()) {
-						System.out.println("Erro: Lista vazia. Tente novamente");
-						return;
-					}
-					tasks.forEach(System.out::println);
-					System.out.println("Escolha o id da tarefa que gostaria de editar:");
-					int index = Integer.parseInt(sc.nextLine());
-					for (Task selectedTask : tasks) {
-						if (selectedTask.getId() == index) {
-							System.out.println("Qual o novo status da tarefa? ");
-							System.out.println("1 - Feito");
-							System.out.println("2 - Em andamento");
-							System.out.println("3 - A fazer");
-							String status = sc.nextLine();
-							while (! status.matches("^[1-3]$")) {
-								System.out.println("Erro: Status inválido. Escolha um número entre 1 e 3.");
-								status = sc.nextLine();
-							}
-							selectedTask.setStatus(Status.fromValue(Integer.parseInt(status)));
-						}
-					}
+					TaskView.editTaskStatusById(tasks);
+
 					break;
 				case 5:
-					if (tasks.isEmpty()) {
-						System.out.println("Erro: Lista vazia. Tente novamente");
-						return;
-					}
+					TaskView.deleteTaskById(tasks);
 
-					tasks.forEach(System.out::println);
-
-					System.out.println("Digite o ID da tarefa que gostaria de deletar:");
-					int idDelete = Integer.parseInt(sc.nextLine());
-
-					if (idDelete >= 1 && idDelete <= tasks.size()) {
-						tasks.remove(idDelete - 1);
-						System.out.println("Tarefa removida com sucesso.");
-					}
-					else
-						System.out.println("Erro: Índice não encontrado");
 					break;
-
 			}
 		}
 		fileManager.createFile(tasks);
