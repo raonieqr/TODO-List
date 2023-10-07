@@ -1,1 +1,1 @@
-Task: id=1, name='task1', description='task1', category='tarefa', priority=MUITO_ALTA, status=DOING, date=2023-10-10T10:20
+Task: id=1, name='task1', description='task1', category='tarefas', priority=MEDIA, status=DOING, date=2023-10-10T10:20, alarm=false
