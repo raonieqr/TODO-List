@@ -1,6 +1,6 @@
 package todo_list.enums;
 
-import todo_list.entities.PrintLog;
+import todo_list.view.TaskView;
 
 import java.util.Scanner;
 
@@ -31,23 +31,6 @@ public enum Status {
 				return status;
 			}
 		}
-		throw new IllegalArgumentException("Error: Status inválido: " + value);
+		throw new IllegalArgumentException(Integer.toString(value));
 	}
-
-	public static Status getStatusFromUser(Scanner sc) {
-		PrintLog.showTypeStatus();
-		int statusValue;
-		while (true) {
-			try {
-				statusValue = Integer.parseInt(sc.nextLine());
-				if (statusValue >= 1 && statusValue <= 3)
-					break;
-				System.out.println("Error: Status inválido. Escolha um número entre 1 e 3.");
-			} catch (NumberFormatException e) {
-				System.out.println("Error: Entrada inválida. Digite um número válido.");
-			}
-		}
-		return Status.fromValue(statusValue);
-	}
-
 }

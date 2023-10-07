@@ -1,53 +1,99 @@
 package todo_list.entities;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
-public class TaskAlarm {
-	public void run(ArrayList<Task> tasks) throws InterruptedException {
-		while (!tasks.isEmpty()) {
-			Task taskMax = tasks.get(0);
-			Task taskMin = tasks.get(0);
+import java.util.List;
+public class TaskAlarm implements Runnable {
+	private List<Task> tasks;
+	private boolean isRunning = true;
+	private boolean isPaused = false;
 
-			for (Task task : tasks) {
-				if (task.getPriority().getValue() > taskMax.getPriority().getValue())
-					taskMax = task;
-				if (task.getDateTime().isBefore(taskMax.getDateTime()))
-					taskMin = task;
-			}
+	public TaskAlarm(List<Task> tasks) {
+		this.tasks = tasks;
+	}
 
-			int sleepTimeMin = taskMin.getDateTime().getMinute() - LocalDateTime.now().getMinute();
-			int sleepTimeMax = taskMax.getDateTime().getMinute() - LocalDateTime.now().getMinute();
+	@Override
+	public void run() {
+		while (isRunning) {
 
-			if (sleepTimeMin <= 0 && sleepTimeMax <= 0) {
-				System.out.println("Aguardando...");
-				checkMessage(taskMax);
-				tasks.remove(taskMax);
+			synchronized (this) {
+
+				while (isPaused) {
+
+					while (isPaused || tasks.isEmpty()) {
+						try {
+								this.wait();
+
+						} catch (InterruptedException e) {
+							Thread.currentThread().interrupt();
+						}
+					}
+				}
+
+				if (!tasks.isEmpty()) {
+					Task taskMax = tasks.get(0);
+					Task taskMin = tasks.get(0);
+
+					for (Task task : tasks) {
+						if (task.getPriority().getValue() > taskMax.getPriority().getValue())
+							taskMax = task;
+
+						if (task.getDateTime().isBefore(taskMax.getDateTime()))
+							taskMin = task;
+					}
+
+					System.out.println("Aguardando...");
+
+					try {
+						checkTimeAndRemoveTasks(taskMax, taskMin, tasks);
+					}
+					catch (InterruptedException e) {
+						throw new RuntimeException(e);
+					}
+				}
+				else
+					isRunning = false;
 			}
-			else if (sleepTimeMin == sleepTimeMax && taskMax.getPriority().getValue() > taskMin.getPriority().getValue()) {
-				System.out.println("Aguardando...");
-				Thread.sleep(sleepTimeMax * 60000);
-				checkMessage(taskMax);
-				tasks.remove(taskMax);
-				checkMessage(taskMin);
-				tasks.remove(taskMin);
-			}
-			else if (sleepTimeMin <= sleepTimeMax && taskMax.getPriority().getValue() > taskMin.getPriority().getValue()) {
-				System.out.println("Aguardando...");
-				Thread.sleep(sleepTimeMin * 60000);
-				checkMessage(taskMin);
-				tasks.remove(taskMin);
-			}
-			else {
-				System.out.println("Aguardando...");
-				Thread.sleep(sleepTimeMax * 60000);
-				checkMessage(taskMax);
-				tasks.remove(taskMax);
-			}
+		}
+	}
+
+	public void removeMax(Task taskMax, List<Task> tasks){
+		checkMessage(taskMax);
+
+		tasks.remove(taskMax);
+	}
+
+	public void removeMin(Task taskMin, List<Task> tasks){
+		checkMessage(taskMin);
+
+		tasks.remove(taskMin);
+	}
+
+	public void checkTimeAndRemoveTasks(Task taskMax, Task taskMin, List<Task> tasks) throws InterruptedException {
+		int sleepTimeMin = taskMin.getDateTime().getMinute() - LocalDateTime.now().getMinute();
+		int sleepTimeMax = taskMax.getDateTime().getMinute() - LocalDateTime.now().getMinute();
+
+		if (sleepTimeMin <= 0 && sleepTimeMax <= 0)
+			removeMax(taskMax, tasks);
+		else if (sleepTimeMin == sleepTimeMax && taskMax.getPriority().getValue() > taskMin.getPriority().getValue()) {
+			Thread.sleep(sleepTimeMax * 60000);
+
+			removeMax(taskMax, tasks);
+			removeMin(taskMin, tasks);
+		}
+		else if (sleepTimeMin <= sleepTimeMax && taskMax.getPriority().getValue() > taskMin.getPriority().getValue()) {
+			Thread.sleep(sleepTimeMin * 60000);
+
+			removeMin(taskMin, tasks);
+		}
+		else {
+			Thread.sleep(sleepTimeMax * 60000);
+			removeMax(taskMax, tasks);
 		}
 	}
 
 	public void checkMessage(Task task) {
 		System.out.println("Aguardando...");
+
 		if (task.getStatus().getValue() == 1)
 			System.out.println("Olá, foi feita a tarefa " + task.getName());
 		else if (task.getStatus().getValue() == 2)
