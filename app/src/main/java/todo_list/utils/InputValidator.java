@@ -79,4 +79,17 @@ public class InputValidator {
 		}
 		return input;
 	}
+
+	public static int getOption() {
+		int option;
+
+		while (true) {
+			option = InputValidator.promptForIntegerInput("Digite o número: ");
+			if (option >= 1 && option <= 5)
+				break;
+
+			System.out.println("Erro: Opção inválida. Tente um número de 1 a 5");
+		}
+		return option;
+	}
 }

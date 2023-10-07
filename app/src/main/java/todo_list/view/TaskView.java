@@ -9,7 +9,6 @@ import todo_list.utils.InputValidator;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -78,6 +77,8 @@ public class TaskView {
 
 		if (counter == 0)
 			System.out.println("A categoria não existe");
+		if (counter > 0)
+			System.out.println("Total de tarefas: " + counter);
 	}
 
 	public static void showMenu() {
@@ -100,20 +101,10 @@ public class TaskView {
 
 	public static void showListPriority(ArrayList<Task> tasks) {
 		showTypePriority();
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Escreva o número da prioridade: ");
-		int option;
 
-		while (true) {
-			try {
-				option = Integer.parseInt(sc.nextLine());
-				if (option >= 1 && option <= 5)
-					break;
-				System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 5.");
-			} catch (NumberFormatException e) {
-				System.out.println("Error: Entrada inválida. Digite um número válido.");
-			}
-		}
+		Scanner sc = new Scanner(System.in);
+		int option = InputValidator.getOption();
+
 		int counter = 0;
 		for (Task task : tasks) {
 			if (task.getPriority().getValue() == option) {
@@ -121,41 +112,32 @@ public class TaskView {
 				counter++;
 			}
 		}
+
 		if (counter == 0)
 			System.out.println("Não existe tarefas com essa prioridade");
+		if (counter > 0)
+			System.out.println("Total de tarefas: " + counter);
 	}
 
 	public static void showTask(ArrayList<Task> tasks) {
 		showMessageList();
-		Scanner sc = new Scanner(System.in);
-		System.out.print("Digite o número escolhido: ");
 
-		int option;
-		while (true) {
-			try {
-				String input = sc.nextLine();
-				option = Integer.parseInt(input);
-				if (option >= 1 && option <= 5)
-					break;
-				System.out.println("Error: Opção inválida. Tente um número de 1 a 5");
-			} catch (NumberFormatException e) {
-				System.out.println("Error: Entrada inválida. Digite um número válido.");
-			}
-		}
+		int option = InputValidator.getOption();
 
-		if (option == 1)
-			showListStatus(tasks);
-		else if (option == 2)
-			showListCategory(tasks);
-		else if (option == 3)
-			showListPriority(tasks);
-		else if (option == 4) {
-			for (Task task : tasks)
-					System.out.println(task);
-			System.out.println("Total de tarefas " + tasks.size());
+		switch (option) {
+			case 1:
+				showListStatus(tasks);
+				break;
+			case 2:
+				showListCategory(tasks);
+				break;
+			case 3:
+				showListPriority(tasks);
+				break;
+			case 4:
+				tasks.forEach(System.out::println);
+				break;
 		}
-		else
-			return;
 	}
 
 	public static Task createTaskFromUserInput(Scanner sc){
