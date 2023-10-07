@@ -80,7 +80,7 @@ public class InputValidator {
 		return input;
 	}
 
-	public static int getOption() {
+	public static int getOptionForFive() {
 		int option;
 
 		while (true) {
@@ -89,6 +89,19 @@ public class InputValidator {
 				break;
 
 			System.out.println("Erro: Opção inválida. Tente um número de 1 a 5");
+		}
+		return option;
+	}
+
+	public static int getOptionForThree(){
+		int option;
+
+		while (true) {
+			option = InputValidator.promptForIntegerInput("Digite o número: ");
+			if (option >= 1 && option <= 3)
+				break;
+
+			System.out.println("Error: Opção inválida. Escolha uma opção entre 1 e 3.");
 		}
 		return option;
 	}
