@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7325a502-6b9d-43e6-947a-ec1a3f7e39e9" name="Changes" comment="" />
+    <list default="true" id="7325a502-6b9d-43e6-947a-ec1a3f7e39e9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/tasks.txt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,9 +17,39 @@
       <ProjectState />
     </projectState>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2VFjtkeRnGRLc5lJpbM4OhwFzkC" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
@@ -27,6 +59,10 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "refactor/ccod-backend",
+    "jdk.selected.JAVA_MODULE": "17",
     "last_opened_file_path": "/Users/rasilva/Developer/gradle/TODO-List",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -39,30 +75,18 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.TaskTest">
-    <configuration name="TODO-List [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="dependencies" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="TaskTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="todo_list.utils" />
+      <recent name="todo_list.entities" />
+      <recent name="todo_list.controller" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.FileManagerTest">
+    <configuration name="FileManagerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -75,7 +99,7 @@
           <list>
             <option value=":app:test" />
             <option value="--tests" />
-            <option value="&quot;todo_list.entities.TaskTest&quot;" />
+            <option value="&quot;todo_list.utils.FileManagerTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -86,7 +110,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TaskTest.testAddTask" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TaskBuilderTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -99,7 +123,7 @@
           <list>
             <option value=":app:test" />
             <option value="--tests" />
-            <option value="&quot;todo_list.entities.TaskTest.testAddTask&quot;" />
+            <option value="&quot;todo_list.entities.TaskBuilderTest&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -110,7 +134,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="TaskTest.testReadTask" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TaskBuilderTest.testBuildTaskWithAlarm" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -123,7 +147,55 @@
           <list>
             <option value=":app:test" />
             <option value="--tests" />
-            <option value="&quot;todo_list.entities.TaskTest.testReadTask&quot;" />
+            <option value="&quot;todo_list.entities.TaskBuilderTest.testBuildTaskWithAlarm&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="TaskBuilderTest.testBuildTaskWithDefaultValues" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":app:test" />
+            <option value="--tests" />
+            <option value="&quot;todo_list.entities.TaskBuilderTest.testBuildTaskWithDefaultValues&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="TaskControllerTest.testCreateTaskAlarm" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":app:test" />
+            <option value="--tests" />
+            <option value="&quot;todo_list.controller.TaskControllerTest.testCreateTaskAlarm&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -136,10 +208,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.TaskTest" />
-        <item itemvalue="Gradle.TaskTest.testAddTask" />
-        <item itemvalue="Gradle.TODO-List [dependencies]" />
-        <item itemvalue="Gradle.TaskTest.testReadTask" />
+        <item itemvalue="Gradle.FileManagerTest" />
+        <item itemvalue="Gradle.TaskBuilderTest" />
+        <item itemvalue="Gradle.TaskBuilderTest.testBuildTaskWithDefaultValues" />
+        <item itemvalue="Gradle.TaskBuilderTest.testBuildTaskWithAlarm" />
+        <item itemvalue="Gradle.TaskControllerTest.testCreateTaskAlarm" />
       </list>
     </recent_temporary>
   </component>
@@ -152,6 +225,9 @@
       <option name="presentableId" value="Default" />
       <updated>1694438948603</updated>
       <workItem from="1694438950216" duration="2382000" />
+      <workItem from="1696611994939" duration="1027000" />
+      <workItem from="1696638563597" duration="14555000" />
+      <workItem from="1696685046531" duration="4391000" />
     </task>
     <servers />
   </component>
