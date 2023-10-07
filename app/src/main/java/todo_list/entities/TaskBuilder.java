@@ -4,7 +4,6 @@ import todo_list.enums.Priority;
 import todo_list.enums.Status;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 
 public class TaskBuilder {
 	private String name;
