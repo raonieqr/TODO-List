@@ -24,7 +24,7 @@ class TaskControllerTest {
 				.withCategory("tarefas")
 				.withPriority(Priority.MEDIA)
 				.withStatus(Status.TODO)
-				.withDateTime(LocalDateTime.of(2023, 10, 7, 1, 20))
+				.withDateTime(LocalDateTime.of(2023, 10, 7, 1, 22))
 				.withAlarm(true)
 				.build();
 
@@ -37,8 +37,27 @@ class TaskControllerTest {
 	public void testAddTaskAndHandleAlarms() {
 		TaskController.addTaskAndHandleAlarms(task, tasks, taskWithAlarm);
 
-		assert !tasks.isEmpty();
-		assert !taskWithAlarm.isEmpty();
+		assertFalse(tasks.isEmpty());
+		assertFalse(taskWithAlarm.isEmpty());
+	}
+
+	@Test
+	public void testCreateTaskAlarm() throws InterruptedException {
+
+		Thread taskAlarmThread;
+
+		taskAlarmThread = new Thread(() -> {
+			try {
+				TaskController.createTaskAlarm(taskWithAlarm);
+
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+
+		taskAlarmThread.start();
+
+		assertTrue(taskAlarmThread.isAlive());;
 	}
 
 }
