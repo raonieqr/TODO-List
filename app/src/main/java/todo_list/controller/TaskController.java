@@ -20,7 +20,9 @@ public class TaskController {
 	}
 
 	public static void createTaskAlarm(List<Task> taskWithAlarm) throws InterruptedException {
-		TaskAlarm taskAlarm = new TaskAlarm();
-		taskAlarm.run(taskWithAlarm);
+
+		TaskAlarm taskAlarm = new TaskAlarm(taskWithAlarm);
+		Thread taskAlarmThread = new Thread(taskAlarm);
+		taskAlarmThread.start();
 	}
 }
