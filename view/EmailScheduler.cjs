@@ -12,7 +12,7 @@ class EmailScheduler {
       port: 2525, 
       auth: {
         user: 'botraoni@gmail.com', 
-        pass: 'A75991FA33F0786D95639EAC3DFAAC4611E2', 
+        pass: 'A', 
       },
     });
 
