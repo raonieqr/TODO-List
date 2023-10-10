@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <title>TODO-List</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <h1 id="logo">TODO - List</h1>
+      </nav>
+    </header>
+    <div class="container">
+      <section id="home">
+        <h1>Bem vindo</h1>
+        <p>Para adicionar uma tarefa basta clicar no botão abaixo</p>
+        <button id="createTask">
+          <img src="./images/Icon.svg" alt="" srcset="" />
+          <h2>Criar tarefa</h2>
+        </button>
+      </section>
+      <section id="taskForm" style="display: none">
+        <i id="showTask" class="ph ph-list-magnifying-glass"></i>
+        <div id="addPageTask">
+          <h1>Adicionar tarefa</h1>
+          <form id="taskForm-detail">
+            <div class="inputTask">
+              <div class="form-detail">
+                <label class="sr-only" for="name">Nome:</label>
+                <input type="text" id="name" name="name" placeholder="Nome" />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="category">Categoria:</label>
+                <input
+                  type="text"
+                  id="category"
+                  name="category"
+                  placeholder="Categoria"
+                />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="status">Status:</label>
+                <input
+                  required="true"
+                  type="text"
+                  id="status"
+                  name="status"
+                  placeholder="Status"
+                />
+              </div>
+            </div>
+            <div class="inputTask">
+              <div class="form-detail">
+                <label class="sr-only" for="description">Descrição:</label>
+                <input
+                  type="text"
+                  id="description"
+                  name="description"
+                  placeholder="Descrição"
+                  required
+                />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="priority">Prioridade:</label>
+                <input
+                  type="text"
+                  id="priority"
+                  name="priority"
+                  placeholder="Prioridade"
+                />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="dateTime">Date e Hora:</label>
+                <input
+                  type="text"
+                  id="dateTime"
+                  name="dateTime"
+                  placeholder="Data e Hora"
+                />
+              </div>
+            </div>
+          </form>
+          <button id="addTask">Salvar</button>
+        </div>
+      </section>
+      <table id="tasks" style="display: none">
+        <i id="addTaskList" class="ph ph-plus" style="display: none"></i>
+        <button id="actions" style="display: none">Editar status</button>
+      </table>
+      <section id="edit">
+        <div id="editPageTask" style="display: none">
+          <h1>Editar tarefa</h1>
+          <i id="closeModal" class="ph ph-x"></i>
+          <form id="editTask">
+            <div class="inputTask">
+              <div class="form-detail">
+                <label class="sr-only" for="name">Nome:</label>
+                <input
+                  type="text"
+                  id="nameEdit"
+                  name="name"
+                  placeholder="Nome"
+                />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="category">Categoria:</label>
+                <input
+                  type="text"
+                  id="categoryEdit"
+                  name="category"
+                  placeholder="Categoria"
+                />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="status">Status:</label>
+                <input
+                  required="true"
+                  type="text"
+                  id="statusEdit"
+                  name="status"
+                  placeholder="Status"
+                />
+              </div>
+            </div>
+            <div class="inputTask">
+              <div class="form-detail">
+                <label class="sr-only" for="description">Descrição:</label>
+                <input
+                  type="text"
+                  id="descriptionEdit"
+                  name="description"
+                  placeholder="Descrição"
+                  required
+                />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="priority">Prioridade:</label>
+                <input
+                  type="text"
+                  id="priorityEdit"
+                  name="priority"
+                  placeholder="Prioridade"
+                />
+              </div>
+              <div class="form-detail">
+                <label class="sr-only" for="dateTime">Date e Hora:</label>
+                <input
+                  type="text"
+                  id="dateTimeEdit"
+                  name="dateTime"
+                  placeholder="Data e Hora"
+                />
+              </div>
+            </div>
+          </form>
+          <button id="btnEditTask">Salvar</button>
+        </div>
+      </section>
+
+      <section id="editStatusPage">
+
+        <div id="editStatusTask" style="display: none;">
+          <h1>Escolha o status</h1>
+          <i id="closeModalStatus" class="ph ph-x"></i>
+          <div id="editStatus">
+            <div class="boxes">
+              <label for="todo">
+                <input type="radio" name="statusValue" id="todo" value="todo"/>
+                A fazer
+              </label>
+            </div>
+            <div class="boxes">
+              <label for="doing">
+                <input type="radio" name="statusValue" id="doing" value="doing"/>
+                Em andamento
+              </label>
+            </div>
+            <div class="boxes">
+              <label for="done">
+                <input type="radio" name="statusValue" id="done" value="done"/>
+                Finalizado
+              </label>
+            </div>
+          </div>
+          <button id="btnStatusTask">Salvar</button>
+        </div>
+        
+      </section>
+    </div>
+    <script src="./bundle.js"></script>
+  </body>
+</html>

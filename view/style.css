@@ -1,0 +1,326 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Roboto, Helvetica, sans-serif;
+  overflow: hidden;
+  height: 100dvh;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-width: 980px;
+  place-content: center;
+  place-items: center;
+  width: 100%;
+  height: 83dvh;
+  margin: -4.8rem auto;
+}
+
+nav {
+  display: flex;
+  place-items: center;
+  place-content: center;
+  background-color: #F9C259;
+  border-radius: .5rem;
+  height: 7dvh;
+}
+
+nav a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+nav h1 {
+  font-size: 2rem;
+  color: #fbfbfb
+}
+
+
+section {
+  display: flex;
+  flex-direction: column;
+  background-color: #FCFCFC;
+  border-radius: .5rem;
+}
+
+section#home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section#home h1 {
+  font-size: 3.2rem;
+}
+
+section#home p {
+  margin-top: 1rem;
+  font-size: 1.8rem;
+  margin-bottom: 3rem;
+  max-width: 23ch;
+  text-align: center;
+}
+button#createTask {
+  display: flex;
+  place-content: center;
+  place-items: center;
+  gap: 1.5rem;
+  height: 4rem;
+  width: 16rem;
+  border: none;
+  border-radius: 1.5rem;
+  background-color: #F9C259;
+  transition: 300ms ;
+}
+
+button:hover {
+  background-color: #fba80ecf;
+  cursor: pointer;
+}
+
+button h2 {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #fbfbfb;
+}
+
+
+.ph-caret-left{
+  position:absolute;
+  top: 8rem;
+  left: 2rem;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.ph-list-magnifying-glass{
+  position:absolute;
+  top: 8rem;
+  right: 2rem;
+  font-size: 3rem;
+  cursor: pointer;
+} 
+
+.ph-plus {
+  position:absolute;
+  top: 8rem;
+  right: 2rem;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+
+.hiddenItem {
+  display: none;
+}
+
+#addPageTask {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(209, 209, 209, 0.829);
+  padding: 5rem;
+  border-radius: 1rem;
+  -webkit-box-shadow: 8px 11px 12px -5px rgba(0,0,0,0.26);
+  -moz-box-shadow: 8px 11px 12px -5px rgba(0,0,0,0.26);
+  box-shadow: 8px 11px 12px -5px rgba(0,0,0,0.26);
+  gap: 2rem;
+}
+
+#addPageTask h1 {
+  font-size: 1.8rem;
+}
+
+form#taskForm-detail {
+  display: flex;
+  flex-direction: row;
+  gap: 2.8rem;
+}
+
+form#taskForm-detail .form-detail, #editTask .form-detail {
+  margin-bottom: 1rem;
+}
+
+form#taskForm-detail label {
+  font-size: 1.6rem;
+}
+
+#editPageTask, #editStatusTask {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(209, 209, 209);
+  padding: 5rem;
+  border-radius: 1rem;
+  z-index: 1;
+  -webkit-box-shadow: 8px 11px 12px -5px rgba(0,0,0,0.26);
+  -moz-box-shadow: 8px 11px 12px -5px rgba(0,0,0,0.26);
+  box-shadow: 8px 11px 12px -5px rgba(0,0,0,0.26);
+  gap: 2rem;
+}
+
+#editStatusTask label{
+  float: left;
+  font-size: 1.3rem;
+}
+
+#editStatusTask label input{
+  float: left;
+  margin-right: 1rem;
+}
+
+#editStatusTask h1 {
+  margin-bottom: 2rem;
+}
+
+#editPageTask h1 {
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+}
+
+#editPageTask i.ph-x, #editStatusTask i.ph-x {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  color: rgb(170, 63, 63);
+  cursor: pointer;
+}
+
+#editStatusTask i.ph-x {
+  font-size: 1.5rem;
+}
+
+#editPageTask button {
+  margin-top: 1.5rem;
+}
+
+#editTask {
+  display: flex;
+  flex-direction: row;
+  gap: 2.8rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+#taskForm-detail input, #editTask input {
+  width: 20rem;
+  border: 1px solid rgb(203, 203, 203);
+  background-color: #efefef;
+  border-radius: .7rem;
+  padding: .7rem 1rem;
+}
+
+#addTask, #btnEditTask, #btnStatusTask {
+  text-align: center;
+  padding: .8rem 3.5rem;
+  border: none;
+  color: #fff;
+  background-color: #36b159;
+  cursor: pointer;
+  border-radius: .6rem;
+  transition: 300ms;
+}
+
+#btnStatusTask {
+  margin-top: 2rem;
+}
+
+#addTask:hover, #btnStatusTask:hover, #btnEditTask:hover {
+  background-color: #2c974b;
+}
+
+.modalBlur {
+  -webkit-filter: blur(8px);
+  filter: blur(8px);
+  opacity: 1;
+}
+
+#actions {
+  position: absolute;
+  border: none;
+  padding: 1rem;
+  border-radius: .5rem;
+  top: 8rem;
+  left: 2rem;
+  cursor: pointer;
+  background-color: rgb(65, 117, 212);
+  color: #fff;
+  transition: 300ms;
+}
+
+#actions:hover {
+  background-color: rgba(65, 116, 212, 0.912);
+}
+
+#tasks {
+  display: flex;
+  border: 1px solid rgb(170, 170, 170);
+  border-radius: .5rem;
+  border-spacing: 0;
+  color: #fff;
+  font-size: 1rem;
+}
+
+#tasks thead{
+  background-color: #2c9753;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#tasks thead th{
+  padding: 1.5rem;
+}
+
+#tasks th {
+  font-size: 1.6rem;
+}
+
+
+#tasks tbody td {
+  font-size: 1.6rem;
+  color: black;
+  text-align: center;
+  border: 1px solid rgb(170, 170, 170);
+  padding: .8rem;
+}
+
+
+.ph-pencil-line {
+  cursor: pointer;
+  font-size: 1.6rem;
+  padding: 1rem;
+  padding-right: 0;
+}
+
+.ph-trash {
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: rgb(170, 63, 63);
+  padding: 1rem;
+}
