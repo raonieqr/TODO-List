@@ -34,3 +34,6 @@ bin/
 
 # Ignore Gradle build output directory
 build
+
+# Class with credentials
+todo_list/bot/BotCredentials.java
