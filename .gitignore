@@ -36,4 +36,4 @@ bin/
 build
 
 # Class with credentials
-todo_list/bot/BotCredentials.java
+app/src/main/java/todo_list/bot/BotCredentials.java
