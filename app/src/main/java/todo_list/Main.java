@@ -23,41 +23,41 @@ public class Main
 		System.out.println("Bem vindo a TODO-List");
 
 		ArrayList<Task> tasks = new ArrayList<>();
-//		ArrayList<Task> taskWithAlarm = new ArrayList<>();
+		ArrayList<Task> taskWithAlarm = new ArrayList<>();
 		FileManager fileManager = new FileManager();
 		Scanner sc = new Scanner(System.in);
 
-//		int option = 0;
-//		while (option != 6) {
+		int option = 0;
+		while (option != 6) {
 
-//			TaskView.showMenu();
+			TaskView.showMenu();
 
-//			option = InputValidator.promptForIntegerInput("Digite o número: ");
-//			switch (option) {
-//				case 1:
-//					Task task = TaskView.createTaskFromUserInput();
-//
-//					TaskView.createTaskAlarm(task, tasks, taskWithAlarm);
-//
-//					break;
-//				case 2:
-//						TaskView.showTask(tasks);
-//
-//					break;
-//				case 3:
-//					TaskView.createAlarm(taskWithAlarm);
-//
-//					break;
-//				case 4:
-//					TaskView.editTaskStatusById(tasks);
-//
-//					break;
-//				case 5:
-//					TaskView.deleteTaskById(tasks);
-//
-//					break;
-//			}
-//		}
+			option = InputValidator.promptForIntegerInput("Digite o número: ");
+			switch (option) {
+				case 1:
+					Task task = TaskView.createTaskFromUserInput();
+
+					TaskView.createTaskAlarm(task, tasks, taskWithAlarm);
+
+					break;
+				case 2:
+						TaskView.showTask(tasks);
+
+					break;
+				case 3:
+					TaskView.createAlarm(taskWithAlarm);
+
+					break;
+				case 4:
+					TaskView.editTaskStatusById(tasks);
+
+					break;
+				case 5:
+					TaskView.deleteTaskById(tasks);
+
+					break;
+			}
+		}
 
 		sc.close();
 
