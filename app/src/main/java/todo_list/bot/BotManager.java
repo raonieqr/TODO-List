@@ -17,6 +17,6 @@ public class BotManager implements IBot{
 
 	@Override
 	public IBot createBot(String token, String userName, List<Task> tasks) {
-		return new BotManager(token, userName, tasks);
+		return new TelegramBot(token, userName, tasks);
 	}
 }

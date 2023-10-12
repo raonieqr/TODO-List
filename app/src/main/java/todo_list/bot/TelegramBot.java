@@ -9,7 +9,7 @@ import todo_list.utils.JsonFormatter;
 
 import java.util.List;
 
-public class TelegramBot extends TelegramLongPollingBot {
+public class TelegramBot extends TelegramLongPollingBot implements IBot {
 
 	private List<Task> tasks;
 	String userName = "";
@@ -61,4 +61,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 		return SendMessage.builder().text(reply).chatId(chatId).build();
 	}
 
+	@Override
+	public IBot createBot(String token, String userName, List<Task> tasks) {
+		return new TelegramBot(userName, token, tasks);
+	}
 }
