@@ -14,8 +14,10 @@ public class TaskBuilder implements ITaskBuilder {
 	private Status status;
 	private LocalDateTime dateTime;
 	private boolean alarm;
+	private int id;
 
-	public TaskBuilder(String name, String description) {
+	public TaskBuilder(int id, String name, String description) {
+		this.id = id;
 		this.name = name;
 		this.description = description;
 	}
@@ -46,9 +48,15 @@ public class TaskBuilder implements ITaskBuilder {
 	}
 
 	public Task build() {
-		int idCounter = 1;
+		return new Task(id, name, description, category, priority, status, dateTime, alarm);
+	}
 
-		return new Task(idCounter++, name, description, category, priority, status, dateTime, alarm);
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }
 

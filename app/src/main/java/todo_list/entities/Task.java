@@ -96,8 +96,8 @@ public class Task {
 	@Override
 	public String toString()
 	{
-		return "Task: " + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + ", " +
-				"category='" + category + '\'' + ", priority=" + priority + ", status=" + status + ", date=" + dateTime + ", " +
-				"alarm=" + alarm;
+		return "Task: " + "\nId: " + id + "\nNome: " + name  + "\nDescrição: " + description +
+				"\nCategoria: " + category + "\nPrioridade: " + priority + "\nStatus: " + status + "\nData: " + dateTime +
+				"\nAlarme: " + alarm;
 	}
 }

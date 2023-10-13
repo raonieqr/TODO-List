@@ -31,6 +31,9 @@ dependencies {
 
     // Telegram bot
     implementation 'org.telegram:telegrambots:6.5.0'
+
+    //Jackson Datetype
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

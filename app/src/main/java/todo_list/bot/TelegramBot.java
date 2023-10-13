@@ -5,7 +5,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import todo_list.entities.Task;
-import todo_list.utils.JsonFormatter;
 
 import java.util.List;
 
@@ -50,10 +49,11 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
 		String reply = "";
 
 		if (chatMessage.startsWith("/help"))
-			reply = "Comandos disponíveis:\nrelatorio\nhelp";
-		else if(chatMessage.startsWith("relatorio") || chatMessage.startsWith("relatório")) {
-			JsonFormatter jsonFormatter = new JsonFormatter();
-			reply = jsonFormatter.convertToJson(tasks);
+			reply = "Comandos disponíveis:\nrelatório\nhelp";
+		else if(chatMessage.startsWith("/relatorio") || chatMessage.startsWith("/relatório")) {
+			StringBuilder replyBuilder = new StringBuilder();
+			this.tasks.forEach(task -> replyBuilder.append(task).append("\n\n"));
+			reply = replyBuilder.toString();
 		}
 		else
 			reply = "Não entendi!\nDigite /help para ver os comandos disponíveis.";
@@ -61,8 +61,16 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
 		return SendMessage.builder().text(reply).chatId(chatId).build();
 	}
 
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
 	@Override
 	public IBot createBot(String token, String userName, List<Task> tasks) {
-		return new TelegramBot(userName, token, tasks);
+		return null;
 	}
 }

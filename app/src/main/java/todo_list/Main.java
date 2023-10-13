@@ -31,24 +31,26 @@ public class Main
 			ArrayList<Task> taskWithAlarm = new ArrayList<>();
 			FileManager fileManager = new FileManager();
 			Scanner sc = new Scanner(System.in);
+			int id = 0;
+
 
 			try {
 				TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
 				BotManager botManager = new BotManager(BotCredentials.BOT_USER_NAME, BotCredentials.BOT_TOKEN, tasks);
-				TelegramBot telegramBot = (TelegramBot) botManager
-						.createBot(BotCredentials.BOT_USER_NAME, BotCredentials.BOT_TOKEN, tasks);
-
-				telegramBotsApi.registerBot(telegramBot);
 
 				int option = 0;
 				while (option != 6) {
+					TelegramBot telegramBot = (TelegramBot) botManager
+							.createBot(BotCredentials.BOT_USER_NAME, BotCredentials.BOT_TOKEN, tasks);
+
+					telegramBotsApi.registerBot(telegramBot);
 
 					TaskView.showMenu();
 
 					option = InputValidator.promptForIntegerInput("Digite o número: ");
 					switch (option) {
 						case 1:
-							Task task = TaskView.createTaskFromUserInput();
+							Task task = TaskView.createTaskFromUserInput(id);
 
 							TaskView.createTaskAlarm(task, tasks, taskWithAlarm);
 

@@ -12,7 +12,7 @@ public class TaskBuilderTest {
 
 	@Test
 	public void testBuildTaskWithAlarm() {
-		ITaskBuilder taskBuilder = new TaskBuilder("task1", "task1")
+		ITaskBuilder taskBuilder = new TaskBuilder(1,"task1", "task1")
 				.withCategory("tarefas")
 				.withPriority(Priority.MEDIA)
 				.withStatus(Status.TODO)
@@ -26,7 +26,7 @@ public class TaskBuilderTest {
 
 	@Test
 	public void testBuildTaskWithoutAlarm() {
-		ITaskBuilder taskBuilder = new TaskBuilder("task2", "task2")
+		ITaskBuilder taskBuilder = new TaskBuilder(2,"task2", "task2")
 				.withCategory("outras tarefas")
 				.withPriority(Priority.ALTA)
 				.withStatus(Status.DOING)
@@ -40,7 +40,7 @@ public class TaskBuilderTest {
 
 	@Test
 	public void testBuildTaskWithDefaultValues() {
-		TaskBuilder taskBuilder = new TaskBuilder("task3", "task3");
+		TaskBuilder taskBuilder = new TaskBuilder(3,"task3", "task3");
 
 		Task task = taskBuilder.build();
 

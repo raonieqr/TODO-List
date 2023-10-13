@@ -15,12 +15,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TaskControllerTest {
 	static Task task;
+	static Task task2;
+
 	static ArrayList<Task> tasks;
 	static ArrayList<Task> taskWithAlarm;
 
 	@BeforeAll
 	public static void createTask() {
-		task = new TaskBuilder("task1", "task1")
+		int id = 0;
+		task = new TaskBuilder(++id,"task1", "task1")
+				.withCategory("tarefas")
+				.withPriority(Priority.MEDIA)
+				.withStatus(Status.TODO)
+				.withDateTime(LocalDateTime.of(2023, 10, 7, 1, 22))
+				.withAlarm(true)
+				.build();
+
+		task2 = new TaskBuilder(++id,"task1", "task1")
 				.withCategory("tarefas")
 				.withPriority(Priority.MEDIA)
 				.withStatus(Status.TODO)
@@ -33,6 +44,10 @@ class TaskControllerTest {
 
 	}
 
+	@Test
+	public void testIdTask() {
+		assertNotEquals(task.getId(), task2.getId());
+	}
 	@Test
 	public void testAddTaskAndHandleAlarms() {
 		TaskController.addTaskAndHandleAlarms(task, tasks, taskWithAlarm);
