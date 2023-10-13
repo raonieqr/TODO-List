@@ -148,7 +148,7 @@ public class TaskView {
 
 		boolean alarm = InputValidator.promptForAlarmInput();
 
-		return new TaskBuilder(++id, name, description).withCategory(category).withPriority(priority).withStatus(status)
+		return new TaskBuilder(id, name, description).withCategory(category).withPriority(priority).withStatus(status)
 				.withDateTime(dateTime).withAlarm(alarm).build();
 
 	}

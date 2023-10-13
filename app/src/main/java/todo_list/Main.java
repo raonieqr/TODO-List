@@ -33,7 +33,6 @@ public class Main
 			Scanner sc = new Scanner(System.in);
 			int id = 0;
 
-
 			try {
 				TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
 				BotManager botManager = new BotManager(BotCredentials.BOT_USER_NAME, BotCredentials.BOT_TOKEN, tasks);
@@ -50,7 +49,7 @@ public class Main
 					option = InputValidator.promptForIntegerInput("Digite o número: ");
 					switch (option) {
 						case 1:
-							Task task = TaskView.createTaskFromUserInput(id);
+							Task task = TaskView.createTaskFromUserInput(++id);
 
 							TaskView.createTaskAlarm(task, tasks, taskWithAlarm);
 
