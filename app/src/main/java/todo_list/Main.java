@@ -5,6 +5,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import todo_list.bot.BotCredentials;
 import todo_list.bot.BotManager;
+import todo_list.bot.BotUpdater;
 import todo_list.bot.TelegramBot;
 import todo_list.entities.TaskBuilder;
 import todo_list.utils.FileManager;
@@ -22,6 +23,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static java.lang.System.exit;
+
 public class Main
 {
 		public static void main(String[] args) throws InterruptedException {
@@ -36,13 +39,10 @@ public class Main
 
 			try {
 				TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-				BotManager botManager = new BotManager(BotCredentials.BOT_USER_NAME, BotCredentials.BOT_TOKEN, tasks);
 
 				int option = 0;
-				while (option != 6) {
-					TelegramBot telegramBot = (TelegramBot) botManager
-							.createBot(BotCredentials.BOT_USER_NAME, BotCredentials.BOT_TOKEN, tasks);
-					telegramBotsApi.registerBot(telegramBot);
+				while (true) {
+					TelegramBot telegramBot = BotUpdater.updateBot(tasks, telegramBotsApi);
 
 					TaskView.showMenu();
 
@@ -72,10 +72,17 @@ public class Main
 							TaskView.deleteTaskById(tasks);
 
 							break;
+						case 6:
+							sc.close();
+
+							fileManager.createFile(tasks);
+
+							exit(0);
+
+							break;
 					}
 				}
-				sc.close();
-				fileManager.createFile(tasks);
+
 			}
 			catch (Exception e) {
 				e.printStackTrace();
