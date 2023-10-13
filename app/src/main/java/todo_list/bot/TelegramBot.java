@@ -8,7 +8,7 @@ import todo_list.entities.Task;
 
 import java.util.List;
 
-public class TelegramBot extends TelegramLongPollingBot implements IBot {
+public class TelegramBot extends TelegramLongPollingBot{
 
 	private List<Task> tasks;
 	String userName = "";
@@ -79,8 +79,4 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
 		this.tasks = tasks;
 	}
 
-	@Override
-	public IBot createBot(String token, String userName, List<Task> tasks) {
-		return null;
-	}
 }

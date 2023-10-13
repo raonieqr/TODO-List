@@ -1,0 +1,18 @@
+Task: 
+Id: 1
+Nome: task
+Descrição: task
+Categoria: tarefas
+Prioridade: MEDIA
+Status: DOING
+Data: 2023-02-11T11:20
+Alarme: false
+Task: 
+Id: 2
+Nome: task2
+Descrição: task2
+Categoria: tarefas
+Prioridade: MEDIA
+Status: DOING
+Data: 2023-09-11T11:20
+Alarme: false
