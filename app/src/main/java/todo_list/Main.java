@@ -1,6 +1,7 @@
 package todo_list;
 
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import todo_list.bot.BotCredentials;
 import todo_list.bot.BotManager;
@@ -41,7 +42,6 @@ public class Main
 				while (option != 6) {
 					TelegramBot telegramBot = (TelegramBot) botManager
 							.createBot(BotCredentials.BOT_USER_NAME, BotCredentials.BOT_TOKEN, tasks);
-
 					telegramBotsApi.registerBot(telegramBot);
 
 					TaskView.showMenu();
@@ -52,6 +52,8 @@ public class Main
 							Task task = TaskView.createTaskFromUserInput(++id);
 
 							TaskView.createTaskAlarm(task, tasks, taskWithAlarm);
+
+							telegramBot.sendAutomaticMessage();
 
 							break;
 						case 2:
@@ -72,9 +74,7 @@ public class Main
 							break;
 					}
 				}
-
 				sc.close();
-
 				fileManager.createFile(tasks);
 			}
 			catch (Exception e) {

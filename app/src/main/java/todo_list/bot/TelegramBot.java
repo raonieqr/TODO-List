@@ -53,12 +53,22 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
 		else if(chatMessage.startsWith("/relatorio") || chatMessage.startsWith("/relatório")) {
 			StringBuilder replyBuilder = new StringBuilder();
 			this.tasks.forEach(task -> replyBuilder.append(task).append("\n\n"));
+
 			reply = replyBuilder.toString();
 		}
 		else
 			reply = "Não entendi!\nDigite /help para ver os comandos disponíveis.";
 
 		return SendMessage.builder().text(reply).chatId(chatId).build();
+	}
+
+	public void sendAutomaticMessage() throws TelegramApiException {
+		SendMessage message = new SendMessage();
+
+		message.setChatId("5153715483");
+		message.setText("Nova tarefa adicionada:\n" + this.tasks.get(tasks.size() - 1));
+
+		this.execute(message);
 	}
 
 	public List<Task> getTasks() {
