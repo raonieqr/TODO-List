@@ -1,26 +1,14 @@
 package todo_list;
 
 import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import todo_list.bot.BotCredentials;
-import todo_list.bot.BotManager;
 import todo_list.bot.BotUpdater;
 import todo_list.bot.TelegramBot;
-import todo_list.entities.TaskBuilder;
 import todo_list.utils.FileManager;
 import todo_list.utils.InputValidator;
-import todo_list.view.PriorityView;
-import todo_list.view.StatusView;
 import todo_list.view.TaskView;
 import todo_list.entities.Task;
-import todo_list.entities.TaskAlarm;
-import todo_list.enums.Priority;
-import todo_list.enums.Status;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static java.lang.System.exit;
