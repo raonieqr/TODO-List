@@ -53,7 +53,7 @@ public class Main
 
 							TaskView.createTaskAlarm(task, tasks, taskWithAlarm);
 
-							telegramBot.sendAutomaticMessage();
+							telegramBot.sendAutomaticMessage(tasks);
 
 							break;
 						case 2:

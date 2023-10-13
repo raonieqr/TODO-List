@@ -62,11 +62,11 @@ public class TelegramBot extends TelegramLongPollingBot implements IBot {
 		return SendMessage.builder().text(reply).chatId(chatId).build();
 	}
 
-	public void sendAutomaticMessage() throws TelegramApiException {
+	public void sendAutomaticMessage(List<Task> tasks) throws TelegramApiException {
 		SendMessage message = new SendMessage();
 
 		message.setChatId("5153715483");
-		message.setText("Nova tarefa adicionada:\n" + this.tasks.get(tasks.size() - 1));
+		message.setText("Nova tarefa adicionada:\n" + tasks.get(tasks.size() - 1));
 
 		this.execute(message);
 	}
