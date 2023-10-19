@@ -5,7 +5,6 @@ import java.util.List;
 public class TaskAlarm implements Runnable {
 	private List<Task> tasks;
 	private boolean isRunning = true;
-	private boolean isPaused = false;
 
 	public TaskAlarm(List<Task> tasks) {
 		this.tasks = tasks;
@@ -17,9 +16,7 @@ public class TaskAlarm implements Runnable {
 
 			synchronized (this) {
 
-				while (isPaused) {
-
-					while (isPaused || tasks.isEmpty()) {
+					while (tasks.isEmpty()) {
 						try {
 								this.wait();
 
@@ -27,31 +24,26 @@ public class TaskAlarm implements Runnable {
 							Thread.currentThread().interrupt();
 						}
 					}
+
+				Task taskMax = tasks.get(0);
+				Task taskMin = tasks.get(0);
+
+				for (Task task : tasks) {
+					if (task.getPriority().getValue() > taskMax.getPriority().getValue())
+						taskMax = task;
+
+					if (task.getDateTime().isBefore(taskMax.getDateTime()))
+						taskMin = task;
 				}
 
-				if (!tasks.isEmpty()) {
-					Task taskMax = tasks.get(0);
-					Task taskMin = tasks.get(0);
+				System.out.println("Aguardando...");
 
-					for (Task task : tasks) {
-						if (task.getPriority().getValue() > taskMax.getPriority().getValue())
-							taskMax = task;
-
-						if (task.getDateTime().isBefore(taskMax.getDateTime()))
-							taskMin = task;
-					}
-
-					System.out.println("Aguardando...");
-
-					try {
-						checkTimeAndRemoveTasks(taskMax, taskMin, tasks);
-					}
-					catch (InterruptedException e) {
-						throw new RuntimeException(e);
-					}
+				try {
+					checkTimeAndRemoveTasks(taskMax, taskMin, tasks);
 				}
-				else
-					isRunning = false;
+				catch (InterruptedException e) {
+					throw new RuntimeException(e);
+				}
 			}
 		}
 	}
